@@ -10,7 +10,9 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    private let synthesiser = SpeechSynthesiser()
+    private let synthesizer = SpeechSynthesizer()
+    private let recognizer = SpeechRecognizer()
+    private var isRecording = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +68,14 @@ class ViewController: UIViewController {
     }
     
     @objc private func buttonTapped() {
-        self.synthesiser.speak("Andre is very cool!")
+        self.isRecording.toggle()
+        if self.isRecording {
+            self.recognizer.resetTranscript()
+            self.recognizer.startTranscribing()
+        } else {
+            self.recognizer.stopTranscribing()
+            print(self.recognizer.transcript)
+        }
     }
 
 }

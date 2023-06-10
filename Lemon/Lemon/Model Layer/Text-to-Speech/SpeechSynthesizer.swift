@@ -8,7 +8,7 @@
 import Foundation
 import AVFoundation
 
-class SpeechSynthesiser: NSObject, AVSpeechSynthesizerDelegate {
+class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
     
     enum Accent: String {
         case american = "en-US"
@@ -56,7 +56,7 @@ class SpeechSynthesiser: NSObject, AVSpeechSynthesizerDelegate {
     }
     
 }
-extension SpeechSynthesiser {
+extension SpeechSynthesizer {
     
     // MARK: - AVSpeechSynthesizerDelegate
     

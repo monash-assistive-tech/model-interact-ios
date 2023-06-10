@@ -17,6 +17,9 @@
 		B6C37E632A341CF7004D18A8 /* LemonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37E622A341CF7004D18A8 /* LemonUITests.swift */; };
 		B6C37E652A341CF7004D18A8 /* LemonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37E642A341CF7004D18A8 /* LemonUITestsLaunchTests.swift */; };
 		B6C37E792A351CFA004D18A8 /* SpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37E782A351CFA004D18A8 /* SpeechSynthesizer.swift */; };
+		B6C37E7C2A3524D8004D18A8 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37E7B2A3524D8004D18A8 /* SpeechRecognizer.swift */; };
+		B6C37E802A3525DF004D18A8 /* SFSpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37E7F2A3525DF004D18A8 /* SFSpeechRecognizer.swift */; };
+		B6C37E822A3525F4004D18A8 /* AVAudioSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37E812A3525F4004D18A8 /* AVAudioSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,9 @@
 		B6C37E622A341CF7004D18A8 /* LemonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonUITests.swift; sourceTree = "<group>"; };
 		B6C37E642A341CF7004D18A8 /* LemonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B6C37E782A351CFA004D18A8 /* SpeechSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechSynthesizer.swift; sourceTree = "<group>"; };
+		B6C37E7B2A3524D8004D18A8 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
+		B6C37E7F2A3525DF004D18A8 /* SFSpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSpeechRecognizer.swift; sourceTree = "<group>"; };
+		B6C37E812A3525F4004D18A8 /* AVAudioSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,7 @@
 		B6C37E402A341CF5004D18A8 /* Lemon */ = {
 			isa = PBXGroup;
 			children = (
+				B6C37E7D2A3525B5004D18A8 /* Swift */,
 				B6C37E732A35164B004D18A8 /* App */,
 				B6C37E712A351630004D18A8 /* Model Layer */,
 				B6C37E722A351638004D18A8 /* View Controller Layer */,
@@ -128,7 +135,8 @@
 		B6C37E712A351630004D18A8 /* Model Layer */ = {
 			isa = PBXGroup;
 			children = (
-				B6C37E772A351C93004D18A8 /* TTS */,
+				B6C37E7A2A3524B8004D18A8 /* Speech-to-Text */,
+				B6C37E772A351C93004D18A8 /* Text-to-Speech */,
 			);
 			path = "Model Layer";
 			sourceTree = "<group>";
@@ -178,12 +186,45 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		B6C37E772A351C93004D18A8 /* TTS */ = {
+		B6C37E772A351C93004D18A8 /* Text-to-Speech */ = {
 			isa = PBXGroup;
 			children = (
 				B6C37E782A351CFA004D18A8 /* SpeechSynthesizer.swift */,
 			);
-			path = TTS;
+			path = "Text-to-Speech";
+			sourceTree = "<group>";
+		};
+		B6C37E7A2A3524B8004D18A8 /* Speech-to-Text */ = {
+			isa = PBXGroup;
+			children = (
+				B6C37E7B2A3524D8004D18A8 /* SpeechRecognizer.swift */,
+			);
+			path = "Speech-to-Text";
+			sourceTree = "<group>";
+		};
+		B6C37E7D2A3525B5004D18A8 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				B6C37E832A3525FE004D18A8 /* Speech */,
+				B6C37E7E2A3525C0004D18A8 /* AVFoundation */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
+		B6C37E7E2A3525C0004D18A8 /* AVFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				B6C37E812A3525F4004D18A8 /* AVAudioSession.swift */,
+			);
+			path = AVFoundation;
+			sourceTree = "<group>";
+		};
+		B6C37E832A3525FE004D18A8 /* Speech */ = {
+			isa = PBXGroup;
+			children = (
+				B6C37E7F2A3525DF004D18A8 /* SFSpeechRecognizer.swift */,
+			);
+			path = Speech;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,6 +358,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6C37E802A3525DF004D18A8 /* SFSpeechRecognizer.swift in Sources */,
+				B6C37E7C2A3524D8004D18A8 /* SpeechRecognizer.swift in Sources */,
+				B6C37E822A3525F4004D18A8 /* AVAudioSession.swift in Sources */,
 				B6C37E462A341CF5004D18A8 /* ViewController.swift in Sources */,
 				B6C37E422A341CF5004D18A8 /* AppDelegate.swift in Sources */,
 				B6C37E792A351CFA004D18A8 /* SpeechSynthesizer.swift in Sources */,
