@@ -16,6 +16,7 @@
 		B6C37E592A341CF7004D18A8 /* LemonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37E582A341CF7004D18A8 /* LemonTests.swift */; };
 		B6C37E632A341CF7004D18A8 /* LemonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37E622A341CF7004D18A8 /* LemonUITests.swift */; };
 		B6C37E652A341CF7004D18A8 /* LemonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37E642A341CF7004D18A8 /* LemonUITestsLaunchTests.swift */; };
+		B6C37E792A351CFA004D18A8 /* SpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37E782A351CFA004D18A8 /* SpeechSynthesizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		B6C37E5E2A341CF7004D18A8 /* LemonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LemonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6C37E622A341CF7004D18A8 /* LemonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonUITests.swift; sourceTree = "<group>"; };
 		B6C37E642A341CF7004D18A8 /* LemonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B6C37E782A351CFA004D18A8 /* SpeechSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechSynthesizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 		B6C37E712A351630004D18A8 /* Model Layer */ = {
 			isa = PBXGroup;
 			children = (
+				B6C37E772A351C93004D18A8 /* TTS */,
 			);
 			path = "Model Layer";
 			sourceTree = "<group>";
@@ -173,6 +176,14 @@
 				B6C37E4A2A341CF6004D18A8 /* Assets.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		B6C37E772A351C93004D18A8 /* TTS */ = {
+			isa = PBXGroup;
+			children = (
+				B6C37E782A351CFA004D18A8 /* SpeechSynthesizer.swift */,
+			);
+			path = TTS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,6 +319,7 @@
 			files = (
 				B6C37E462A341CF5004D18A8 /* ViewController.swift in Sources */,
 				B6C37E422A341CF5004D18A8 /* AppDelegate.swift in Sources */,
+				B6C37E792A351CFA004D18A8 /* SpeechSynthesizer.swift in Sources */,
 				B6C37E442A341CF5004D18A8 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
