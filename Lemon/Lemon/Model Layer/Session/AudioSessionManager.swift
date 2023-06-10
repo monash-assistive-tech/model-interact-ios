@@ -35,7 +35,17 @@ class AudioSessionManager {
             try self.audioSession.setCategory(.playAndRecord, mode: .measurement, options: .duckOthers)
             try self.audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
-            print("[LEMON ERROR] Failed to setup audio session: \(error)")
+            print("[LEMON ERROR] Failed to set audio session to record mode: \(error)")
+        }
+    }
+    
+    /// This mode allows the processing of both input and output text simultaneously. However, it is bound to the device's peripherals (no headset/speakers allowed).
+    func setToSpeakerMode() {
+        do {
+            try self.audioSession.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+            try self.audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+        } catch {
+            print("[LEMON ERROR] Failed to set audio session to speaker mode: \(error)")
         }
     }
     
