@@ -17,7 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidDisconnect(_ scene: UIScene) { }
 
-    func sceneDidBecomeActive(_ scene: UIScene) { }
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        AudioSessionManager.inst.setup()
+    }
 
     func sceneWillResignActive(_ scene: UIScene) { }
 

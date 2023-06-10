@@ -20,7 +20,7 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
     private var rate: Float = 0.55
     private var pitchMultiplier: Float = 0.9
     private var postUtteranceDelay: TimeInterval = 0.0
-    private var volume: Float = 1.0
+    private var volume: Float = 1.0 // [0.0, 1.0]
     private var voice: AVSpeechSynthesisVoice
     private var lastSpoken: String? = nil
     
@@ -42,6 +42,7 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
     
     func speak(_ speech: String) {
         let utterance = self.buildUtterance(speech: speech)
+        AudioSessionManager.inst.setToPlaybackMode()
         self.synthesiser.speak(utterance)
     }
     

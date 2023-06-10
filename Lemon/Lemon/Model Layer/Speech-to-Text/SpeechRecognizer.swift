@@ -105,9 +105,10 @@ actor SpeechRecognizer {
         let request = SFSpeechAudioBufferRecognitionRequest()
         request.shouldReportPartialResults = true
         
-        let audioSession = AVAudioSession.sharedInstance()
-        try audioSession.setCategory(.playAndRecord, mode: .measurement, options: .duckOthers)
-        try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+//        let audioSession = AVAudioSession.sharedInstance()
+//        try audioSession.setCategory(.playAndRecord, mode: .measurement, options: .duckOthers)
+//        try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+        AudioSessionManager.inst.setToRecordMode()
         let inputNode = audioEngine.inputNode
         
         let recordingFormat = inputNode.outputFormat(forBus: 0)
