@@ -99,13 +99,9 @@
 		B6C37E402A341CF5004D18A8 /* Lemon */ = {
 			isa = PBXGroup;
 			children = (
-				B6C37E412A341CF5004D18A8 /* AppDelegate.swift */,
-				B6C37E432A341CF5004D18A8 /* SceneDelegate.swift */,
-				B6C37E452A341CF5004D18A8 /* ViewController.swift */,
-				B6C37E472A341CF5004D18A8 /* Main.storyboard */,
-				B6C37E4A2A341CF6004D18A8 /* Assets.xcassets */,
-				B6C37E4C2A341CF6004D18A8 /* LaunchScreen.storyboard */,
-				B6C37E4F2A341CF6004D18A8 /* Info.plist */,
+				B6C37E732A35164B004D18A8 /* App */,
+				B6C37E712A351630004D18A8 /* Model Layer */,
+				B6C37E722A351638004D18A8 /* View Controller Layer */,
 			);
 			path = Lemon;
 			sourceTree = "<group>";
@@ -125,6 +121,58 @@
 				B6C37E642A341CF7004D18A8 /* LemonUITestsLaunchTests.swift */,
 			);
 			path = LemonUITests;
+			sourceTree = "<group>";
+		};
+		B6C37E712A351630004D18A8 /* Model Layer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Model Layer";
+			sourceTree = "<group>";
+		};
+		B6C37E722A351638004D18A8 /* View Controller Layer */ = {
+			isa = PBXGroup;
+			children = (
+				B6C37E762A3516E9004D18A8 /* Assets */,
+				B6C37E752A3516DF004D18A8 /* Storyboards */,
+				B6C37E452A341CF5004D18A8 /* ViewController.swift */,
+			);
+			path = "View Controller Layer";
+			sourceTree = "<group>";
+		};
+		B6C37E732A35164B004D18A8 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B6C37E742A3516BC004D18A8 /* Lifecycle */,
+				B6C37E4F2A341CF6004D18A8 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		B6C37E742A3516BC004D18A8 /* Lifecycle */ = {
+			isa = PBXGroup;
+			children = (
+				B6C37E432A341CF5004D18A8 /* SceneDelegate.swift */,
+				B6C37E412A341CF5004D18A8 /* AppDelegate.swift */,
+			);
+			path = Lifecycle;
+			sourceTree = "<group>";
+		};
+		B6C37E752A3516DF004D18A8 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				B6C37E4C2A341CF6004D18A8 /* LaunchScreen.storyboard */,
+				B6C37E472A341CF5004D18A8 /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		B6C37E762A3516E9004D18A8 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				B6C37E4A2A341CF6004D18A8 /* Assets.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -439,7 +487,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W9DP42NB5D;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Lemon/Info.plist;
+				INFOPLIST_FILE = Lemon/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -467,7 +515,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W9DP42NB5D;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Lemon/Info.plist;
+				INFOPLIST_FILE = Lemon/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
