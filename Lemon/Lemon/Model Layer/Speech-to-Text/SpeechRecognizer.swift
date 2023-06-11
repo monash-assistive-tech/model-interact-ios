@@ -122,6 +122,14 @@ actor SpeechRecognizer {
     }
     
     nonisolated private func recognitionHandler(audioEngine: AVAudioEngine, result: SFSpeechRecognitionResult?, error: Error?) {
+        if let result {
+            // Continuous reading
+            // Note that the continuous translation isn't purely adding the last read word to a string
+            // The engine continuously looks back at context to modify the final output
+            // This is not a replacement for ending and transcribing the audio output, but is good if you're looking for key words
+            print("WORD: " + (result.bestTranscription.formattedString.components(separatedBy: " ").last ?? "<< Empty >>"))
+        }
+        
         let receivedFinalResult = result?.isFinal ?? false
         let receivedError = error != nil
         
@@ -134,7 +142,6 @@ actor SpeechRecognizer {
             transcribe(result.bestTranscription.formattedString)
         }
     }
-    
     
     nonisolated private func transcribe(_ message: String) {
         Task { @MainActor in
