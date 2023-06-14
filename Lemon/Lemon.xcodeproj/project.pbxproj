@@ -26,6 +26,8 @@
 		B6C37ED42A396D9A004D18A8 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37ED32A396D9A004D18A8 /* CGRect.swift */; };
 		B6C37ED72A3973A2004D18A8 /* ObjectDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37ED62A3973A2004D18A8 /* ObjectDetector.swift */; };
 		B6C37ED92A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B6C37ED82A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel */; };
+		B6C37EDD2A397950004D18A8 /* PredictionBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EDC2A397950004D18A8 /* PredictionBoxView.swift */; };
+		B6C37EDF2A397C9C004D18A8 /* ObjectDetectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EDE2A397C9B004D18A8 /* ObjectDetectionDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		B6C37ED32A396D9A004D18A8 /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		B6C37ED62A3973A2004D18A8 /* ObjectDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetector.swift; sourceTree = "<group>"; };
 		B6C37ED82A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CarLicensePlateExperimentFullNetwork.mlmodel; sourceTree = "<group>"; };
+		B6C37EDC2A397950004D18A8 /* PredictionBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionBoxView.swift; sourceTree = "<group>"; };
+		B6C37EDE2A397C9B004D18A8 /* ObjectDetectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetectionDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +126,7 @@
 				B6C37E7D2A3525B5004D18A8 /* Swift */,
 				B6C37E732A35164B004D18A8 /* App */,
 				B6C37E712A351630004D18A8 /* Model Layer */,
-				B6C37E722A351638004D18A8 /* View Controller Layer */,
+				B6C37E722A351638004D18A8 /* View Layer */,
 			);
 			path = Lemon;
 			sourceTree = "<group>";
@@ -156,14 +160,15 @@
 			path = "Model Layer";
 			sourceTree = "<group>";
 		};
-		B6C37E722A351638004D18A8 /* View Controller Layer */ = {
+		B6C37E722A351638004D18A8 /* View Layer */ = {
 			isa = PBXGroup;
 			children = (
+				B6C37EDB2A397944004D18A8 /* Views */,
+				B6C37EDA2A39790F004D18A8 /* ViewControllers */,
 				B6C37E762A3516E9004D18A8 /* Assets */,
 				B6C37E752A3516DF004D18A8 /* Storyboards */,
-				B6C37E452A341CF5004D18A8 /* ViewController.swift */,
 			);
-			path = "View Controller Layer";
+			path = "View Layer";
 			sourceTree = "<group>";
 		};
 		B6C37E732A35164B004D18A8 /* App */ = {
@@ -273,8 +278,25 @@
 			children = (
 				B6C37ED82A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel */,
 				B6C37ED62A3973A2004D18A8 /* ObjectDetector.swift */,
+				B6C37EDE2A397C9B004D18A8 /* ObjectDetectionDelegate.swift */,
 			);
 			path = "Object Detection";
+			sourceTree = "<group>";
+		};
+		B6C37EDA2A39790F004D18A8 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B6C37E452A341CF5004D18A8 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		B6C37EDB2A397944004D18A8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B6C37EDC2A397950004D18A8 /* PredictionBoxView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,9 +438,11 @@
 				B6C37E822A3525F4004D18A8 /* AVAudioSession.swift in Sources */,
 				B6C37ED12A396B71004D18A8 /* CaptureDelegate.swift in Sources */,
 				B6C37E462A341CF5004D18A8 /* ViewController.swift in Sources */,
+				B6C37EDD2A397950004D18A8 /* PredictionBoxView.swift in Sources */,
 				B6C37E422A341CF5004D18A8 /* AppDelegate.swift in Sources */,
 				B6C37E862A353854004D18A8 /* AudioSessionManager.swift in Sources */,
 				B6C37E792A351CFA004D18A8 /* SpeechSynthesizer.swift in Sources */,
+				B6C37EDF2A397C9C004D18A8 /* ObjectDetectionDelegate.swift in Sources */,
 				B6C37E442A341CF5004D18A8 /* SceneDelegate.swift in Sources */,
 				B6C37ECF2A396B56004D18A8 /* CaptureSession.swift in Sources */,
 			);

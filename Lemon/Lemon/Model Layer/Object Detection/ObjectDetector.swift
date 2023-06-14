@@ -11,6 +11,7 @@ import Vision
 class ObjectDetector {
     
     private var request: VNCoreMLRequest? = nil
+    public weak var objectDetectionDelegate: ObjectDetectionDelegate?
     
     init() {
         self.setupRequest()
@@ -35,11 +36,8 @@ class ObjectDetector {
     }
     
     private func visionRequestDidComplete(request: VNRequest, error: Error?) {
-        if let prediction = (request.results as? [VNRecognizedObjectObservation])?.first {
-            DispatchQueue.main.async {
-                print("prediction made: \(prediction.labels.first?.identifier ?? "NONE")")
-                //self.drawingBoxesView?.drawBox(with: [prediction])
-            }
+        if let predictions = request.results as? [VNRecognizedObjectObservation] {
+            self.objectDetectionDelegate?.onObjectDetection(outcome: predictions)
         }
     }
     

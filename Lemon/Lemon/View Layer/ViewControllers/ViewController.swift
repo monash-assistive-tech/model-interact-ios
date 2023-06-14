@@ -7,8 +7,9 @@
 
 import UIKit
 import AVFoundation
+import Vision
 
-class ViewController: UIViewController, CaptureDelegate {
+class ViewController: UIViewController, CaptureDelegate, ObjectDetectionDelegate {
     
     private static let PREDICTION_INTERVAL = 1
     
@@ -17,7 +18,7 @@ class ViewController: UIViewController, CaptureDelegate {
     private let recognizer = SpeechRecognizer()
     private let objectDetector = ObjectDetector()
     private var imageView = UIImageView()
-    private var overlayView = UIView()
+    private var overlayView = PredictionBoxView()
     private var currentFrame: CGImage? = nil
     private var currentFrameID = 0
     private var overlayFrameSyncRequired = true
@@ -56,6 +57,7 @@ class ViewController: UIViewController, CaptureDelegate {
         self.setupRecordButton()
         self.setupFlipButton()
         self.arrangeViews()
+        self.setupObjectDetection()
         self.setupAndBeginCapturingVideoFrames()
         // Stop the device automatically sleeping
         UIApplication.shared.isIdleTimerDisabled = true
@@ -163,6 +165,10 @@ class ViewController: UIViewController, CaptureDelegate {
         }
     }
     
+    private func setupObjectDetection() {
+        self.objectDetector.objectDetectionDelegate = self
+    }
+    
     @objc private func onSpeakButtonPressed() {
         self.synthesizer.speak("Hello Lemon!")
     }
@@ -201,6 +207,10 @@ class ViewController: UIViewController, CaptureDelegate {
             
             self.setView(to: frame)
         }
+    }
+    
+    func onObjectDetection(outcome: [VNRecognizedObjectObservation]) {
+        self.overlayView.drawBoxes(for: outcome)
     }
 
 }
