@@ -15,6 +15,7 @@ class ViewController: UIViewController, CaptureDelegate {
     private let captureSession = CaptureSession()
     private let synthesizer = SpeechSynthesizer()
     private let recognizer = SpeechRecognizer()
+    private let objectDetector = ObjectDetector()
     private var imageView = UIImageView()
     private var overlayView = UIView()
     private var currentFrame: CGImage? = nil
@@ -195,7 +196,7 @@ class ViewController: UIViewController, CaptureDelegate {
             
             if self.currentFrameID%Self.PREDICTION_INTERVAL == 0 {
                 self.currentFrameID = 0
-                //print("> Make prediction here")
+                self.objectDetector.process(frame: frame)
             }
             
             self.setView(to: frame)

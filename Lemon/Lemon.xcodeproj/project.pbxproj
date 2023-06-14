@@ -24,6 +24,8 @@
 		B6C37ECF2A396B56004D18A8 /* CaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37ECE2A396B56004D18A8 /* CaptureSession.swift */; };
 		B6C37ED12A396B71004D18A8 /* CaptureDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37ED02A396B71004D18A8 /* CaptureDelegate.swift */; };
 		B6C37ED42A396D9A004D18A8 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37ED32A396D9A004D18A8 /* CGRect.swift */; };
+		B6C37ED72A3973A2004D18A8 /* ObjectDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37ED62A3973A2004D18A8 /* ObjectDetector.swift */; };
+		B6C37ED92A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B6C37ED82A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		B6C37ECE2A396B56004D18A8 /* CaptureSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSession.swift; sourceTree = "<group>"; };
 		B6C37ED02A396B71004D18A8 /* CaptureDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureDelegate.swift; sourceTree = "<group>"; };
 		B6C37ED32A396D9A004D18A8 /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
+		B6C37ED62A3973A2004D18A8 /* ObjectDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetector.swift; sourceTree = "<group>"; };
+		B6C37ED82A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CarLicensePlateExperimentFullNetwork.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +147,7 @@
 		B6C37E712A351630004D18A8 /* Model Layer */ = {
 			isa = PBXGroup;
 			children = (
+				B6C37ED52A397366004D18A8 /* Object Detection */,
 				B6C37ECD2A396B4D004D18A8 /* Video */,
 				B6C37E842A353847004D18A8 /* Session */,
 				B6C37E7A2A3524B8004D18A8 /* Speech-to-Text */,
@@ -261,6 +266,15 @@
 				B6C37ED32A396D9A004D18A8 /* CGRect.swift */,
 			);
 			path = CoreGraphics;
+			sourceTree = "<group>";
+		};
+		B6C37ED52A397366004D18A8 /* Object Detection */ = {
+			isa = PBXGroup;
+			children = (
+				B6C37ED82A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel */,
+				B6C37ED62A3973A2004D18A8 /* ObjectDetector.swift */,
+			);
+			path = "Object Detection";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -394,7 +408,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6C37ED72A3973A2004D18A8 /* ObjectDetector.swift in Sources */,
 				B6C37E802A3525DF004D18A8 /* SFSpeechRecognizer.swift in Sources */,
+				B6C37ED92A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel in Sources */,
 				B6C37ED42A396D9A004D18A8 /* CGRect.swift in Sources */,
 				B6C37E7C2A3524D8004D18A8 /* SpeechRecognizer.swift in Sources */,
 				B6C37E822A3525F4004D18A8 /* AVAudioSession.swift in Sources */,
