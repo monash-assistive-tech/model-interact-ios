@@ -1,0 +1,64 @@
+//
+//  LemonButton.swift
+//  Lemon
+//
+//  Created by Andre Pham on 14/6/2023.
+//
+
+import Foundation
+import UIKit
+
+class LemonButton: LemonView {
+    
+    private let button = UIButton(type: .custom)
+    private var onTap: (() -> Void)? = nil
+    public var view: UIView {
+        return self.button
+    }
+    private var newConfig: UIButton.Configuration {
+        return UIButton.Configuration.filled()
+    }
+    
+    init() {
+        var config = UIButton.Configuration.filled()
+        config.background.cornerRadius = 20
+        config.contentInsets = NSDirectionalEdgeInsets(
+            top: 6,
+            leading: 22,
+            bottom: 6,
+            trailing: 22
+        )
+        self.button.configuration = config
+        self.button.addTarget(self, action: #selector(self.onTapCallback), for: .touchUpInside)
+    }
+    
+    convenience init(label: String) {
+        self.init()
+        self.setLabel(to: label)
+    }
+    
+    convenience init(label: String, _ callback: @escaping () -> Void) {
+        self.init()
+        self.setLabel(to: label)
+        self.setOnTap(callback)
+    }
+    
+    @discardableResult
+    func setLabel(to label: String) -> Self {
+        var config = self.button.configuration ?? self.newConfig
+        config.title = label
+        self.button.configuration = config
+        return self
+    }
+    
+    @discardableResult
+    func setOnTap(_ callback: (() -> Void)?) -> Self {
+        self.onTap = callback
+        return self
+    }
+    
+    @objc private func onTapCallback() {
+        self.onTap?()
+    }
+    
+}

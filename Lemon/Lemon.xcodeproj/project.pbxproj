@@ -32,6 +32,10 @@
 		B6C37EE52A399EE1004D18A8 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EE42A399EE1004D18A8 /* Math.swift */; };
 		B6C37EE72A399F30004D18A8 /* Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EE62A399F30004D18A8 /* Float.swift */; };
 		B6C37EE92A399F44004D18A8 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EE82A399F44004D18A8 /* Double.swift */; };
+		B6C37EEB2A39A1B9004D18A8 /* LemonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EEA2A39A1B9004D18A8 /* LemonButton.swift */; };
+		B6C37EED2A39AF22004D18A8 /* LemonText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EEC2A39AF22004D18A8 /* LemonText.swift */; };
+		B6C37EEF2A39B137004D18A8 /* LemonVStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EEE2A39B137004D18A8 /* LemonVStack.swift */; };
+		B6C37EF12A39B308004D18A8 /* LemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EF02A39B308004D18A8 /* LemonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +85,10 @@
 		B6C37EE42A399EE1004D18A8 /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		B6C37EE62A399F30004D18A8 /* Float.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Float.swift; sourceTree = "<group>"; };
 		B6C37EE82A399F44004D18A8 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		B6C37EEA2A39A1B9004D18A8 /* LemonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonButton.swift; sourceTree = "<group>"; };
+		B6C37EEC2A39AF22004D18A8 /* LemonText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonText.swift; sourceTree = "<group>"; };
+		B6C37EEE2A39B137004D18A8 /* LemonVStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonVStack.swift; sourceTree = "<group>"; };
+		B6C37EF02A39B308004D18A8 /* LemonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +315,10 @@
 			isa = PBXGroup;
 			children = (
 				B6C37EDC2A397950004D18A8 /* PredictionBoxView.swift */,
+				B6C37EEA2A39A1B9004D18A8 /* LemonButton.swift */,
+				B6C37EEC2A39AF22004D18A8 /* LemonText.swift */,
+				B6C37EEE2A39B137004D18A8 /* LemonVStack.swift */,
+				B6C37EF02A39B308004D18A8 /* LemonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -444,6 +456,7 @@
 			files = (
 				B6C37ED72A3973A2004D18A8 /* ObjectDetector.swift in Sources */,
 				B6C37E802A3525DF004D18A8 /* SFSpeechRecognizer.swift in Sources */,
+				B6C37EF12A39B308004D18A8 /* LemonView.swift in Sources */,
 				B6C37ED92A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel in Sources */,
 				B6C37ED42A396D9A004D18A8 /* CGRect.swift in Sources */,
 				B6C37E7C2A3524D8004D18A8 /* SpeechRecognizer.swift in Sources */,
@@ -455,12 +468,15 @@
 				B6C37E462A341CF5004D18A8 /* ViewController.swift in Sources */,
 				B6C37EDD2A397950004D18A8 /* PredictionBoxView.swift in Sources */,
 				B6C37EE52A399EE1004D18A8 /* Math.swift in Sources */,
+				B6C37EEF2A39B137004D18A8 /* LemonVStack.swift in Sources */,
 				B6C37E422A341CF5004D18A8 /* AppDelegate.swift in Sources */,
 				B6C37E862A353854004D18A8 /* AudioSessionManager.swift in Sources */,
 				B6C37E792A351CFA004D18A8 /* SpeechSynthesizer.swift in Sources */,
 				B6C37EDF2A397C9C004D18A8 /* ObjectDetectionDelegate.swift in Sources */,
 				B6C37E442A341CF5004D18A8 /* SceneDelegate.swift in Sources */,
+				B6C37EED2A39AF22004D18A8 /* LemonText.swift in Sources */,
 				B6C37ECF2A396B56004D18A8 /* CaptureSession.swift in Sources */,
+				B6C37EEB2A39A1B9004D18A8 /* LemonButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

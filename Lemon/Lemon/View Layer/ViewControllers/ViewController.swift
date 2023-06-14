@@ -24,43 +24,42 @@ class ViewController: UIViewController, CaptureDelegate, ObjectDetectionDelegate
     private var overlayFrameSyncRequired = true
     private var isRecordingAudio = false
     
-    private let stack = UIStackView()
-    private let header = UILabel()
-    private let speakButton = UIButton(type: .custom)
-    private let recordButton = UIButton(type: .custom)
-    private let flipButton = UIButton(type: .custom)
-    private var verticalSpacer: UIView {
-        let spacerView = UIView()
-        spacerView.translatesAutoresizingMaskIntoConstraints = false
-        spacerView.setContentHuggingPriority(.defaultLow, for: .vertical)
-        spacerView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-        return spacerView
-    }
-    private var buttonConfig: UIButton.Configuration {
-        var configuration = UIButton.Configuration.filled()
-        configuration.background.cornerRadius = 20
-        configuration.contentInsets = NSDirectionalEdgeInsets(
-            top: 10,
-            leading: 20,
-            bottom: 10,
-            trailing: 20
-        )
-        return configuration
-    }
+    private let stack = LemonVStack()
+    private let header = LemonText(text: "Lemon").setSize(to: 24.0)
+    private let speakButton = LemonButton(label: "Play Audio")
+    private let recordButton = LemonButton(label: "Start Recording")
+    private let flipButton = LemonButton(label: "Flip Camera")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
-        self.setupStack()
-        self.setupHeader()
-        self.setupSpeakButton()
-        self.setupRecordButton()
-        self.setupFlipButton()
-        self.arrangeViews()
+        self.setupSubviews()
         self.setupObjectDetection()
         self.setupAndBeginCapturingVideoFrames()
         // Stop the device automatically sleeping
         UIApplication.shared.isIdleTimerDisabled = true
+    }
+    
+    func setupSubviews() {
+        // Buttons
+        self.speakButton.setOnTap({
+            self.synthesizer.speak("Hello Lemon!")
+        })
+        self.recordButton.setOnTap({
+            self.toggleAudioRecording()
+        })
+        self.flipButton.setOnTap({
+            self.flipCamera()
+        })
+        
+        // Stack
+        self.stack
+            .addView(self.header)
+            .addView(self.speakButton)
+            .addView(self.recordButton)
+            .addView(self.flipButton)
+            .addSpacer()
+            .addTo(self.view)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -103,56 +102,6 @@ class ViewController: UIViewController, CaptureDelegate, ObjectDetectionDelegate
         self.overlayView.frame = overlayFrame
     }
     
-    private func arrangeViews() {
-        self.stack.addArrangedSubview(self.header)
-        self.stack.addArrangedSubview(self.speakButton)
-        self.stack.addArrangedSubview(self.recordButton)
-        self.stack.addArrangedSubview(self.flipButton)
-        self.stack.addArrangedSubview(self.verticalSpacer)
-        self.view.addSubview(self.stack)
-        NSLayoutConstraint.activate([
-            self.stack.topAnchor.constraint(equalTo: view.topAnchor),
-            self.stack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            self.stack.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            self.stack.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
-    }
-    
-    private func setupStack() {
-        self.stack.axis = .vertical
-        self.stack.alignment = .center
-        self.stack.spacing = 16
-        self.stack.translatesAutoresizingMaskIntoConstraints = false
-        self.stack.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        self.stack.isLayoutMarginsRelativeArrangement = true
-    }
-    
-    private func setupHeader() {
-        self.header.text = "Lemon"
-        self.header.font = UIFont.boldSystemFont(ofSize: 24)
-    }
-    
-    private func setupSpeakButton() {
-        var config = self.buttonConfig
-        config.title = "Play Audio"
-        self.speakButton.configuration = config
-        self.speakButton.addTarget(self, action: #selector(self.onSpeakButtonPressed), for: .touchUpInside)
-    }
-    
-    private func setupRecordButton() {
-        var config = self.buttonConfig
-        config.title = "Start Recording"
-        self.recordButton.configuration = config
-        self.recordButton.addTarget(self, action: #selector(self.onRecordButtonPressed), for: .touchUpInside)
-    }
-    
-    private func setupFlipButton() {
-        var config = self.buttonConfig
-        config.title = "Flip Camera"
-        self.flipButton.configuration = config
-        self.flipButton.addTarget(self, action: #selector(self.onFlipButtonPressed), for: .touchUpInside)
-    }
-    
     private func setupAndBeginCapturingVideoFrames() {
         self.captureSession.setUpAVCapture { error in
             if let error {
@@ -169,24 +118,20 @@ class ViewController: UIViewController, CaptureDelegate, ObjectDetectionDelegate
         self.objectDetector.objectDetectionDelegate = self
     }
     
-    @objc private func onSpeakButtonPressed() {
-        self.synthesizer.speak("Hello Lemon!")
-    }
-    
-    @objc private func onRecordButtonPressed() {
+    private func toggleAudioRecording() {
         self.isRecordingAudio.toggle()
         if self.isRecordingAudio {
-            self.recordButton.setTitle("End Recording", for: .normal)
+            self.recordButton.setLabel(to: "End Recording")
             self.recognizer.resetTranscript()
             self.recognizer.startTranscribing()
         } else {
-            self.recordButton.setTitle("Start Recording", for: .normal)
+            self.recordButton.setLabel(to: "Start Recording")
             self.recognizer.stopTranscribing()
             print(self.recognizer.transcript)
         }
     }
     
-    @objc private func onFlipButtonPressed() {
+    private func flipCamera() {
         self.captureSession.flipCamera { error in
             if let error {
                 assertionFailure("Failed to flip camera: \(error)")
