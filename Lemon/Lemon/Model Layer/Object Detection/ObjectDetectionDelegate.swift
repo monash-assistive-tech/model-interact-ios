@@ -10,6 +10,6 @@ import Vision
 
 protocol ObjectDetectionDelegate: AnyObject {
     
-    func onObjectDetection(outcome: [VNRecognizedObjectObservation])
+    func onObjectDetection(outcome: ObjectDetectionOutcome)
     
 }

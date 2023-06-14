@@ -26,7 +26,7 @@ class AudioSessionManager {
             try self.audioSession.setCategory(.playback, mode: .default, options: [])
             try self.audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
-            print("[LEMON ERROR] Failed to set audio session to playback mode: \(error)")
+            assertionFailure("Failed to set audio session to playback mode: \(error)")
         }
     }
     
@@ -35,7 +35,7 @@ class AudioSessionManager {
             try self.audioSession.setCategory(.playAndRecord, mode: .measurement, options: .duckOthers)
             try self.audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
-            print("[LEMON ERROR] Failed to set audio session to record mode: \(error)")
+            assertionFailure("Failed to set audio session to record mode: \(error)")
         }
     }
     
@@ -45,7 +45,7 @@ class AudioSessionManager {
             try self.audioSession.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
             try self.audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
-            print("[LEMON ERROR] Failed to set audio session to speaker mode: \(error)")
+            assertionFailure("Failed to set audio session to speaker mode: \(error)")
         }
     }
     

@@ -22,7 +22,7 @@ class ViewController: UIViewController, CaptureDelegate, ObjectDetectionDelegate
     private var currentFrame: CGImage? = nil
     private var currentFrameID = 0
     private var overlayFrameSyncRequired = true
-    private var isRecording = false
+    private var isRecordingAudio = false
     
     private let stack = UIStackView()
     private let header = UILabel()
@@ -174,8 +174,8 @@ class ViewController: UIViewController, CaptureDelegate, ObjectDetectionDelegate
     }
     
     @objc private func onRecordButtonPressed() {
-        self.isRecording.toggle()
-        if self.isRecording {
+        self.isRecordingAudio.toggle()
+        if self.isRecordingAudio {
             self.recordButton.setTitle("End Recording", for: .normal)
             self.recognizer.resetTranscript()
             self.recognizer.startTranscribing()
@@ -202,14 +202,14 @@ class ViewController: UIViewController, CaptureDelegate, ObjectDetectionDelegate
             
             if self.currentFrameID%Self.PREDICTION_INTERVAL == 0 {
                 self.currentFrameID = 0
-                self.objectDetector.process(frame: frame)
+                self.objectDetector.makePrediction(on: frame)
             }
             
             self.setView(to: frame)
         }
     }
     
-    func onObjectDetection(outcome: [VNRecognizedObjectObservation]) {
+    func onObjectDetection(outcome: ObjectDetectionOutcome) {
         self.overlayView.drawBoxes(for: outcome)
     }
 
