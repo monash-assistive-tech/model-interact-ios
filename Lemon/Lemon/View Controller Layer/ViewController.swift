@@ -8,22 +8,111 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CaptureDelegate {
     
+    private static let PREDICTION_INTERVAL = 1
+    
+    private let captureSession = CaptureSession()
     private let synthesizer = SpeechSynthesizer()
     private let recognizer = SpeechRecognizer()
+    private var imageView = UIImageView()
+    private var overlayView = UIView()
+    private var currentFrame: CGImage? = nil
+    private var currentFrameID = 0
+    private var overlayFrameSyncRequired = true
     private var isRecording = false
     
     private let stack = UIStackView()
     private let header = UILabel()
-    private let speakButton = UIButton(type: .roundedRect)
-    private let recordButton = UIButton(type: .roundedRect)
+    private let speakButton = UIButton(type: .custom)
+    private let recordButton = UIButton(type: .custom)
+    private let flipButton = UIButton(type: .custom)
     private var verticalSpacer: UIView {
         let spacerView = UIView()
         spacerView.translatesAutoresizingMaskIntoConstraints = false
         spacerView.setContentHuggingPriority(.defaultLow, for: .vertical)
         spacerView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         return spacerView
+    }
+    private var buttonConfig: UIButton.Configuration {
+        var configuration = UIButton.Configuration.filled()
+        configuration.background.cornerRadius = 20
+        configuration.contentInsets = NSDirectionalEdgeInsets(
+            top: 10,
+            leading: 20,
+            bottom: 10,
+            trailing: 20
+        )
+        return configuration
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupView()
+        self.setupStack()
+        self.setupHeader()
+        self.setupSpeakButton()
+        self.setupRecordButton()
+        self.setupFlipButton()
+        self.arrangeViews()
+        self.setupAndBeginCapturingVideoFrames()
+        // Stop the device automatically sleeping
+        UIApplication.shared.isIdleTimerDisabled = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.captureSession.stopCapturing {
+            super.viewWillDisappear(animated)
+        }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        // React to change in device orientation
+        self.setupAndBeginCapturingVideoFrames()
+        self.overlayFrameSyncRequired = true
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.overlayFrameSyncRequired = true
+    }
+    
+    private func setupView() {
+        self.imageView.frame = self.view.frame
+        self.view.addSubview(self.imageView)
+        self.imageView.contentMode = .scaleAspectFill
+        self.imageView.addSubview(self.overlayView)
+    }
+    
+    private func setView(to image: CGImage) {
+        self.imageView.image = UIImage(cgImage: image)
+        if self.overlayFrameSyncRequired {
+            self.matchOverlayFrame()
+            self.overlayFrameSyncRequired = false
+        }
+    }
+    
+    private func matchOverlayFrame() {
+        let overlaySize = self.imageView.image!.size
+        var overlayFrame = CGRect(origin: CGPoint(), size: overlaySize).scale(toAspectFillSize: self.imageView.frame.size)
+        // Align overlay frame center to view center
+        overlayFrame.origin.x += self.imageView.frame.center.x - overlayFrame.center.x
+        overlayFrame.origin.y += self.imageView.frame.center.y - overlayFrame.center.y
+        self.overlayView.frame = overlayFrame
+    }
+    
+    private func arrangeViews() {
+        self.stack.addArrangedSubview(self.header)
+        self.stack.addArrangedSubview(self.speakButton)
+        self.stack.addArrangedSubview(self.recordButton)
+        self.stack.addArrangedSubview(self.flipButton)
+        self.stack.addArrangedSubview(self.verticalSpacer)
+        self.view.addSubview(self.stack)
+        NSLayoutConstraint.activate([
+            self.stack.topAnchor.constraint(equalTo: view.topAnchor),
+            self.stack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            self.stack.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            self.stack.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
     
     private func setupStack() {
@@ -41,37 +130,36 @@ class ViewController: UIViewController {
     }
     
     private func setupSpeakButton() {
-        self.speakButton.setTitle("Play Audio", for: .normal)
+        var config = self.buttonConfig
+        config.title = "Play Audio"
+        self.speakButton.configuration = config
         self.speakButton.addTarget(self, action: #selector(self.onSpeakButtonPressed), for: .touchUpInside)
     }
     
     private func setupRecordButton() {
-        self.recordButton.setTitle("Start Recording", for: .normal)
+        var config = self.buttonConfig
+        config.title = "Start Recording"
+        self.recordButton.configuration = config
         self.recordButton.addTarget(self, action: #selector(self.onRecordButtonPressed), for: .touchUpInside)
     }
     
-    private func arrangeViews() {
-        self.stack.addArrangedSubview(self.header)
-        self.stack.addArrangedSubview(self.speakButton)
-        self.stack.addArrangedSubview(self.recordButton)
-        self.stack.addArrangedSubview(self.verticalSpacer)
-        self.view.addSubview(self.stack)
-        NSLayoutConstraint.activate([
-            self.stack.topAnchor.constraint(equalTo: view.topAnchor),
-            self.stack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            self.stack.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            self.stack.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
+    private func setupFlipButton() {
+        var config = self.buttonConfig
+        config.title = "Flip Camera"
+        self.flipButton.configuration = config
+        self.flipButton.addTarget(self, action: #selector(self.onFlipButtonPressed), for: .touchUpInside)
     }
     
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setupStack()
-        self.setupHeader()
-        self.setupSpeakButton()
-        self.setupRecordButton()
-        self.arrangeViews()
+    private func setupAndBeginCapturingVideoFrames() {
+        self.captureSession.setUpAVCapture { error in
+            if let error {
+                assertionFailure("Failed to setup camera: \(error)")
+                return
+            }
+            
+            self.captureSession.captureDelegate = self
+            self.captureSession.startCapturing()
+        }
     }
     
     @objc private func onSpeakButtonPressed() {
@@ -88,6 +176,29 @@ class ViewController: UIViewController {
             self.recordButton.setTitle("Start Recording", for: .normal)
             self.recognizer.stopTranscribing()
             print(self.recognizer.transcript)
+        }
+    }
+    
+    @objc private func onFlipButtonPressed() {
+        self.captureSession.flipCamera { error in
+            if let error {
+                assertionFailure("Failed to flip camera: \(error)")
+                return
+            }
+        }
+    }
+    
+    func onCapture(session: CaptureSession, frame: CGImage?) {
+        if let frame {
+            self.currentFrameID += 1
+            self.currentFrame = frame
+            
+            if self.currentFrameID%Self.PREDICTION_INTERVAL == 0 {
+                self.currentFrameID = 0
+                //print("> Make prediction here")
+            }
+            
+            self.setView(to: frame)
         }
     }
 

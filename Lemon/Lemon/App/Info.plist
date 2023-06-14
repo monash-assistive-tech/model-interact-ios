@@ -6,6 +6,8 @@
 	<string>We need access to your microphone to hear your commands</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>We need to transcribe to your voice to recognise commands</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need the camera to see your insect model</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
