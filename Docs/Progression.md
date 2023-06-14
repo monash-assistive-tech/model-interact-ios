@@ -99,6 +99,7 @@ https://developer.apple.com/videos/play/tech-talks/10155/
 
 Training parameters:
 
+* (In depth explanation of everything: https://evilmartians.com/chronicles/object-detection-with-create-ml-training-and-demo-app)
 * Algorithm
     * Full network
         * Use this when you have >200 samples per class
@@ -110,6 +111,7 @@ Training parameters:
     * Basically use the default
 * Batch size
     * Basically use the default, but bigger *is* better in this case
+    * I should try training the model on max batch size at least once to see if performance is indeed better
 * Grid size
     * Choose a grid size that matches the aspect ratio of the input images and training images
     * Smaller grid size (less squares) means less processing power required but also less granularity - if there's two objects within a grid, only one can be output
@@ -120,6 +122,22 @@ Bounding box creation:
 
 * https://github.com/heartexlabs/label-studio
 * https://github.com/Cartucho/OpenLabeling
+* https://rectlabel.com/
+
+Synthetic image creation:
+
+* https://github.com/tylerhutcherson/synthetic-images
+    * https://medium.com/@tyler.hutcherson/training-the-dashlight-object-detection-model-in-create-ml-5af96011c7c2
+    * ACTUALLY this probably sucks because you're reusing the same images for the objects
+
+Example projects:
+
+* https://github.com/tucan9389/ObjectDetection-CoreML/blob/master/ObjectDetection-CoreML/ViewController.swift
+* https://github.com/dufflink/car-license-plate-detection
+
+Considerations:
+
+* I should be holding the objects when taking pictures, because it uses the background of each image as an indicator on what **isn't** supposed to be recognised as that image.
 
 #### Object classification.
 
