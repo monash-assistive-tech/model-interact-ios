@@ -8,8 +8,16 @@
 import Foundation
 import UIKit
 
-protocol LemonView {
+class LemonView: LemonUIView {
     
-    var view: UIView { get }
+    public let view: UIView
+    
+    init() {
+        self.view = UIView()
+    }
+    
+    init(_ view: UIView) {
+        self.view = view
+    }
     
 }

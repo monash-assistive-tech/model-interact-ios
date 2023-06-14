@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class LemonButton: LemonView {
+class LemonButton: LemonUIView {
     
     private let button = UIButton(type: .custom)
     private var onTap: (() -> Void)? = nil

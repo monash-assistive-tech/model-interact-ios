@@ -17,22 +17,21 @@ class ViewController: UIViewController, CaptureDelegate, ObjectDetectionDelegate
     private let synthesizer = SpeechSynthesizer()
     private let recognizer = SpeechRecognizer()
     private let objectDetector = ObjectDetector()
-    private var imageView = UIImageView()
-    private var overlayView = PredictionBoxView()
-    private var currentFrame: CGImage? = nil
     private var currentFrameID = 0
     private var overlayFrameSyncRequired = true
     private var isRecordingAudio = false
     
+    private var root: LemonView { return LemonView(self.view) }
+    private var image = LemonImage()
+    private var predictionOverlay = PredictionBoxView()
     private let stack = LemonVStack()
-    private let header = LemonText(text: "Lemon").setSize(to: 24.0)
-    private let speakButton = LemonButton(label: "Play Audio")
-    private let recordButton = LemonButton(label: "Start Recording")
-    private let flipButton = LemonButton(label: "Flip Camera")
+    private let header = LemonText()
+    private let speakButton = LemonButton()
+    private let recordButton = LemonButton()
+    private let flipButton = LemonButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupView()
         self.setupSubviews()
         self.setupObjectDetection()
         self.setupAndBeginCapturingVideoFrames()
@@ -41,25 +40,48 @@ class ViewController: UIViewController, CaptureDelegate, ObjectDetectionDelegate
     }
     
     func setupSubviews() {
-        // Buttons
-        self.speakButton.setOnTap({
-            self.synthesizer.speak("Hello Lemon!")
-        })
-        self.recordButton.setOnTap({
-            self.toggleAudioRecording()
-        })
-        self.flipButton.setOnTap({
-            self.flipCamera()
-        })
+        // Video view
+        self.root.addSubview(self.image)
+        self.image.setFrame(to: self.root.frame)
+        
+        // Prediction Overlay
+        self.image.addSubview(self.predictionOverlay)
         
         // Stack
+        self.root.addSubview(self.stack)
         self.stack
+            .constrainTo(self.root)
             .addView(self.header)
             .addView(self.speakButton)
             .addView(self.recordButton)
             .addView(self.flipButton)
             .addSpacer()
-            .addTo(self.view)
+        
+        // Header
+        self.header
+            .setText(to: "Lemon")
+            .setSize(to: 24.0)
+        
+        // Speak button
+        self.speakButton
+            .setLabel(to: "Play Audio")
+            .setOnTap({
+                self.synthesizer.speak("Hello Lemon!")
+            })
+        
+        // Record button
+        self.recordButton
+            .setLabel(to: "Start Recording")
+            .setOnTap({
+                self.toggleAudioRecording()
+            })
+        
+        // Flip button
+        self.flipButton
+            .setLabel(to: "Flip Camera")
+            .setOnTap({
+                self.flipCamera()
+            })
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -78,15 +100,8 @@ class ViewController: UIViewController, CaptureDelegate, ObjectDetectionDelegate
         self.overlayFrameSyncRequired = true
     }
     
-    private func setupView() {
-        self.imageView.frame = self.view.frame
-        self.view.addSubview(self.imageView)
-        self.imageView.contentMode = .scaleAspectFill
-        self.imageView.addSubview(self.overlayView)
-    }
-    
-    private func setView(to image: CGImage) {
-        self.imageView.image = UIImage(cgImage: image)
+    private func setVideoImage(to image: CGImage) {
+        self.image.setImage(image)
         if self.overlayFrameSyncRequired {
             self.matchOverlayFrame()
             self.overlayFrameSyncRequired = false
@@ -94,12 +109,12 @@ class ViewController: UIViewController, CaptureDelegate, ObjectDetectionDelegate
     }
     
     private func matchOverlayFrame() {
-        let overlaySize = self.imageView.image!.size
-        var overlayFrame = CGRect(origin: CGPoint(), size: overlaySize).scale(toAspectFillSize: self.imageView.frame.size)
+        let overlaySize = self.image.imageSize
+        var overlayFrame = CGRect(origin: CGPoint(), size: overlaySize).scale(toAspectFillSize: self.image.frame.size)
         // Align overlay frame center to view center
-        overlayFrame.origin.x += self.imageView.frame.center.x - overlayFrame.center.x
-        overlayFrame.origin.y += self.imageView.frame.center.y - overlayFrame.center.y
-        self.overlayView.frame = overlayFrame
+        overlayFrame.origin.x += self.image.frame.center.x - overlayFrame.center.x
+        overlayFrame.origin.y += self.image.frame.center.y - overlayFrame.center.y
+        self.predictionOverlay.setFrame(to: overlayFrame)
     }
     
     private func setupAndBeginCapturingVideoFrames() {
@@ -143,19 +158,18 @@ class ViewController: UIViewController, CaptureDelegate, ObjectDetectionDelegate
     func onCapture(session: CaptureSession, frame: CGImage?) {
         if let frame {
             self.currentFrameID += 1
-            self.currentFrame = frame
             
             if self.currentFrameID%Self.PREDICTION_INTERVAL == 0 {
                 self.currentFrameID = 0
                 self.objectDetector.makePrediction(on: frame)
             }
             
-            self.setView(to: frame)
+            self.setVideoImage(to: frame)
         }
     }
     
     func onObjectDetection(outcome: ObjectDetectionOutcome) {
-        self.overlayView.drawBoxes(for: outcome)
+        self.predictionOverlay.drawBoxes(for: outcome)
     }
 
 }

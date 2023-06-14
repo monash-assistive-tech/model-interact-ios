@@ -10,7 +10,7 @@ import Foundation
 import Foundation
 import UIKit
 
-class LemonText: LemonView {
+class LemonText: LemonUIView {
     
     private let label = UILabel()
     public var view: UIView {

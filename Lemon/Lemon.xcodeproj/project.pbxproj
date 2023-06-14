@@ -35,7 +35,9 @@
 		B6C37EEB2A39A1B9004D18A8 /* LemonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EEA2A39A1B9004D18A8 /* LemonButton.swift */; };
 		B6C37EED2A39AF22004D18A8 /* LemonText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EEC2A39AF22004D18A8 /* LemonText.swift */; };
 		B6C37EEF2A39B137004D18A8 /* LemonVStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EEE2A39B137004D18A8 /* LemonVStack.swift */; };
-		B6C37EF12A39B308004D18A8 /* LemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EF02A39B308004D18A8 /* LemonView.swift */; };
+		B6C37EF12A39B308004D18A8 /* LemonUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EF02A39B308004D18A8 /* LemonUIView.swift */; };
+		B6C37EF32A39B5BF004D18A8 /* LemonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EF22A39B5BF004D18A8 /* LemonImage.swift */; };
+		B6C37EF52A39BAB3004D18A8 /* LemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EF42A39BAB3004D18A8 /* LemonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,7 +90,9 @@
 		B6C37EEA2A39A1B9004D18A8 /* LemonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonButton.swift; sourceTree = "<group>"; };
 		B6C37EEC2A39AF22004D18A8 /* LemonText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonText.swift; sourceTree = "<group>"; };
 		B6C37EEE2A39B137004D18A8 /* LemonVStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonVStack.swift; sourceTree = "<group>"; };
-		B6C37EF02A39B308004D18A8 /* LemonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonView.swift; sourceTree = "<group>"; };
+		B6C37EF02A39B308004D18A8 /* LemonUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonUIView.swift; sourceTree = "<group>"; };
+		B6C37EF22A39B5BF004D18A8 /* LemonImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonImage.swift; sourceTree = "<group>"; };
+		B6C37EF42A39BAB3004D18A8 /* LemonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,7 +322,9 @@
 				B6C37EEA2A39A1B9004D18A8 /* LemonButton.swift */,
 				B6C37EEC2A39AF22004D18A8 /* LemonText.swift */,
 				B6C37EEE2A39B137004D18A8 /* LemonVStack.swift */,
-				B6C37EF02A39B308004D18A8 /* LemonView.swift */,
+				B6C37EF02A39B308004D18A8 /* LemonUIView.swift */,
+				B6C37EF22A39B5BF004D18A8 /* LemonImage.swift */,
+				B6C37EF42A39BAB3004D18A8 /* LemonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -456,8 +462,9 @@
 			files = (
 				B6C37ED72A3973A2004D18A8 /* ObjectDetector.swift in Sources */,
 				B6C37E802A3525DF004D18A8 /* SFSpeechRecognizer.swift in Sources */,
-				B6C37EF12A39B308004D18A8 /* LemonView.swift in Sources */,
+				B6C37EF12A39B308004D18A8 /* LemonUIView.swift in Sources */,
 				B6C37ED92A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel in Sources */,
+				B6C37EF52A39BAB3004D18A8 /* LemonView.swift in Sources */,
 				B6C37ED42A396D9A004D18A8 /* CGRect.swift in Sources */,
 				B6C37E7C2A3524D8004D18A8 /* SpeechRecognizer.swift in Sources */,
 				B6C37E822A3525F4004D18A8 /* AVAudioSession.swift in Sources */,
@@ -466,6 +473,7 @@
 				B6C37EE72A399F30004D18A8 /* Float.swift in Sources */,
 				B6C37EE92A399F44004D18A8 /* Double.swift in Sources */,
 				B6C37E462A341CF5004D18A8 /* ViewController.swift in Sources */,
+				B6C37EF32A39B5BF004D18A8 /* LemonImage.swift in Sources */,
 				B6C37EDD2A397950004D18A8 /* PredictionBoxView.swift in Sources */,
 				B6C37EE52A399EE1004D18A8 /* Math.swift in Sources */,
 				B6C37EEF2A39B137004D18A8 /* LemonVStack.swift in Sources */,

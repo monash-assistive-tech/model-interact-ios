@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class LemonVStack: LemonView {
+class LemonVStack: LemonUIView {
     
     private let stack = UIStackView()
     public var view: UIView {
@@ -33,25 +33,19 @@ class LemonVStack: LemonView {
     }
     
     @discardableResult
-    func addTo(_ view: UIView) -> Self {
-        view.addSubview(self.view)
+    func constrainTo(_ view: LemonUIView) -> Self {
         NSLayoutConstraint.activate([
-            self.stack.topAnchor.constraint(equalTo: view.topAnchor),
-            self.stack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            self.stack.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            self.stack.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            self.stack.topAnchor.constraint(equalTo: view.view.topAnchor),
+            self.stack.leadingAnchor.constraint(equalTo: view.view.leadingAnchor),
+            self.stack.bottomAnchor.constraint(equalTo: view.view.bottomAnchor),
+            self.stack.trailingAnchor.constraint(equalTo: view.view.trailingAnchor)
         ])
         return self
     }
     
     @discardableResult
-    func addView(_ view: LemonView) -> Self {
-        return self.addView(view.view)
-    }
-    
-    @discardableResult
-    func addView(_ view: UIView) -> Self {
-        self.stack.addArrangedSubview(view)
+    func addView(_ view: LemonUIView) -> Self {
+        self.stack.addArrangedSubview(view.view)
         return self
     }
     
@@ -62,13 +56,8 @@ class LemonVStack: LemonView {
     }
     
     @discardableResult
-    func insertView(_ view: LemonView, at index: Int) -> Self {
-        return self.insertView(view.view, at: index)
-    }
-    
-    @discardableResult
-    func insertView(_ view: UIView, at index: Int) -> Self {
-        self.stack.insertArrangedSubview(view, at: index)
+    func insertView(_ view: LemonUIView, at index: Int) -> Self {
+        self.stack.insertArrangedSubview(view.view, at: index)
         return self
     }
     
