@@ -116,6 +116,11 @@ Training parameters:
 
 I/U measure: this is the percentage overlay between the expected bounding box and the predicted bounding box.
 
+Bounding box creation:
+
+* https://github.com/heartexlabs/label-studio
+* https://github.com/Cartucho/OpenLabeling
+
 #### Object classification.
 
 
