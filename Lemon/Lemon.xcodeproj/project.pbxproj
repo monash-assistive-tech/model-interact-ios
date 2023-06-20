@@ -38,6 +38,7 @@
 		B6C37EF12A39B308004D18A8 /* LemonUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EF02A39B308004D18A8 /* LemonUIView.swift */; };
 		B6C37EF32A39B5BF004D18A8 /* LemonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EF22A39B5BF004D18A8 /* LemonImage.swift */; };
 		B6C37EF52A39BAB3004D18A8 /* LemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EF42A39BAB3004D18A8 /* LemonView.swift */; };
+		B6FD174D2A4165E8003EDD5F /* TagmataDetector1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B6FD174C2A4165E8003EDD5F /* TagmataDetector1.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		B6C37EF02A39B308004D18A8 /* LemonUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonUIView.swift; sourceTree = "<group>"; };
 		B6C37EF22A39B5BF004D18A8 /* LemonImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonImage.swift; sourceTree = "<group>"; };
 		B6C37EF42A39BAB3004D18A8 /* LemonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonView.swift; sourceTree = "<group>"; };
+		B6FD174C2A4165E8003EDD5F /* TagmataDetector1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagmataDetector1.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +247,7 @@
 		B6C37E7D2A3525B5004D18A8 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				B6FD17462A3FAD7E003EDD5F /* UIKit */,
 				B6C37ED22A396D87004D18A8 /* CoreGraphics */,
 				B6C37E832A3525FE004D18A8 /* Speech */,
 				B6C37E7E2A3525C0004D18A8 /* AVFoundation */,
@@ -299,6 +302,7 @@
 		B6C37ED52A397366004D18A8 /* Object Detection */ = {
 			isa = PBXGroup;
 			children = (
+				B6FD174C2A4165E8003EDD5F /* TagmataDetector1.mlmodel */,
 				B6C37ED82A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel */,
 				B6C37ED62A3973A2004D18A8 /* ObjectDetector.swift */,
 				B6C37EDE2A397C9B004D18A8 /* ObjectDetectionDelegate.swift */,
@@ -327,6 +331,13 @@
 				B6C37EF42A39BAB3004D18A8 /* LemonView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		B6FD17462A3FAD7E003EDD5F /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -478,6 +489,7 @@
 				B6C37EE52A399EE1004D18A8 /* Math.swift in Sources */,
 				B6C37EEF2A39B137004D18A8 /* LemonVStack.swift in Sources */,
 				B6C37E422A341CF5004D18A8 /* AppDelegate.swift in Sources */,
+				B6FD174D2A4165E8003EDD5F /* TagmataDetector1.mlmodel in Sources */,
 				B6C37E862A353854004D18A8 /* AudioSessionManager.swift in Sources */,
 				B6C37E792A351CFA004D18A8 /* SpeechSynthesizer.swift in Sources */,
 				B6C37EDF2A397C9C004D18A8 /* ObjectDetectionDelegate.swift in Sources */,
