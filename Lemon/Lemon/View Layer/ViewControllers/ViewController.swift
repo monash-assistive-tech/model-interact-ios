@@ -9,14 +9,14 @@ import UIKit
 import AVFoundation
 import Vision
 
-class ViewController: UIViewController, CaptureDelegate, ObjectDetectionDelegate {
+class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegate {
     
     private static let PREDICTION_INTERVAL = 1
     
     private let captureSession = CaptureSession()
     private let synthesizer = SpeechSynthesizer()
     private let recognizer = SpeechRecognizer()
-    private let objectDetector = ObjectDetector()
+    private let objectDetector = TagmataDetector()
     private var currentFrameID = 0
     private var overlayFrameSyncRequired = true
     private var isRecordingAudio = false
@@ -168,7 +168,7 @@ class ViewController: UIViewController, CaptureDelegate, ObjectDetectionDelegate
         }
     }
     
-    func onObjectDetection(outcome: ObjectDetectionOutcome) {
+    func onTagmataDetection(outcome: TagmataDetectionOutcome) {
         self.predictionOverlay.drawBoxes(for: outcome)
     }
 

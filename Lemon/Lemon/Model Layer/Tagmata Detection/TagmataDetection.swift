@@ -1,5 +1,5 @@
 //
-//  ObjectDetection.swift
+//  TagmataDetection.swift
 //  Lemon
 //
 //  Created by Andre Pham on 14/6/2023.
@@ -8,9 +8,9 @@
 import Foundation
 import Vision
 
-typealias ObjectDetectionOutcome = [ObjectDetection]
+typealias TagmataDetectionOutcome = [TagmataDetection]
 
-class ObjectDetection {
+class TagmataDetection {
     
     private let observation: VNRecognizedObjectObservation
     public var boundingBox: CGRect {
@@ -19,8 +19,8 @@ class ObjectDetection {
     public var label: String {
         return self.observation.labels.first!.identifier
     }
-    public var classification: TagtamaClassification {
-        guard let result = TagtamaClassification(rawValue: self.label) else {
+    public var classification: TagmataClassification {
+        guard let result = TagmataClassification(rawValue: self.label) else {
             fatalError("Classification found has no corresponding enum case")
         }
         return result

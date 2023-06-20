@@ -12,14 +12,14 @@ class PredictionBoxView: LemonUIView {
     
     public let view = UIView()
     
-    func drawBoxes(for predictions: ObjectDetectionOutcome) {
+    func drawBoxes(for predictions: TagmataDetectionOutcome) {
         self.view.subviews.forEach({ $0.removeFromSuperview() })
         for prediction in predictions {
             self.drawBox(for: prediction)
         }
     }
     
-    private func drawBox(for prediction: ObjectDetection) {
+    private func drawBox(for prediction: TagmataDetection) {
         let scale = CGAffineTransform.identity.scaledBy(x: self.view.bounds.width, y: self.view.bounds.height)
         let reflection = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -1)
         let rect = prediction.boundingBox.applying(reflection).applying(scale)

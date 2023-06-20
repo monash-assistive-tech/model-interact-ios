@@ -1,5 +1,5 @@
 //
-//  ObjectDetector.swift
+//  TagmataDetector.swift
 //  Lemon
 //
 //  Created by Andre Pham on 14/6/2023.
@@ -8,10 +8,10 @@
 import Foundation
 import Vision
 
-class ObjectDetector {
+class TagmataDetector {
     
     private var request: VNCoreMLRequest? = nil
-    public weak var objectDetectionDelegate: ObjectDetectionDelegate?
+    public weak var objectDetectionDelegate: TagmataDetectionDelegate?
     
     init() {
         self.setupRequest()
@@ -45,15 +45,15 @@ class ObjectDetector {
     
     private func visionRequestDidComplete(request: VNRequest, error: Error?) {
         if let predictions = request.results as? [VNRecognizedObjectObservation] {
-            let detection: ObjectDetectionOutcome = predictions.map({ ObjectDetection(observation: $0) })
+            let detection: TagmataDetectionOutcome = predictions.map({ TagmataDetection(observation: $0) })
             self.delegateOutcome(detection)
         }
     }
     
-    private func delegateOutcome(_ outcome: ObjectDetectionOutcome) {
+    private func delegateOutcome(_ outcome: TagmataDetectionOutcome) {
         // Jump back to main thread
         DispatchQueue.main.async {
-            self.objectDetectionDelegate?.onObjectDetection(outcome: outcome)
+            self.objectDetectionDelegate?.onTagmataDetection(outcome: outcome)
         }
     }
     

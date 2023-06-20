@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 /// For the sake of syntax, we're pretending the wings are part of the tagmata of an insect.
-enum TagtamaClassification: String {
+enum TagmataClassification: String {
     
     case head = "head-yellow"
     case thorax = "thorax-blue"
