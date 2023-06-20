@@ -247,7 +247,6 @@
 		B6C37E7D2A3525B5004D18A8 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
-				B6FD17462A3FAD7E003EDD5F /* UIKit */,
 				B6C37ED22A396D87004D18A8 /* CoreGraphics */,
 				B6C37E832A3525FE004D18A8 /* Speech */,
 				B6C37E7E2A3525C0004D18A8 /* AVFoundation */,
@@ -331,13 +330,6 @@
 				B6C37EF42A39BAB3004D18A8 /* LemonView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		B6FD17462A3FAD7E003EDD5F /* UIKit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = UIKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
