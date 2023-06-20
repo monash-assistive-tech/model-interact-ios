@@ -25,7 +25,7 @@ class PredictionBoxView: LemonUIView {
         let rect = prediction.boundingBox.applying(reflection).applying(scale)
         let newLayer = UIView()
         newLayer.frame = rect
-        newLayer.backgroundColor = UIColor.red.withAlphaComponent(0.5)
+        newLayer.backgroundColor = prediction.classification.color.withAlphaComponent(0.5)
         newLayer.layer.cornerRadius = 4
         self.view.addSubview(newLayer)
         let label = UILabel()

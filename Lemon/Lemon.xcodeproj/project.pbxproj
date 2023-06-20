@@ -39,6 +39,7 @@
 		B6C37EF32A39B5BF004D18A8 /* LemonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EF22A39B5BF004D18A8 /* LemonImage.swift */; };
 		B6C37EF52A39BAB3004D18A8 /* LemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EF42A39BAB3004D18A8 /* LemonView.swift */; };
 		B6FD174D2A4165E8003EDD5F /* TagmataDetector1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B6FD174C2A4165E8003EDD5F /* TagmataDetector1.mlmodel */; };
+		B6FD174F2A416DBB003EDD5F /* TagmataClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		B6C37EF22A39B5BF004D18A8 /* LemonImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonImage.swift; sourceTree = "<group>"; };
 		B6C37EF42A39BAB3004D18A8 /* LemonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonView.swift; sourceTree = "<group>"; };
 		B6FD174C2A4165E8003EDD5F /* TagmataDetector1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagmataDetector1.mlmodel; sourceTree = "<group>"; };
+		B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataClassification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,6 +308,7 @@
 				B6C37ED62A3973A2004D18A8 /* ObjectDetector.swift */,
 				B6C37EDE2A397C9B004D18A8 /* ObjectDetectionDelegate.swift */,
 				B6C37EE22A399D7E004D18A8 /* ObjectDetection.swift */,
+				B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */,
 			);
 			path = "Object Detection";
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 				B6FD174D2A4165E8003EDD5F /* TagmataDetector1.mlmodel in Sources */,
 				B6C37E862A353854004D18A8 /* AudioSessionManager.swift in Sources */,
 				B6C37E792A351CFA004D18A8 /* SpeechSynthesizer.swift in Sources */,
+				B6FD174F2A416DBB003EDD5F /* TagmataClassification.swift in Sources */,
 				B6C37EDF2A397C9C004D18A8 /* ObjectDetectionDelegate.swift in Sources */,
 				B6C37E442A341CF5004D18A8 /* SceneDelegate.swift in Sources */,
 				B6C37EED2A39AF22004D18A8 /* LemonText.swift in Sources */,

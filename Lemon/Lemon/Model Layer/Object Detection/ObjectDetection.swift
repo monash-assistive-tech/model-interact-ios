@@ -19,6 +19,12 @@ class ObjectDetection {
     public var label: String {
         return self.observation.labels.first!.identifier
     }
+    public var classification: TagtamaClassification {
+        guard let result = TagtamaClassification(rawValue: self.label) else {
+            fatalError("Classification found has no corresponding enum case")
+        }
+        return result
+    }
     public var confidence: Float {
         return self.observation.confidence.magnitude
     }
