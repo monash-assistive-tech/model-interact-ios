@@ -7,12 +7,17 @@
 1. Pass the image through object detection.
 2. If an object is detected in the image, crop it and pass to object classification.
 3. Object classification only has two outputs, upright and upside down. Output what it thinks is the most likely.
+4. ALTERNATIVELY, instead of object classification, I could do object detection again, and bounding box all features of each part (antennae, head, nub, legs), get the bounding boxes of those, and then decide the orientation based on the positions of those.
+    * This doesn't work if they are covering important pieces, like the antennae
+    * Though it may still work considering you could identify holes too, so if the antennae are hidden but the hole for the body is visible, you know it's upside down
 
 #### Object detection.
 
 https://developer.apple.com/documentation/createml/building-an-object-detector-data-source
 
 https://developer.apple.com/videos/play/tech-talks/10155/
+
+https://evilmartians.com/chronicles/object-detection-with-create-ml-images-and-dataset
 
 ```json
 [
