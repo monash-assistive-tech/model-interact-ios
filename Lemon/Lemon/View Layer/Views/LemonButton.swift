@@ -57,6 +57,12 @@ class LemonButton: LemonUIView {
         return self
     }
     
+    @discardableResult
+    func setAccessibilityLabel(to label: String) -> Self {
+        self.button.accessibilityLabel = label
+        return self
+    }
+    
     @objc private func onTapCallback() {
         self.onTap?()
     }

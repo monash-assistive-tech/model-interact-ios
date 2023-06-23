@@ -29,6 +29,7 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
     private let speakButton = LemonButton()
     private let recordButton = LemonButton()
     private let flipButton = LemonButton()
+    private let interruptButton = LemonButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,7 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
             .addView(self.speakButton)
             .addView(self.recordButton)
             .addView(self.flipButton)
+            .addView(self.interruptButton)
             .addSpacer()
         
         // Header
@@ -66,7 +68,7 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
         self.speakButton
             .setLabel(to: "Play Audio")
             .setOnTap({
-                self.synthesizer.speak("Hello Lemon!")
+                self.synthesizer.speak("Hello Lemon! Filler text is text that shares some characteristics of a real written text, but is random or otherwise generated. It may be used to display a sample of fonts, generate text for testing, or to spoof an e-mail spam filter.")
             })
         
         // Record button
@@ -75,6 +77,13 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
             .setOnTap({
                 self.toggleAudioRecording()
             })
+        
+        self.interruptButton
+            .setLabel(to: "Interrupt")
+            .setOnTap({
+                self.synthesizer.stopSpeaking()
+            })
+            .setAccessibilityLabel(to: "STOP")
         
         // Flip button
         self.flipButton
