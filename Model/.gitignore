@@ -6,3 +6,5 @@
 *.mlproj
 *.jpg
 *.zip
+README.dataset.txt
+README.roboflow.txt
