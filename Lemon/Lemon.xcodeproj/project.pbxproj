@@ -25,7 +25,6 @@
 		B6C37ED12A396B71004D18A8 /* CaptureDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37ED02A396B71004D18A8 /* CaptureDelegate.swift */; };
 		B6C37ED42A396D9A004D18A8 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37ED32A396D9A004D18A8 /* CGRect.swift */; };
 		B6C37ED72A3973A2004D18A8 /* TagmataDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37ED62A3973A2004D18A8 /* TagmataDetector.swift */; };
-		B6C37ED92A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B6C37ED82A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel */; };
 		B6C37EDD2A397950004D18A8 /* PredictionBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EDC2A397950004D18A8 /* PredictionBoxView.swift */; };
 		B6C37EDF2A397C9C004D18A8 /* TagmataDetectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EDE2A397C9B004D18A8 /* TagmataDetectionDelegate.swift */; };
 		B6C37EE32A399D7E004D18A8 /* TagmataDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EE22A399D7E004D18A8 /* TagmataDetection.swift */; };
@@ -40,9 +39,9 @@
 		B6C37EF52A39BAB3004D18A8 /* LemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37EF42A39BAB3004D18A8 /* LemonView.swift */; };
 		B6D461CB2A4538CF0002CEEC /* LiveSpeechToTextDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D461CA2A4538CF0002CEEC /* LiveSpeechToTextDelegate.swift */; };
 		B6D461CD2A4539C00002CEEC /* SpeechText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D461CC2A4539C00002CEEC /* SpeechText.swift */; };
-		B6D461CF2A4AC0630002CEEC /* TagmataDetector43910.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B6D461CE2A4AC0630002CEEC /* TagmataDetector43910.mlmodel */; };
-		B6D461D12A4B5DB60002CEEC /* TagmataDetector4.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B6D461D02A4B5DB60002CEEC /* TagmataDetector4.mlmodel */; };
-		B6FD174D2A4165E8003EDD5F /* TagmataDetector1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B6FD174C2A4165E8003EDD5F /* TagmataDetector1.mlmodel */; };
+		B6D461D72A4B65EF0002CEEC /* TagmataDetector1_2000.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B6D461D42A4B65EF0002CEEC /* TagmataDetector1_2000.mlmodel */; };
+		B6D461D82A4B65EF0002CEEC /* TagmataDetector4_3910.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B6D461D52A4B65EF0002CEEC /* TagmataDetector4_3910.mlmodel */; };
+		B6D461D92A4B65EF0002CEEC /* TagmataDetector4_6000.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B6D461D62A4B65EF0002CEEC /* TagmataDetector4_6000.mlmodel */; };
 		B6FD174F2A416DBB003EDD5F /* TagmataClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */; };
 /* End PBXBuildFile section */
 
@@ -86,7 +85,6 @@
 		B6C37ED02A396B71004D18A8 /* CaptureDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureDelegate.swift; sourceTree = "<group>"; };
 		B6C37ED32A396D9A004D18A8 /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		B6C37ED62A3973A2004D18A8 /* TagmataDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataDetector.swift; sourceTree = "<group>"; };
-		B6C37ED82A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CarLicensePlateExperimentFullNetwork.mlmodel; sourceTree = "<group>"; };
 		B6C37EDC2A397950004D18A8 /* PredictionBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionBoxView.swift; sourceTree = "<group>"; };
 		B6C37EDE2A397C9B004D18A8 /* TagmataDetectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataDetectionDelegate.swift; sourceTree = "<group>"; };
 		B6C37EE22A399D7E004D18A8 /* TagmataDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataDetection.swift; sourceTree = "<group>"; };
@@ -101,9 +99,9 @@
 		B6C37EF42A39BAB3004D18A8 /* LemonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonView.swift; sourceTree = "<group>"; };
 		B6D461CA2A4538CF0002CEEC /* LiveSpeechToTextDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSpeechToTextDelegate.swift; sourceTree = "<group>"; };
 		B6D461CC2A4539C00002CEEC /* SpeechText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechText.swift; sourceTree = "<group>"; };
-		B6D461CE2A4AC0630002CEEC /* TagmataDetector43910.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = TagmataDetector43910.mlmodel; path = ../../../../Model/TagmataDetection4/TagmataDetector43910.mlmodel; sourceTree = "<group>"; };
-		B6D461D02A4B5DB60002CEEC /* TagmataDetector4.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = TagmataDetector4.mlmodel; path = ../../../../Model/TagmataDetection4/TagmataDetector4.mlmodel; sourceTree = "<group>"; };
-		B6FD174C2A4165E8003EDD5F /* TagmataDetector1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagmataDetector1.mlmodel; sourceTree = "<group>"; };
+		B6D461D42A4B65EF0002CEEC /* TagmataDetector1_2000.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagmataDetector1_2000.mlmodel; sourceTree = "<group>"; };
+		B6D461D52A4B65EF0002CEEC /* TagmataDetector4_3910.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagmataDetector4_3910.mlmodel; sourceTree = "<group>"; };
+		B6D461D62A4B65EF0002CEEC /* TagmataDetector4_6000.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagmataDetector4_6000.mlmodel; sourceTree = "<group>"; };
 		B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataClassification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -313,10 +311,9 @@
 		B6C37ED52A397366004D18A8 /* Tagmata Detection */ = {
 			isa = PBXGroup;
 			children = (
-				B6FD174C2A4165E8003EDD5F /* TagmataDetector1.mlmodel */,
-				B6C37ED82A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel */,
-				B6D461CE2A4AC0630002CEEC /* TagmataDetector43910.mlmodel */,
-				B6D461D02A4B5DB60002CEEC /* TagmataDetector4.mlmodel */,
+				B6D461D42A4B65EF0002CEEC /* TagmataDetector1_2000.mlmodel */,
+				B6D461D52A4B65EF0002CEEC /* TagmataDetector4_3910.mlmodel */,
+				B6D461D62A4B65EF0002CEEC /* TagmataDetector4_6000.mlmodel */,
 				B6C37ED62A3973A2004D18A8 /* TagmataDetector.swift */,
 				B6C37EDE2A397C9B004D18A8 /* TagmataDetectionDelegate.swift */,
 				B6C37EE22A399D7E004D18A8 /* TagmataDetection.swift */,
@@ -482,11 +479,9 @@
 				B6D461CD2A4539C00002CEEC /* SpeechText.swift in Sources */,
 				B6C37E802A3525DF004D18A8 /* SFSpeechRecognizer.swift in Sources */,
 				B6C37EF12A39B308004D18A8 /* LemonUIView.swift in Sources */,
-				B6C37ED92A397416004D18A8 /* CarLicensePlateExperimentFullNetwork.mlmodel in Sources */,
 				B6C37EF52A39BAB3004D18A8 /* LemonView.swift in Sources */,
 				B6C37ED42A396D9A004D18A8 /* CGRect.swift in Sources */,
 				B6C37E7C2A3524D8004D18A8 /* SpeechRecognizer.swift in Sources */,
-				B6D461CF2A4AC0630002CEEC /* TagmataDetector43910.mlmodel in Sources */,
 				B6C37E822A3525F4004D18A8 /* AVAudioSession.swift in Sources */,
 				B6C37ED12A396B71004D18A8 /* CaptureDelegate.swift in Sources */,
 				B6C37EE32A399D7E004D18A8 /* TagmataDetection.swift in Sources */,
@@ -499,9 +494,8 @@
 				B6D461CB2A4538CF0002CEEC /* LiveSpeechToTextDelegate.swift in Sources */,
 				B6C37EEF2A39B137004D18A8 /* LemonVStack.swift in Sources */,
 				B6C37E422A341CF5004D18A8 /* AppDelegate.swift in Sources */,
-				B6FD174D2A4165E8003EDD5F /* TagmataDetector1.mlmodel in Sources */,
-				B6D461D12A4B5DB60002CEEC /* TagmataDetector4.mlmodel in Sources */,
 				B6C37E862A353854004D18A8 /* AudioSessionManager.swift in Sources */,
+				B6D461D72A4B65EF0002CEEC /* TagmataDetector1_2000.mlmodel in Sources */,
 				B6C37E792A351CFA004D18A8 /* SpeechSynthesizer.swift in Sources */,
 				B6FD174F2A416DBB003EDD5F /* TagmataClassification.swift in Sources */,
 				B6C37EDF2A397C9C004D18A8 /* TagmataDetectionDelegate.swift in Sources */,
@@ -509,6 +503,8 @@
 				B6C37EED2A39AF22004D18A8 /* LemonText.swift in Sources */,
 				B6C37ECF2A396B56004D18A8 /* CaptureSession.swift in Sources */,
 				B6C37EEB2A39A1B9004D18A8 /* LemonButton.swift in Sources */,
+				B6D461D82A4B65EF0002CEEC /* TagmataDetector4_3910.mlmodel in Sources */,
+				B6D461D92A4B65EF0002CEEC /* TagmataDetector4_6000.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

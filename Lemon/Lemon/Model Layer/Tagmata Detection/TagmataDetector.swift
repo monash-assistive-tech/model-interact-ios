@@ -36,7 +36,7 @@ class TagmataDetector {
     }
     
     private func setupRequest() {
-        if let model: MLModel = try? TagmataDetector1(configuration: MLModelConfiguration()).model,
+        if let model: MLModel = try? TagmataDetector4_6000(configuration: MLModelConfiguration()).model,
            let visionModel = try? VNCoreMLModel(for: model) {
             self.request = VNCoreMLRequest(model: visionModel, completionHandler: self.visionRequestDidComplete)
             self.request?.imageCropAndScaleOption = .scaleFit
