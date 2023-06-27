@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import Vision
 
-class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegate {
+class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegate, LiveSpeechToTextDelegate {
     
     private static let PREDICTION_INTERVAL = 1
     
@@ -35,6 +35,7 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
         super.viewDidLoad()
         self.setupSubviews()
         self.setupObjectDetection()
+        self.setupSpeechRecognition()
         self.setupAndBeginCapturingVideoFrames()
         // Stop the device automatically sleeping
         UIApplication.shared.isIdleTimerDisabled = true
@@ -142,6 +143,10 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
         self.objectDetector.objectDetectionDelegate = self
     }
     
+    private func setupSpeechRecognition() {
+        self.recognizer.liveSpeechToTextDelegate = self
+    }
+    
     private func toggleAudioRecording() {
         self.isRecordingAudio.toggle()
         if self.isRecordingAudio {
@@ -179,6 +184,14 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
     
     func onTagmataDetection(outcome: TagmataDetectionOutcome) {
         self.predictionOverlay.drawBoxes(for: outcome)
+    }
+    
+    func onWordRecognition(currentTranscription: SpeechText) {
+        print(currentTranscription.words)
+        if currentTranscription.contains("STOP") {
+            self.synthesizer.stopSpeaking()
+            self.recognizer.resetTranscript()
+        }
     }
 
 }

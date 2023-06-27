@@ -27,7 +27,8 @@ actor SpeechRecognizer {
         }
     }
     
-    @MainActor var transcript: String = ""
+    @MainActor private(set) var transcript: String = ""
+    @MainActor public weak var liveSpeechToTextDelegate: LiveSpeechToTextDelegate?
     private var audioEngine: AVAudioEngine? = nil
     private var request: SFSpeechAudioBufferRecognitionRequest? = nil
     private var task: SFSpeechRecognitionTask? = nil
@@ -63,6 +64,7 @@ actor SpeechRecognizer {
     @MainActor func resetTranscript() {
         Task {
             await reset()
+            await transcribe()
         }
     }
     
@@ -105,9 +107,6 @@ actor SpeechRecognizer {
         let request = SFSpeechAudioBufferRecognitionRequest()
         request.shouldReportPartialResults = true
         
-//        let audioSession = AVAudioSession.sharedInstance()
-//        try audioSession.setCategory(.playAndRecord, mode: .measurement, options: .duckOthers)
-//        try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         AudioSessionManager.inst.setToRecordMode()
         let inputNode = audioEngine.inputNode
         
@@ -127,11 +126,11 @@ actor SpeechRecognizer {
             // Note that the continuous translation isn't purely adding the last read word to a string
             // The engine continuously looks back at context to modify the final output
             // This is not a replacement for ending and transcribing the audio output, but is good if you're looking for key words
-            // TODO: If you're looking for commands, such as "STOP" or "Hey Google", you're best off searching all the components
-            // (Not just looking at the last word)
-            // If there's an issue with performance, you can just look through the last 10 or 100 words (if that's a concern)
-            // Sometimes speech synthesis will recognise the sentence you said only after the third word, so only checking the last word could miss a word spoken even if it was recognised
-            print("WORD: " + (result.bestTranscription.formattedString.components(separatedBy: " ").last ?? "<< Empty >>"))
+            // Note that sometimes speech synthesis will recognise the sentence you said only after the third word, so only checking the last word could miss a word spoken even if it was recognised
+            // TODO: If there's an issue with performance, you can just look through the last 10 or 100 words (if that's a concern)
+            Task { @MainActor in
+                self.liveSpeechToTextDelegate?.onWordRecognition(currentTranscription: SpeechText(text: result.bestTranscription.formattedString))
+            }
         }
         
         let receivedFinalResult = result?.isFinal ?? false
