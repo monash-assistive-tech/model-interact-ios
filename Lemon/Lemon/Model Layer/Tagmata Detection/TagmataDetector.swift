@@ -45,7 +45,8 @@ class TagmataDetector {
     
     private func visionRequestDidComplete(request: VNRequest, error: Error?) {
         if let predictions = request.results as? [VNRecognizedObjectObservation] {
-            let detection: TagmataDetectionOutcome = predictions.map({ TagmataDetection(observation: $0) })
+            let detection = TagmataDetectionOutcome(detections: predictions.map({ TagmataDetection(observation: $0) }))
+            detection.merge()
             self.delegateOutcome(detection)
         }
     }

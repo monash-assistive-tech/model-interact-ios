@@ -18,24 +18,26 @@ class AudioSessionManager {
     private init() { }
     
     func setup() {
-        self.setToPlaybackMode()
+        self.setToSpeakerMode()
     }
     
     func setToPlaybackMode() {
+        return
         do {
             try self.audioSession.setCategory(.playback, mode: .default, options: [])
             try self.audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
-            assertionFailure("Failed to set audio session to playback mode: \(error)")
+//            assertionFailure("Failed to set audio session to playback mode: \(error)")
         }
     }
     
     func setToRecordMode() {
+        return
         do {
-            try self.audioSession.setCategory(.playAndRecord, mode: .measurement, options: .duckOthers)
+            try self.audioSession.setCategory(.playAndRecord, mode: .measurement, options: [.duckOthers, .allowBluetoothA2DP])
             try self.audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
-            assertionFailure("Failed to set audio session to record mode: \(error)")
+//            assertionFailure("Failed to set audio session to record mode: \(error)")
         }
     }
     

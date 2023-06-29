@@ -8,29 +8,28 @@
 import Foundation
 import Vision
 
-typealias TagmataDetectionOutcome = [TagmataDetection]
-
 class TagmataDetection {
     
-    private let observation: VNRecognizedObjectObservation
-    public var boundingBox: CGRect {
-        return self.observation.boundingBox
-    }
-    public var label: String {
-        return self.observation.labels.first!.identifier
-    }
-    public var classification: TagmataClassification {
-        guard let result = TagmataClassification(rawValue: self.label) else {
-            fatalError("Classification found has no corresponding enum case")
-        }
-        return result
-    }
-    public var confidence: Float {
-        return self.observation.confidence.magnitude
-    }
+    public let boundingBox: CGRect
+    public let label: String
+    public let classification: TagmataClassification
+    public let confidence: Float
     
     init(observation: VNRecognizedObjectObservation) {
-        self.observation = observation
+        self.boundingBox = observation.boundingBox
+        self.label = observation.labels.first!.identifier
+        guard let classification = TagmataClassification(rawValue: self.label) else {
+            fatalError("Classification found has no corresponding enum case")
+        }
+        self.classification = classification
+        self.confidence = observation.confidence.magnitude
+    }
+    
+    init(boundingBox: CGRect, label: String, classification: TagmataClassification, confidence: Float) {
+        self.boundingBox = boundingBox
+        self.label = label
+        self.classification = classification
+        self.confidence = confidence
     }
     
 }

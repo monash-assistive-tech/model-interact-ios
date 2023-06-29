@@ -12,9 +12,9 @@ class PredictionBoxView: LemonUIView {
     
     public let view = UIView()
     
-    func drawBoxes(for predictions: TagmataDetectionOutcome) {
+    func drawBoxes(for predictionOutcome: TagmataDetectionOutcome) {
         self.view.subviews.forEach({ $0.removeFromSuperview() })
-        for prediction in predictions {
+        for prediction in predictionOutcome.tagmataDetections {
             self.drawBox(for: prediction)
         }
     }

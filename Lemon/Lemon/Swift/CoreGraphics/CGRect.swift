@@ -40,4 +40,27 @@ extension CGRect {
         return CGRect(x: x, y: y, width: scaledWidth, height: scaledHeight)
     }
     
+    func merged(with other: CGRect) -> CGRect {
+        let minX = min(self.minX, other.minX)
+        let minY = min(self.minY, other.minY)
+        let maxX = max(self.maxX, other.maxX)
+        let maxY = max(self.maxY, other.maxY)
+        return CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
+    }
+    
+}
+
+extension Array where Element == CGRect {
+    
+    func mergeAll() -> CGRect {
+        guard !self.isEmpty else {
+            return CGRect()
+        }
+        var result = self.first!
+        for element in self { // Faster to merge first with first than to do other calculations e.g. drop first
+            result = result.merged(with: element)
+        }
+        return result
+    }
+    
 }
