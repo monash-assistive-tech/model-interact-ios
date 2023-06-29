@@ -12,27 +12,21 @@ class PredictionBoxView: LemonUIView {
     
     public let view = UIView()
     
-    func drawBoxes(for predictionOutcome: TagmataDetectionOutcome, coordinateSpace: CGRect? = nil, plainOutline: UIColor? = nil) {
+    func drawBoxes(for predictionOutcome: TagmataDetectionOutcome, plainOutline: UIColor? = nil) {
         self.view.subviews.forEach({ $0.removeFromSuperview() })
         for prediction in predictionOutcome.tagmataDetections {
             if let plainOutline {
-                self.drawOutline(for: prediction, coordinateSpace: coordinateSpace, color: plainOutline)
+                self.drawOutline(for: prediction, color: plainOutline)
             } else {
                 self.drawBox(for: prediction)
             }
         }
     }
     
-    private func drawOutline(for prediction: TagmataDetection, coordinateSpace: CGRect?, color: UIColor) {
+    private func drawOutline(for prediction: TagmataDetection, color: UIColor) {
         var scale = CGAffineTransform.identity.scaledBy(x: self.view.bounds.width, y: self.view.bounds.height)
-        if let coordinateSpace {
-            scale = CGAffineTransform.identity.scaledBy(x: coordinateSpace.width, y: coordinateSpace.height)
-        }
         let reflection = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -1)
         var rect = prediction.boundingBox.applying(reflection).applying(scale)
-        if let coordinateSpace {
-            rect.origin += coordinateSpace.origin
-        }
         let newLayer = UIView()
         newLayer.frame = rect
         newLayer.layer.borderColor = color.withAlphaComponent(CGFloat(prediction.confidence)).cgColor
