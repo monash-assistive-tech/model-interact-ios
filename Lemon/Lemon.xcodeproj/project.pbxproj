@@ -43,6 +43,9 @@
 		B6D461D82A4B65EF0002CEEC /* TagmataDetector4_3910.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B6D461D52A4B65EF0002CEEC /* TagmataDetector4_3910.mlmodel */; };
 		B6D461D92A4B65EF0002CEEC /* TagmataDetector4_6000.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B6D461D62A4B65EF0002CEEC /* TagmataDetector4_6000.mlmodel */; };
 		B6D461DB2A4D2AC40002CEEC /* TagmataDetectionOutcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D461DA2A4D2AC40002CEEC /* TagmataDetectionOutcome.swift */; };
+		B6D461DF2A4D61950002CEEC /* CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D461DE2A4D61950002CEEC /* CGPoint.swift */; };
+		B6D461E12A4D63330002CEEC /* TagmataQuadrantDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D461E02A4D63330002CEEC /* TagmataQuadrantDetector.swift */; };
+		B6D461E32A4D63FA0002CEEC /* DetectorID.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D461E22A4D63FA0002CEEC /* DetectorID.swift */; };
 		B6FD174F2A416DBB003EDD5F /* TagmataClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */; };
 /* End PBXBuildFile section */
 
@@ -104,6 +107,9 @@
 		B6D461D52A4B65EF0002CEEC /* TagmataDetector4_3910.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagmataDetector4_3910.mlmodel; sourceTree = "<group>"; };
 		B6D461D62A4B65EF0002CEEC /* TagmataDetector4_6000.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagmataDetector4_6000.mlmodel; sourceTree = "<group>"; };
 		B6D461DA2A4D2AC40002CEEC /* TagmataDetectionOutcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataDetectionOutcome.swift; sourceTree = "<group>"; };
+		B6D461DE2A4D61950002CEEC /* CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPoint.swift; sourceTree = "<group>"; };
+		B6D461E02A4D63330002CEEC /* TagmataQuadrantDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataQuadrantDetector.swift; sourceTree = "<group>"; };
+		B6D461E22A4D63FA0002CEEC /* DetectorID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectorID.swift; sourceTree = "<group>"; };
 		B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataClassification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -306,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				B6C37ED32A396D9A004D18A8 /* CGRect.swift */,
+				B6D461DE2A4D61950002CEEC /* CGPoint.swift */,
 			);
 			path = CoreGraphics;
 			sourceTree = "<group>";
@@ -321,6 +328,8 @@
 				B6C37EE22A399D7E004D18A8 /* TagmataDetection.swift */,
 				B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */,
 				B6D461DA2A4D2AC40002CEEC /* TagmataDetectionOutcome.swift */,
+				B6D461E02A4D63330002CEEC /* TagmataQuadrantDetector.swift */,
+				B6D461E22A4D63FA0002CEEC /* DetectorID.swift */,
 			);
 			path = "Tagmata Detection";
 			sourceTree = "<group>";
@@ -483,6 +492,7 @@
 				B6C37E802A3525DF004D18A8 /* SFSpeechRecognizer.swift in Sources */,
 				B6C37EF12A39B308004D18A8 /* LemonUIView.swift in Sources */,
 				B6C37EF52A39BAB3004D18A8 /* LemonView.swift in Sources */,
+				B6D461E32A4D63FA0002CEEC /* DetectorID.swift in Sources */,
 				B6C37ED42A396D9A004D18A8 /* CGRect.swift in Sources */,
 				B6C37E7C2A3524D8004D18A8 /* SpeechRecognizer.swift in Sources */,
 				B6C37E822A3525F4004D18A8 /* AVAudioSession.swift in Sources */,
@@ -494,11 +504,13 @@
 				B6C37EF32A39B5BF004D18A8 /* LemonImage.swift in Sources */,
 				B6C37EDD2A397950004D18A8 /* PredictionBoxView.swift in Sources */,
 				B6C37EE52A399EE1004D18A8 /* Math.swift in Sources */,
+				B6D461E12A4D63330002CEEC /* TagmataQuadrantDetector.swift in Sources */,
 				B6D461CB2A4538CF0002CEEC /* LiveSpeechToTextDelegate.swift in Sources */,
 				B6C37EEF2A39B137004D18A8 /* LemonVStack.swift in Sources */,
 				B6C37E422A341CF5004D18A8 /* AppDelegate.swift in Sources */,
 				B6C37E862A353854004D18A8 /* AudioSessionManager.swift in Sources */,
 				B6D461D72A4B65EF0002CEEC /* TagmataDetector1_2000.mlmodel in Sources */,
+				B6D461DF2A4D61950002CEEC /* CGPoint.swift in Sources */,
 				B6C37E792A351CFA004D18A8 /* SpeechSynthesizer.swift in Sources */,
 				B6FD174F2A416DBB003EDD5F /* TagmataClassification.swift in Sources */,
 				B6C37EDF2A397C9C004D18A8 /* TagmataDetectionDelegate.swift in Sources */,

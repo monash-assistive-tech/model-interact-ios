@@ -10,6 +10,6 @@ import Vision
 
 protocol TagmataDetectionDelegate: AnyObject {
     
-    func onTagmataDetection(outcome: TagmataDetectionOutcome)
+    func onTagmataDetection(outcome: TagmataDetectionOutcome?)
     
 }

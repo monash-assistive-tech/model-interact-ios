@@ -9,6 +9,7 @@ import Foundation
 
 class TagmataDetectionOutcome {
     
+    public let detectorID: DetectorID
     private var tagmataDetectionStore = [TagmataClassification: [TagmataDetection]]()
     /// Keep track of weights so if a merge occurs twice the confidences don't become skewed towards latest additions
     private var classificationWeights = [TagmataClassification: Int]()
@@ -20,15 +21,16 @@ class TagmataDetectionOutcome {
         return result
     }
     
-    init() {
+    init(detectorID: DetectorID) {
+        self.detectorID = detectorID
         for classification in TagmataClassification.allCases {
             self.tagmataDetectionStore[classification] = [TagmataDetection]()
             self.classificationWeights[classification] = 0
         }
     }
     
-    convenience init(detections: [TagmataDetection]) {
-        self.init()
+    convenience init(detectorID: DetectorID, detections: [TagmataDetection]) {
+        self.init(detectorID: detectorID)
         for detection in detections {
             self.addDetection(detection)
         }
@@ -59,6 +61,14 @@ class TagmataDetectionOutcome {
             // Replace entire array with array with just the merged detection
             self.tagmataDetectionStore[mergedDetection.classification]! = [mergedDetection]
         }
+    }
+    
+    func merged(with other: TagmataDetectionOutcome) -> TagmataDetectionOutcome {
+        let new = TagmataDetectionOutcome(detectorID: DetectorID())
+        self.tagmataDetections.forEach({ new.addDetection($0) })
+        other.tagmataDetections.forEach({ new.addDetection($0) })
+        new.merge()
+        return new
     }
     
 }

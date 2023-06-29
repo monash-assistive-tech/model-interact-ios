@@ -10,6 +10,7 @@ import Vision
 
 class TagmataDetector {
     
+    public let id = DetectorID()
     private var request: VNCoreMLRequest? = nil
     public weak var objectDetectionDelegate: TagmataDetectionDelegate?
     
@@ -29,6 +30,7 @@ class TagmataDetector {
         guard let request = self.request else {
             // If the request previously failed to setup, try to set it up again and discard this frame
             self.setupRequest()
+            self.delegateOutcome(nil)
             return
         }
         let handler = VNImageRequestHandler(cgImage: frame)
@@ -45,13 +47,15 @@ class TagmataDetector {
     
     private func visionRequestDidComplete(request: VNRequest, error: Error?) {
         if let predictions = request.results as? [VNRecognizedObjectObservation] {
-            let detection = TagmataDetectionOutcome(detections: predictions.map({ TagmataDetection(observation: $0) }))
+            let detection = TagmataDetectionOutcome(detectorID: self.id, detections: predictions.map({ TagmataDetection(observation: $0) }))
             detection.merge()
             self.delegateOutcome(detection)
+        } else {
+            self.delegateOutcome(nil)
         }
     }
     
-    private func delegateOutcome(_ outcome: TagmataDetectionOutcome) {
+    private func delegateOutcome(_ outcome: TagmataDetectionOutcome?) {
         // Jump back to main thread
         DispatchQueue.main.async {
             self.objectDetectionDelegate?.onTagmataDetection(outcome: outcome)

@@ -16,7 +16,8 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
     private let captureSession = CaptureSession()
     private let synthesizer = SpeechSynthesizer()
     private let recognizer = SpeechRecognizer()
-    private let objectDetector = TagmataDetector()
+//    private let tagmataDetector = TagmataDetector()
+    private let tagmataDetectorNew = TagmataQuadrantDetector()
     private var currentFrameID = 0
     private var overlayFrameSyncRequired = true
     private var isRecordingAudio = false
@@ -140,7 +141,7 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
     }
     
     private func setupObjectDetection() {
-        self.objectDetector.objectDetectionDelegate = self
+        self.tagmataDetectorNew.objectDetectionDelegate = self
     }
     
     private func setupSpeechRecognition() {
@@ -175,15 +176,17 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
             
             if self.currentFrameID%Self.PREDICTION_INTERVAL == 0 {
                 self.currentFrameID = 0
-                self.objectDetector.makePrediction(on: frame)
+                self.tagmataDetectorNew.makePrediction(on: frame)
             }
             
             self.setVideoImage(to: frame)
         }
     }
     
-    func onTagmataDetection(outcome: TagmataDetectionOutcome) {
-        self.predictionOverlay.drawBoxes(for: outcome)
+    func onTagmataDetection(outcome: TagmataDetectionOutcome?) {
+        if let outcome {
+            self.predictionOverlay.drawBoxes(for: outcome)
+        }
     }
     
     func onWordRecognition(currentTranscription: SpeechText) {

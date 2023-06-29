@@ -12,11 +12,41 @@ class PredictionBoxView: LemonUIView {
     
     public let view = UIView()
     
-    func drawBoxes(for predictionOutcome: TagmataDetectionOutcome) {
+    func drawBoxes(for predictionOutcome: TagmataDetectionOutcome, coordinateSpace: CGRect? = nil, plainOutline: UIColor? = nil) {
         self.view.subviews.forEach({ $0.removeFromSuperview() })
         for prediction in predictionOutcome.tagmataDetections {
-            self.drawBox(for: prediction)
+            if let plainOutline {
+                self.drawOutline(for: prediction, coordinateSpace: coordinateSpace, color: plainOutline)
+            } else {
+                self.drawBox(for: prediction)
+            }
         }
+    }
+    
+    private func drawOutline(for prediction: TagmataDetection, coordinateSpace: CGRect?, color: UIColor) {
+        var scale = CGAffineTransform.identity.scaledBy(x: self.view.bounds.width, y: self.view.bounds.height)
+        if let coordinateSpace {
+            scale = CGAffineTransform.identity.scaledBy(x: coordinateSpace.width, y: coordinateSpace.height)
+        }
+        let reflection = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -1)
+        var rect = prediction.boundingBox.applying(reflection).applying(scale)
+        if let coordinateSpace {
+            rect.origin += coordinateSpace.origin
+        }
+        let newLayer = UIView()
+        newLayer.frame = rect
+        newLayer.layer.borderColor = color.withAlphaComponent(CGFloat(prediction.confidence)).cgColor
+        newLayer.layer.borderWidth = 3.0
+        newLayer.layer.cornerRadius = 4
+        self.view.addSubview(newLayer)
+        let label = UILabel()
+        label.text = prediction.label
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textColor = prediction.classification.color
+        label.textAlignment = .right
+        label.sizeToFit()
+        label.center = CGPoint(x: rect.origin.x + label.frame.width/2.0, y: rect.origin.y + label.frame.height/2.0)
+        self.view.addSubview(label)
     }
     
     private func drawBox(for prediction: TagmataDetection) {
