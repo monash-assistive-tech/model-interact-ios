@@ -24,9 +24,7 @@ class PredictionBoxView: LemonUIView {
     }
     
     private func drawOutline(for prediction: TagmataDetection, color: UIColor) {
-        var scale = CGAffineTransform.identity.scaledBy(x: self.view.bounds.width, y: self.view.bounds.height)
-        let reflection = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -1)
-        var rect = prediction.boundingBox.applying(reflection).applying(scale)
+        let rect = prediction.getDenormalisedBoundingBox(boundsWidth: self.view.bounds.width, boundsHeight: self.view.bounds.height)
         let newLayer = UIView()
         newLayer.frame = rect
         newLayer.layer.borderColor = color.withAlphaComponent(CGFloat(prediction.confidence)).cgColor
@@ -44,9 +42,7 @@ class PredictionBoxView: LemonUIView {
     }
     
     private func drawBox(for prediction: TagmataDetection) {
-        let scale = CGAffineTransform.identity.scaledBy(x: self.view.bounds.width, y: self.view.bounds.height)
-        let reflection = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -1)
-        let rect = prediction.boundingBox.applying(reflection).applying(scale)
+        let rect = prediction.getDenormalisedBoundingBox(boundsWidth: self.view.bounds.width, boundsHeight: self.view.bounds.height)
         let newLayer = UIView()
         newLayer.frame = rect
         newLayer.backgroundColor = prediction.classification.color.withAlphaComponent(0.5)
