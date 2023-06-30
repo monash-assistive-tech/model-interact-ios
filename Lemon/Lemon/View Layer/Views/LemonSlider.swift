@@ -38,6 +38,7 @@ class LemonSlider: LemonUIView, LemonViewPublisher {
         }
         if let value {
             self.slider.value = value
+            self.publish(self)
         }
         return self
     }

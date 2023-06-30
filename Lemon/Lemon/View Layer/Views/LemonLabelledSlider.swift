@@ -10,7 +10,7 @@ import UIKit
 
 class LemonLabelledSlider: LemonUIView, LemonViewObserver {
     
-    private let stack = LemonHStack()
+    public let stack = LemonHStack()
     public let slider = LemonSlider()
     public let labelText = LemonText()
     public let valueText = LemonText()
@@ -20,9 +20,10 @@ class LemonLabelledSlider: LemonUIView, LemonViewObserver {
     
     override init() {
         super.init()
-        self.stack.addView(self.labelText)
-        self.stack.addView(self.slider)
-        self.stack.addView(self.valueText)
+        self.stack
+            .addView(self.labelText)
+            .addView(self.slider)
+            .addView(self.valueText)
         self.viewStateDidChange(self.slider)
         self.slider.subscribe(self)
     }

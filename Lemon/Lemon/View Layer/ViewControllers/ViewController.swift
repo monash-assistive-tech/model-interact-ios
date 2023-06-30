@@ -23,15 +23,15 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
     private var root: LemonView { return LemonView(self.view) }
     private var image = LemonImage()
     private var predictionOverlay = PredictionBoxView()
-    private let stack = LemonVStack(padding: 32)
+    private let stack = LemonVStack()
     private let header = LemonText()
     private let speakButton = LemonButton()
     private let recordButton = LemonButton()
     private let flipButton = LemonButton()
     private let interruptButton = LemonButton()
-    private let toolbarStack = LemonVStack(padding: 0)
+    private let toolbarStack = LemonVStack()
     private let intervalSlider = LemonLabelledSlider()
-    private let detectorSwitch = LemonSwitch()
+    private let detectorSwitch = LemonLabelledSwitch()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +54,10 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
         // Stack
         self.root.addSubview(self.stack)
         self.stack
-            .constrainTo(self.root)
+            .setSpacing(to: 16)
+            .constrainHorizontal(padding: 16)
+            .constrainTop(padding: Environment.inst.topSafeAreaHeight)
+            .constrainBottom(padding: Environment.inst.bottomSafeAreaHeight)
             .addView(self.header)
             .addView(self.speakButton)
             .addView(self.recordButton)
@@ -99,17 +102,23 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
         
         // Toolbar Stack
         self.toolbarStack
+            .constrainHorizontal(padding: 32)
             .setBackgroundColor(to: UIColor.white)
             .setCornerRadius(to: 20)
             .addView(self.intervalSlider)
             .addView(self.detectorSwitch)
         
         // Interval slider
+        self.intervalSlider
+            .constrainHorizontal(padding: 24)
+            .setPaddingVertical(to: 16)
+        self.intervalSlider.stack
+            .setSpacing(to: 16)
         self.intervalSlider.labelText
             .setText(to: "Interval")
+            .setPadding(right: 30)
         self.intervalSlider.slider
             .setValues(minimumValue: 1, maximumValue: 60, value: self.predictionInterval)
-            .setWidth(to: 120)
             .setRoundToNearest(10)
             .setOnDrag({ value in
                 self.predictionInterval = Int(value)
@@ -117,8 +126,11 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
         
         // Detector switch
         self.detectorSwitch
-            .expandHeightAnchor(to: 44)
-            .expandFrame(bottom: 100)
+            .constrainHorizontal(padding: 24)
+            .setPadding(bottom: 16)
+        self.detectorSwitch.labelText
+            .setText(to: "Alternate Model")
+        self.detectorSwitch.switchView
             .setOnFlick({ isOn in
                 if isOn {
                     self.tagmataDetector = TagmataDetector()

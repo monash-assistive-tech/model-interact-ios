@@ -22,31 +22,24 @@ class LemonHStack: LemonUIView {
         return spacerView
     }
     
-    init(spacing: CGFloat = 16.0, padding: CGFloat = 16.0) {
+    override init() {
         super.init()
         // Defaults
         self.stack.axis = .horizontal
         self.stack.alignment = .center
-        self.stack.spacing = spacing
         self.stack.translatesAutoresizingMaskIntoConstraints = false
-        self.stack.layoutMargins = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
         self.stack.isLayoutMarginsRelativeArrangement = true
-    }
-    
-    @discardableResult
-    func constrainTo(_ view: LemonUIView) -> Self {
-        NSLayoutConstraint.activate([
-            self.stack.topAnchor.constraint(equalTo: view.view.topAnchor),
-            self.stack.leadingAnchor.constraint(equalTo: view.view.leadingAnchor),
-            self.stack.bottomAnchor.constraint(equalTo: view.view.bottomAnchor),
-            self.stack.trailingAnchor.constraint(equalTo: view.view.trailingAnchor)
-        ])
-        return self
     }
     
     @discardableResult
     func addView(_ view: LemonUIView) -> Self {
         self.stack.addArrangedSubview(view.view)
+        return self
+    }
+    
+    @discardableResult
+    func setSpacing(to spacing: CGFloat) -> Self {
+        self.stack.spacing = spacing
         return self
     }
     

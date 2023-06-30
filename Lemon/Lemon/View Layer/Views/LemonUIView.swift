@@ -10,6 +10,8 @@ import UIKit
 
 typealias LemonUIView = LemonUIViewAbstract & LemonUIViewProtocol
 
+// MARK: - Abstract
+
 class LemonUIViewAbstract {
     
     public let id = UUID()
@@ -18,12 +20,24 @@ class LemonUIViewAbstract {
     
 }
 
+// MARK: - Protocol
+
 protocol LemonUIViewProtocol {
     
     var view: UIView { get }
     
 }
 extension LemonUIViewProtocol {
+    
+    // MARK: - Views
+    
+    @discardableResult
+    func addSubview(_ view: LemonUIView) -> Self {
+        self.view.addSubview(view.view)
+        return self
+    }
+    
+    // MARK: - Frame
     
     public var frame: CGRect {
         return self.view.frame
@@ -35,62 +49,118 @@ extension LemonUIViewProtocol {
         return self
     }
     
+    // MARK: - Constraints
+    
     @discardableResult
-    func expandFrame(left: Double? = nil, right: Double? = nil, top: Double? = nil, bottom: Double? = nil) -> Self {
-        if let left {
-            self.view.frame = CGRect(
-                x: self.view.frame.origin.x - left, y: self.view.frame.origin.y,
-                width: self.view.frame.width + left, height: self.view.frame.height
-            )
+    func matchWidthConstraint(to other: LemonUIView? = nil) -> Self {
+        assert(!self.view.translatesAutoresizingMaskIntoConstraints, "Constraints requirement failed")
+        guard let target = other?.view ?? self.view.superview else {
+            fatalError("No constraint target found")
         }
-        if let right {
-            self.view.frame = CGRect(
-                x: self.view.frame.origin.x, y: self.view.frame.origin.y,
-                width: self.view.frame.width + right, height: self.view.frame.height
-            )
-        }
-        if let top {
-            self.view.frame = CGRect(
-                x: self.view.frame.origin.x, y: self.view.frame.origin.y - top,
-                width: self.view.frame.width, height: self.view.frame.height + top
-            )
-        }
-        if let bottom {
-            self.view.frame = CGRect(
-                x: self.view.frame.origin.x, y: self.view.frame.origin.y,
-                width: self.view.frame.width, height: self.view.frame.height + bottom
-            )
-        }
+        self.view.widthAnchor.constraint(equalTo: target.widthAnchor).isActive = true
         return self
     }
     
     @discardableResult
-    func expandFrame(horizontal: Double? = nil, vertical: Double? = nil) -> Self {
-        return self.expandFrame(left: horizontal, right: horizontal, top: vertical, bottom: vertical)
-    }
-    
-    @discardableResult
-    func expandFrame(allSides: Double?) -> Self {
-        return self.expandFrame(left: allSides, right: allSides, top: allSides, bottom: allSides)
-    }
-    
-    @discardableResult
-    func addSubview(_ view: LemonUIView) -> Self {
-        self.view.addSubview(view.view)
+    func matchHeightConstraint(to other: LemonUIView? = nil) -> Self {
+        assert(!self.view.translatesAutoresizingMaskIntoConstraints, "Constraints requirement failed")
+        guard let target = other?.view ?? self.view.superview else {
+            fatalError("No constraint target found")
+        }
+        self.view.widthAnchor.constraint(equalTo: target.heightAnchor).isActive = true
         return self
     }
     
     @discardableResult
-    func expandWidthAnchor(to width: Double) -> Self {
-        self.view.widthAnchor.constraint(equalToConstant: width).isActive = true
+    func constrainLeft(to other: LemonUIView? = nil, padding: CGFloat = 0.0) -> Self {
+        assert(!self.view.translatesAutoresizingMaskIntoConstraints, "Constraints requirement failed")
+        guard let target = other?.view ?? self.view.superview else {
+            fatalError("No constraint target found")
+        }
+        self.view.leadingAnchor.constraint(equalTo: target.leadingAnchor, constant: padding).isActive = true
         return self
     }
     
     @discardableResult
-    func expandHeightAnchor(to height: Double) -> Self {
-        self.view.heightAnchor.constraint(equalToConstant: height).isActive = true
+    func constrainRight(to other: LemonUIView? = nil, padding: CGFloat = 0.0) -> Self {
+        assert(!self.view.translatesAutoresizingMaskIntoConstraints, "Constraints requirement failed")
+        guard let target = other?.view ?? self.view.superview else {
+            fatalError("No constraint target found")
+        }
+        self.view.trailingAnchor.constraint(equalTo: target.trailingAnchor, constant: -padding).isActive = true
         return self
     }
+    
+    @discardableResult
+    func constrainTop(to other: LemonUIView? = nil, padding: CGFloat = 0.0) -> Self {
+        assert(!self.view.translatesAutoresizingMaskIntoConstraints, "Constraints requirement failed")
+        guard let target = other?.view ?? self.view.superview else {
+            fatalError("No constraint target found")
+        }
+        self.view.topAnchor.constraint(equalTo: target.topAnchor, constant: padding).isActive = true
+        return self
+    }
+    
+    @discardableResult
+    func constrainBottom(to other: LemonUIView? = nil, padding: CGFloat = 0.0) -> Self {
+        assert(!self.view.translatesAutoresizingMaskIntoConstraints, "Constraints requirement failed")
+        guard let target = other?.view ?? self.view.superview else {
+            fatalError("No constraint target found")
+        }
+        self.view.bottomAnchor.constraint(equalTo: target.bottomAnchor, constant: -padding).isActive = true
+        return self
+    }
+    
+    @discardableResult
+    func constrainHorizontal(to other: LemonUIView? = nil, padding: CGFloat = 0.0) -> Self {
+        self.constrainLeft(to: other, padding: padding)
+        self.constrainRight(to: other, padding: padding)
+        return self
+    }
+    
+    @discardableResult
+    func constrainVertical(to other: LemonUIView? = nil, padding: CGFloat = 0.0) -> Self {
+        self.constrainTop(to: other, padding: padding)
+        self.constrainBottom(to: other, padding: padding)
+        return self
+    }
+    
+    @discardableResult
+    func constrainAllSides(to other: LemonUIView? = nil, padding: CGFloat = 0.0) -> Self {
+        self.constrainHorizontal(to: other, padding: padding)
+        self.constrainVertical(to: other, padding: padding)
+        return self
+    }
+    
+    @discardableResult
+    func setPadding(top: CGFloat? = nil, bottom: CGFloat? = nil, left: CGFloat? = nil, right: CGFloat? = nil) -> Self {
+        self.view.layoutMargins = UIEdgeInsets(
+            top: top ?? self.view.layoutMargins.top,
+            left: left ?? self.view.layoutMargins.left,
+            bottom: bottom ?? self.view.layoutMargins.bottom,
+            right: right ?? self.view.layoutMargins.right
+        )
+        return self
+    }
+    
+    @discardableResult
+    func setPaddingVertical(to padding: CGFloat) -> Self {
+        return self.setPadding(top: padding, bottom: padding)
+    }
+    
+    @discardableResult
+    func setPaddingHorizontal(to padding: CGFloat) -> Self {
+        return self.setPadding(left: padding, right: padding)
+    }
+    
+    @discardableResult
+    func setPaddingAllSides(to padding: CGFloat) -> Self {
+        self.setPaddingVertical(to: padding)
+        self.setPaddingHorizontal(to: padding)
+        return self
+    }
+    
+    // MARK: - Background
     
     @discardableResult
     func setBackgroundColor(to color: UIColor) -> Self {
@@ -105,39 +175,9 @@ extension LemonUIViewProtocol {
     }
     
     @discardableResult
-    func setPadding(left: Double? = nil, right: Double? = nil, top: Double? = nil, bottom: Double? = nil) -> Self {
-        self.view.translatesAutoresizingMaskIntoConstraints = false
-        if let superview = self.view.superview {
-            if let left {
-                self.view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: left).isActive = true
-            }
-            if let right {
-                self.view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: right).isActive = true
-            }
-            if let top {
-                self.view.topAnchor.constraint(equalTo: superview.topAnchor, constant: top).isActive = true
-            }
-            if let bottom {
-                self.view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: bottom).isActive = true
-            }
-        }
-        return self
-    }
-    
-    @discardableResult
-    func setPadding(horizontal: Double? = nil, vertical: Double? = nil) -> Self {
-        return self.setPadding(left: horizontal, right: horizontal, top: vertical, bottom: vertical)
-    }
-    
-    @discardableResult
-    func setPadding(allSides: Double?) -> Self {
-        return self.setPadding(left: allSides, right: allSides, top: allSides, bottom: allSides)
-    }
-    
-    @discardableResult
-    func addTestingBorder() -> Self {
-        self.view.layer.borderWidth = 1
-        self.view.layer.borderColor = UIColor.red.cgColor
+    func addBorder(width: CGFloat = 1.0, color: UIColor = UIColor.red) -> Self {
+        self.view.layer.borderWidth = width
+        self.view.layer.borderColor = color.cgColor
         return self
     }
     

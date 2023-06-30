@@ -56,6 +56,14 @@ class PredictionBoxView: LemonUIView {
         label.sizeToFit()
         label.center = rect.center
         self.view.addSubview(label)
+        let positionLabel = UILabel()
+        positionLabel.text = rect.center.toString()
+        positionLabel.font = UIFont.boldSystemFont(ofSize: 14)
+        positionLabel.textColor = UIColor.black
+        positionLabel.textAlignment = .right
+        positionLabel.sizeToFit()
+        positionLabel.center = CGPoint(x: rect.origin.x + positionLabel.frame.width/2.0, y: rect.origin.y + positionLabel.frame.height/2.0)
+        self.view.addSubview(positionLabel)
     }
     
 }

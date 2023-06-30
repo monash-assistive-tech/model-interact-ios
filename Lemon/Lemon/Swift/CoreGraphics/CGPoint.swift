@@ -19,4 +19,8 @@ extension CGPoint {
         left.y -= right.y
     }
     
+    func toString() -> String {
+        return "(\(self.x.toString(decimalPlaces: 2)), \(self.y.toString(decimalPlaces: 2)))"
+    }
+    
 }
