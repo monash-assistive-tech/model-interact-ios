@@ -12,8 +12,9 @@ class LemonView: LemonUIView {
     
     public let view: UIView
     
-    init() {
+    override init() {
         self.view = UIView()
+        super.init()
     }
     
     init(_ view: UIView) {

@@ -1,31 +1,31 @@
 //
-//  LemonVStack.swift
+//  LemonHStack.swift
 //  Lemon
 //
-//  Created by Andre Pham on 14/6/2023.
+//  Created by Andre Pham on 30/6/2023.
 //
 
 import Foundation
 import UIKit
 
-class LemonVStack: LemonUIView {
+class LemonHStack: LemonUIView {
     
     private let stack = UIStackView()
     public var view: UIView {
         return self.stack
     }
-    private var verticalSpacer: UIView {
+    private var horizontalSpacer: UIView {
         let spacerView = UIView()
         spacerView.translatesAutoresizingMaskIntoConstraints = false
-        spacerView.setContentHuggingPriority(.defaultLow, for: .vertical)
-        spacerView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        spacerView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        spacerView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return spacerView
     }
     
     init(spacing: CGFloat = 16.0, padding: CGFloat = 16.0) {
         super.init()
         // Defaults
-        self.stack.axis = .vertical
+        self.stack.axis = .horizontal
         self.stack.alignment = .center
         self.stack.spacing = spacing
         self.stack.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +52,7 @@ class LemonVStack: LemonUIView {
     
     @discardableResult
     func addSpacer() -> Self {
-        self.stack.addArrangedSubview(self.verticalSpacer)
+        self.stack.addArrangedSubview(self.horizontalSpacer)
         return self
     }
     
@@ -64,8 +64,9 @@ class LemonVStack: LemonUIView {
     
     @discardableResult
     func insertSpacer(at index: Int) -> Self {
-        self.stack.insertArrangedSubview(self.verticalSpacer, at: index)
+        self.stack.insertArrangedSubview(self.horizontalSpacer, at: index)
         return self
     }
     
 }
+

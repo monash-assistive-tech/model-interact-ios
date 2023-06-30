@@ -63,8 +63,8 @@ class TagmataDetectionOutcome {
         }
     }
     
-    func merged(with other: TagmataDetectionOutcome) -> TagmataDetectionOutcome {
-        let new = TagmataDetectionOutcome(detectorID: DetectorID())
+    func merged(with other: TagmataDetectionOutcome, newID: DetectorID) -> TagmataDetectionOutcome {
+        let new = TagmataDetectionOutcome(detectorID: newID)
         self.tagmataDetections.forEach({ new.addDetection($0) })
         other.tagmataDetections.forEach({ new.addDetection($0) })
         new.merge()

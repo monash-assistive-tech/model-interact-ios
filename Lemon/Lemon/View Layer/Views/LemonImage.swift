@@ -18,7 +18,8 @@ class LemonImage: LemonUIView {
         return self.imageView.image?.size ?? CGSize()
     }
     
-    init() {
+    override init() {
+        super.init()
         self.imageView.contentMode = .scaleAspectFill
     }
     

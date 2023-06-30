@@ -19,7 +19,8 @@ class LemonButton: LemonUIView {
         return UIButton.Configuration.filled()
     }
     
-    init() {
+    override init() {
+        super.init()
         var config = UIButton.Configuration.filled()
         config.background.cornerRadius = 20
         config.contentInsets = NSDirectionalEdgeInsets(

@@ -18,6 +18,7 @@ class LemonText: LemonUIView {
     }
     
     init(text: String? = nil, font: UIFont? = UIFont.boldSystemFont(ofSize: 13.0)) {
+        super.init()
         self.setText(to: text)
         self.setFont(to: font)
     }
@@ -37,6 +38,12 @@ class LemonText: LemonUIView {
     @discardableResult
     func setSize(to size: CGFloat) -> Self {
         self.label.font = self.label.font.withSize(size)
+        return self
+    }
+    
+    @discardableResult
+    func setTextAlignment(to alignment: NSTextAlignment) -> Self {
+        self.label.textAlignment = alignment
         return self
     }
     

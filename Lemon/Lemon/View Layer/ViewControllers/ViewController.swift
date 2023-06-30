@@ -11,13 +11,11 @@ import Vision
 
 class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegate, LiveSpeechToTextDelegate {
     
-    private static let PREDICTION_INTERVAL = 1
-    
+    private var predictionInterval = 1
     private let captureSession = CaptureSession()
     private let synthesizer = SpeechSynthesizer()
     private let recognizer = SpeechRecognizer()
-//    private let tagmataDetector = TagmataDetector()
-    private let tagmataDetectorNew = TagmataQuadrantDetector()
+    private var tagmataDetector: DetectsTagmata = TagmataQuadrantDetector()
     private var currentFrameID = 0
     private var overlayFrameSyncRequired = true
     private var isRecordingAudio = false
@@ -25,12 +23,15 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
     private var root: LemonView { return LemonView(self.view) }
     private var image = LemonImage()
     private var predictionOverlay = PredictionBoxView()
-    private let stack = LemonVStack()
+    private let stack = LemonVStack(padding: 32)
     private let header = LemonText()
     private let speakButton = LemonButton()
     private let recordButton = LemonButton()
     private let flipButton = LemonButton()
     private let interruptButton = LemonButton()
+    private let toolbarStack = LemonVStack(padding: 0)
+    private let intervalSlider = LemonLabelledSlider()
+    private let detectorSwitch = LemonSwitch()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +61,7 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
             .addView(self.flipButton)
             .addView(self.interruptButton)
             .addSpacer()
+            .addView(self.toolbarStack)
         
         // Header
         self.header
@@ -80,6 +82,7 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
                 self.toggleAudioRecording()
             })
         
+        // Interrupt button
         self.interruptButton
             .setLabel(to: "Interrupt")
             .setOnTap({
@@ -92,6 +95,37 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
             .setLabel(to: "Flip Camera")
             .setOnTap({
                 self.flipCamera()
+            })
+        
+        // Toolbar Stack
+        self.toolbarStack
+            .setBackgroundColor(to: UIColor.white)
+            .setCornerRadius(to: 20)
+            .addView(self.intervalSlider)
+            .addView(self.detectorSwitch)
+        
+        // Interval slider
+        self.intervalSlider.labelText
+            .setText(to: "Interval")
+        self.intervalSlider.slider
+            .setValues(minimumValue: 1, maximumValue: 60, value: self.predictionInterval)
+            .setWidth(to: 120)
+            .setRoundToNearest(10)
+            .setOnDrag({ value in
+                self.predictionInterval = Int(value)
+            })
+        
+        // Detector switch
+        self.detectorSwitch
+            .expandHeightAnchor(to: 44)
+            .expandFrame(bottom: 100)
+            .setOnFlick({ isOn in
+                if isOn {
+                    self.tagmataDetector = TagmataDetector()
+                } else {
+                    self.tagmataDetector = TagmataQuadrantDetector()
+                }
+                self.setupObjectDetection()
             })
     }
     
@@ -141,7 +175,7 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
     }
     
     private func setupObjectDetection() {
-        self.tagmataDetectorNew.objectDetectionDelegate = self
+        self.tagmataDetector.objectDetectionDelegate = self
     }
     
     private func setupSpeechRecognition() {
@@ -174,9 +208,9 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
         if let frame {
             self.currentFrameID += 1
             
-            if self.currentFrameID%Self.PREDICTION_INTERVAL == 0 {
+            if self.currentFrameID%self.predictionInterval == 0 {
                 self.currentFrameID = 0
-                self.tagmataDetectorNew.makePrediction(on: frame)
+                self.tagmataDetector.makePrediction(on: frame)
             }
             
             self.setVideoImage(to: frame)

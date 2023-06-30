@@ -8,10 +8,11 @@
 import Foundation
 import CoreGraphics
 
-class TagmataQuadrantDetector: TagmataDetectionDelegate {
+class TagmataQuadrantDetector: DetectsTagmata, TagmataDetectionDelegate {
     
     private static let QUARTILE_PROPORTION = 0.6
     
+    public let id = DetectorID()
     private let tagmataDetectorFull = TagmataDetector()
     // Below follow the cartesian plane quadrants
     private let tagmataDetectorQ1 = TagmataDetector() // Top-right
@@ -102,56 +103,40 @@ class TagmataQuadrantDetector: TagmataDetectionDelegate {
     }
     
     func onFullDetection(_ outcome: TagmataDetectionOutcome) {
-        if let currentOutcome = self.outcome {
-            self.outcome = currentOutcome.merged(with: outcome)
-        } else {
-            self.outcome = outcome
-        }
-        self.quadrantProcessingCompletions += 1
+        self.completeOutcome(outcome)
     }
     
     func onQ1Detection(_ outcome: TagmataDetectionOutcome) {
         for detection in outcome.tagmataDetections {
             detection.resizeBoundingBox(minX: 0.4, minY: 0.4, maxX: 1.0, maxY: 1.0)
         }
-        if let currentOutcome = self.outcome {
-            self.outcome = currentOutcome.merged(with: outcome)
-        } else {
-            self.outcome = outcome
-        }
-        self.quadrantProcessingCompletions += 1
+        self.completeOutcome(outcome)
     }
     
     func onQ2Detection(_ outcome: TagmataDetectionOutcome) {
         for detection in outcome.tagmataDetections {
             detection.resizeBoundingBox(minX: 0.0, minY: 0.4, maxX: 0.6, maxY: 1.0)
         }
-        if let currentOutcome = self.outcome {
-            self.outcome = currentOutcome.merged(with: outcome)
-        } else {
-            self.outcome = outcome
-        }
-        self.quadrantProcessingCompletions += 1
+        self.completeOutcome(outcome)
     }
     
     func onQ3Detection(_ outcome: TagmataDetectionOutcome) {
         for detection in outcome.tagmataDetections {
             detection.resizeBoundingBox(minX: 0.0, minY: 0.0, maxX: 0.6, maxY: 0.6)
         }
-        if let currentOutcome = self.outcome {
-            self.outcome = currentOutcome.merged(with: outcome)
-        } else {
-            self.outcome = outcome
-        }
-        self.quadrantProcessingCompletions += 1
+        self.completeOutcome(outcome)
     }
     
     func onQ4Detection(_ outcome: TagmataDetectionOutcome) {
         for detection in outcome.tagmataDetections {
             detection.resizeBoundingBox(minX: 0.4, minY: 0.0, maxX: 1.0, maxY: 0.6)
         }
+        self.completeOutcome(outcome)
+    }
+    
+    private func completeOutcome(_ outcome: TagmataDetectionOutcome) {
         if let currentOutcome = self.outcome {
-            self.outcome = currentOutcome.merged(with: outcome)
+            self.outcome = currentOutcome.merged(with: outcome, newID: self.id)
         } else {
             self.outcome = outcome
         }

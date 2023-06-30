@@ -8,7 +8,7 @@
 import Foundation
 import Vision
 
-class TagmataDetector {
+class TagmataDetector: DetectsTagmata {
     
     public let id = DetectorID()
     private var request: VNCoreMLRequest? = nil
