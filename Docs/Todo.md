@@ -20,6 +20,19 @@ Math approach 2: crosses
 
 1. Develop some sort of algorithm that detects if all points are in some sort of approximate cross shape
 
+Math approach 3: triangles
+
+1. Does red-blue-yellow form a sorta right angled triangle?
+2. Does red-blue-purple form a sorta right angled triangle?
+3. etc
+4. If everything forms the correct triangle, it must be the insect
+
+Math approach 4: cross hair
+
+1. Create a cross hair using yellow-to-magenta and red-to-green
+2. How close to the centre (or slightly towards the yellow) is blue?
+3. If its pretty close, must be the insect
+
 Machine learning model approach:
 
 1. Take lots of pictures of the insect in full
