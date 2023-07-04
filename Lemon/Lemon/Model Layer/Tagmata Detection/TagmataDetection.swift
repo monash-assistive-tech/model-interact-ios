@@ -7,6 +7,7 @@
 
 import Foundation
 import Vision
+import UIKit
 
 class TagmataDetection {
     
@@ -37,6 +38,18 @@ class TagmataDetection {
         let reflection = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -1)
         let rect = self.boundingBox.applying(reflection).applying(scale)
         return rect
+    }
+    
+    func getDenormalisedBoundingBox(for view: UIView) -> CGRect {
+        return self.getDenormalisedBoundingBox(boundsWidth: view.bounds.width, boundsHeight: view.bounds.height)
+    }
+    
+    func getDenormalisedCenter(boundsWidth: Double, boundsHeight: Double) -> CGPoint {
+        return self.getDenormalisedBoundingBox(boundsWidth: boundsWidth, boundsHeight: boundsHeight).center
+    }
+    
+    func getDenormalisedCenter(for view: UIView) -> CGPoint {
+        return self.getDenormalisedBoundingBox(for: view).center
     }
     
     /// Resize the bounding box relative to new bounds.
