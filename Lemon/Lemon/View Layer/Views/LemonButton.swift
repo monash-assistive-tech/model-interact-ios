@@ -15,6 +15,9 @@ class LemonButton: LemonUIView {
     public var view: UIView {
         return self.button
     }
+    public var color: UIColor? {
+        return self.button.tintColor
+    }
     private var newConfig: UIButton.Configuration {
         return UIButton.Configuration.filled()
     }
@@ -55,6 +58,12 @@ class LemonButton: LemonUIView {
     @discardableResult
     func setOnTap(_ callback: (() -> Void)?) -> Self {
         self.onTap = callback
+        return self
+    }
+    
+    @discardableResult
+    func setColor(to color: UIColor) -> Self {
+        self.button.tintColor = color
         return self
     }
     

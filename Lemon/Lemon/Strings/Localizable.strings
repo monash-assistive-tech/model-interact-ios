@@ -1,0 +1,23 @@
+/* 
+  Localizable.strings
+  Lemon
+
+  Created by Andre Pham on 7/7/2023.
+  
+*/
+
+// Strings that take in parameters should be marked with an "XParam" suffix.
+// Example: "car.description1Param" = "The car has %@ wheels";
+// Numbers typically should be displayed using `YonderNumeral` and related, rather than be embedded into a string.
+
+// MARK: - Commands
+
+"command.name" = "name";
+"command.information" = "information";
+"command.pause" = "pause";
+"command.stop" = "stop";
+"command.repeat" = "repeat";
+"command.faster" = "faster";
+"command.slower" = "slower";
+"command.complete" = "complete";
+

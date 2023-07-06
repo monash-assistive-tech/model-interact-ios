@@ -11,12 +11,13 @@ import Vision
 
 class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegate, LiveSpeechToTextDelegate {
     
-    private var predictionInterval = 1
+    private var predictionInterval = 2
     private let captureSession = CaptureSession()
     private let synthesizer = SpeechSynthesizer()
     private let recognizer = SpeechRecognizer()
     private var tagmataDetector: DetectsTagmata = TagmataQuadrantDetector()
-    private var currentFrameID = 0
+    private let tagmataDetectionCompiler = TagmataDetectionCompiler()
+    @WrapsToZero(threshold: 600) private var currentFrameID = 0
     private var overlayFrameSyncRequired = true
     private var isRecordingAudio = false
     
@@ -119,7 +120,7 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
             .setPadding(right: 30)
         self.intervalSlider.slider
             .setValues(minimumValue: 1, maximumValue: 60, value: self.predictionInterval)
-            .setRoundToNearest(10)
+            .setRoundToNearest(1)
             .setOnDrag({ value in
                 self.predictionInterval = Int(value)
             })
@@ -218,20 +219,24 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
     
     func onCapture(session: CaptureSession, frame: CGImage?) {
         if let frame {
-            self.currentFrameID += 1
-            
             if self.currentFrameID%self.predictionInterval == 0 {
-                self.currentFrameID = 0
                 self.tagmataDetector.makePrediction(on: frame)
             }
             
             self.setVideoImage(to: frame)
+            
+            self.currentFrameID += 1
         }
     }
     
     func onTagmataDetection(outcome: TagmataDetectionOutcome?) {
         if let outcome {
             self.predictionOverlay.drawBoxes(for: outcome)
+            self.tagmataDetectionCompiler.addOutcome(outcome)
+        }
+        if self.tagmataDetectionCompiler.newResultsReady {
+            let results = self.tagmataDetectionCompiler.retrieveResults()
+            self.handleDetectionResults(results)
         }
     }
     
@@ -241,6 +246,13 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
             self.synthesizer.stopSpeaking()
             self.recognizer.resetTranscript()
         }
+    }
+    
+    func handleDetectionResults(_ results: [TagmataClassification]) {
+        print(results)
+//        if results.count == 1 {
+//            print("")
+//        }
     }
 
 }

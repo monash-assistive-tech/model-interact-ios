@@ -55,6 +55,9 @@
 		B6D461F32A4E74A00002CEEC /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D461F22A4E74A00002CEEC /* CGFloat.swift */; };
 		B6D461F62A4F163A0002CEEC /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D461F52A4F163A0002CEEC /* Environment.swift */; };
 		B6D461F82A4F18D60002CEEC /* LemonLabelledSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D461F72A4F18D60002CEEC /* LemonLabelledSwitch.swift */; };
+		B6D472482A5714EB0002CEEC /* WrapsToZero.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472472A5714EB0002CEEC /* WrapsToZero.swift */; };
+		B6D4724A2A5719A70002CEEC /* TagmataDetectionCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472492A5719A70002CEEC /* TagmataDetectionCompiler.swift */; };
+		B6D4724D2A5724E40002CEEC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B6D4724C2A5724E40002CEEC /* Localizable.strings */; };
 		B6FD174F2A416DBB003EDD5F /* TagmataClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */; };
 /* End PBXBuildFile section */
 
@@ -128,6 +131,9 @@
 		B6D461F22A4E74A00002CEEC /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
 		B6D461F52A4F163A0002CEEC /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		B6D461F72A4F18D60002CEEC /* LemonLabelledSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonLabelledSwitch.swift; sourceTree = "<group>"; };
+		B6D472472A5714EB0002CEEC /* WrapsToZero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapsToZero.swift; sourceTree = "<group>"; };
+		B6D472492A5719A70002CEEC /* TagmataDetectionCompiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataDetectionCompiler.swift; sourceTree = "<group>"; };
+		B6D4724C2A5724E40002CEEC /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataClassification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -179,6 +185,8 @@
 		B6C37E402A341CF5004D18A8 /* Lemon */ = {
 			isa = PBXGroup;
 			children = (
+				B6D4724B2A5724C30002CEEC /* Strings */,
+				B6D472462A5714BC0002CEEC /* Core */,
 				B6C37E7D2A3525B5004D18A8 /* Swift */,
 				B6C37E732A35164B004D18A8 /* App */,
 				B6C37E712A351630004D18A8 /* Model Layer */,
@@ -351,6 +359,7 @@
 				B6D461E02A4D63330002CEEC /* TagmataQuadrantDetector.swift */,
 				B6D461E22A4D63FA0002CEEC /* DetectorID.swift */,
 				B6D461F02A4E6EBF0002CEEC /* DetectsTagmata.swift */,
+				B6D472492A5719A70002CEEC /* TagmataDetectionCompiler.swift */,
 			);
 			path = "Tagmata Detection";
 			sourceTree = "<group>";
@@ -389,6 +398,22 @@
 				B6D461F52A4F163A0002CEEC /* Environment.swift */,
 			);
 			path = Environment;
+			sourceTree = "<group>";
+		};
+		B6D472462A5714BC0002CEEC /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				B6D472472A5714EB0002CEEC /* WrapsToZero.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		B6D4724B2A5724C30002CEEC /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				B6D4724C2A5724E40002CEEC /* Localizable.strings */,
+			);
+			path = Strings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -496,6 +521,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6C37E4E2A341CF6004D18A8 /* LaunchScreen.storyboard in Resources */,
+				B6D4724D2A5724E40002CEEC /* Localizable.strings in Resources */,
 				B6C37E4B2A341CF6004D18A8 /* Assets.xcassets in Resources */,
 				B6C37E492A341CF5004D18A8 /* Main.storyboard in Resources */,
 			);
@@ -534,6 +560,7 @@
 				B6D461F32A4E74A00002CEEC /* CGFloat.swift in Sources */,
 				B6C37ED42A396D9A004D18A8 /* CGRect.swift in Sources */,
 				B6C37E7C2A3524D8004D18A8 /* SpeechRecognizer.swift in Sources */,
+				B6D4724A2A5719A70002CEEC /* TagmataDetectionCompiler.swift in Sources */,
 				B6D461EB2A4DDC760002CEEC /* LemonHStack.swift in Sources */,
 				B6C37E822A3525F4004D18A8 /* AVAudioSession.swift in Sources */,
 				B6C37ED12A396B71004D18A8 /* CaptureDelegate.swift in Sources */,
@@ -558,6 +585,7 @@
 				B6FD174F2A416DBB003EDD5F /* TagmataClassification.swift in Sources */,
 				B6C37EDF2A397C9C004D18A8 /* TagmataDetectionDelegate.swift in Sources */,
 				B6C37E442A341CF5004D18A8 /* SceneDelegate.swift in Sources */,
+				B6D472482A5714EB0002CEEC /* WrapsToZero.swift in Sources */,
 				B6C37EED2A39AF22004D18A8 /* LemonText.swift in Sources */,
 				B6C37ECF2A396B56004D18A8 /* CaptureSession.swift in Sources */,
 				B6D461E92A4DDA550002CEEC /* LemonLabelledSlider.swift in Sources */,
