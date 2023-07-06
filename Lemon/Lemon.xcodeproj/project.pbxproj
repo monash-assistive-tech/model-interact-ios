@@ -58,6 +58,12 @@
 		B6D472482A5714EB0002CEEC /* WrapsToZero.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472472A5714EB0002CEEC /* WrapsToZero.swift */; };
 		B6D4724A2A5719A70002CEEC /* TagmataDetectionCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472492A5719A70002CEEC /* TagmataDetectionCompiler.swift */; };
 		B6D4724D2A5724E40002CEEC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B6D4724C2A5724E40002CEEC /* Localizable.strings */; };
+		B6D472502A5747780002CEEC /* HandDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4724F2A5747780002CEEC /* HandDetector.swift */; };
+		B6D472522A57485D0002CEEC /* JointPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472512A57485D0002CEEC /* JointPosition.swift */; };
+		B6D472542A5748710002CEEC /* HandDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472532A5748710002CEEC /* HandDetection.swift */; };
+		B6D472562A57489A0002CEEC /* HandDetectionOutcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472552A57489A0002CEEC /* HandDetectionOutcome.swift */; };
+		B6D472582A574A800002CEEC /* HandDetectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472572A574A800002CEEC /* HandDetectionDelegate.swift */; };
+		B6D4725A2A574BF30002CEEC /* JointPositionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472592A574BF30002CEEC /* JointPositionsView.swift */; };
 		B6FD174F2A416DBB003EDD5F /* TagmataClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */; };
 /* End PBXBuildFile section */
 
@@ -134,6 +140,12 @@
 		B6D472472A5714EB0002CEEC /* WrapsToZero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapsToZero.swift; sourceTree = "<group>"; };
 		B6D472492A5719A70002CEEC /* TagmataDetectionCompiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataDetectionCompiler.swift; sourceTree = "<group>"; };
 		B6D4724C2A5724E40002CEEC /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		B6D4724F2A5747780002CEEC /* HandDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandDetector.swift; sourceTree = "<group>"; };
+		B6D472512A57485D0002CEEC /* JointPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JointPosition.swift; sourceTree = "<group>"; };
+		B6D472532A5748710002CEEC /* HandDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandDetection.swift; sourceTree = "<group>"; };
+		B6D472552A57489A0002CEEC /* HandDetectionOutcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandDetectionOutcome.swift; sourceTree = "<group>"; };
+		B6D472572A574A800002CEEC /* HandDetectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandDetectionDelegate.swift; sourceTree = "<group>"; };
+		B6D472592A574BF30002CEEC /* JointPositionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JointPositionsView.swift; sourceTree = "<group>"; };
 		B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataClassification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -215,6 +227,7 @@
 		B6C37E712A351630004D18A8 /* Model Layer */ = {
 			isa = PBXGroup;
 			children = (
+				B6D4724E2A57475E0002CEEC /* Hand Detection */,
 				B6C37ED52A397366004D18A8 /* Tagmata Detection */,
 				B6C37ECD2A396B4D004D18A8 /* Video */,
 				B6C37E842A353847004D18A8 /* Session */,
@@ -388,6 +401,7 @@
 				B6D461EC2A4DE0910002CEEC /* LemonViewObserver.swift */,
 				B6D461EE2A4DF11E0002CEEC /* LemonSwitch.swift */,
 				B6D461F72A4F18D60002CEEC /* LemonLabelledSwitch.swift */,
+				B6D472592A574BF30002CEEC /* JointPositionsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -414,6 +428,18 @@
 				B6D4724C2A5724E40002CEEC /* Localizable.strings */,
 			);
 			path = Strings;
+			sourceTree = "<group>";
+		};
+		B6D4724E2A57475E0002CEEC /* Hand Detection */ = {
+			isa = PBXGroup;
+			children = (
+				B6D4724F2A5747780002CEEC /* HandDetector.swift */,
+				B6D472512A57485D0002CEEC /* JointPosition.swift */,
+				B6D472532A5748710002CEEC /* HandDetection.swift */,
+				B6D472552A57489A0002CEEC /* HandDetectionOutcome.swift */,
+				B6D472572A574A800002CEEC /* HandDetectionDelegate.swift */,
+			);
+			path = "Hand Detection";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -551,9 +577,11 @@
 				B6D461ED2A4DE0910002CEEC /* LemonViewObserver.swift in Sources */,
 				B6C37ED72A3973A2004D18A8 /* TagmataDetector.swift in Sources */,
 				B6D461F12A4E6EBF0002CEEC /* DetectsTagmata.swift in Sources */,
+				B6D472522A57485D0002CEEC /* JointPosition.swift in Sources */,
 				B6D461CD2A4539C00002CEEC /* SpeechText.swift in Sources */,
 				B6C37E802A3525DF004D18A8 /* SFSpeechRecognizer.swift in Sources */,
 				B6D461F82A4F18D60002CEEC /* LemonLabelledSwitch.swift in Sources */,
+				B6D472502A5747780002CEEC /* HandDetector.swift in Sources */,
 				B6C37EF12A39B308004D18A8 /* LemonUIView.swift in Sources */,
 				B6C37EF52A39BAB3004D18A8 /* LemonView.swift in Sources */,
 				B6D461E32A4D63FA0002CEEC /* DetectorID.swift in Sources */,
@@ -562,6 +590,7 @@
 				B6C37E7C2A3524D8004D18A8 /* SpeechRecognizer.swift in Sources */,
 				B6D4724A2A5719A70002CEEC /* TagmataDetectionCompiler.swift in Sources */,
 				B6D461EB2A4DDC760002CEEC /* LemonHStack.swift in Sources */,
+				B6D472562A57489A0002CEEC /* HandDetectionOutcome.swift in Sources */,
 				B6C37E822A3525F4004D18A8 /* AVAudioSession.swift in Sources */,
 				B6C37ED12A396B71004D18A8 /* CaptureDelegate.swift in Sources */,
 				B6C37EE32A399D7E004D18A8 /* TagmataDetection.swift in Sources */,
@@ -572,7 +601,9 @@
 				B6C37EF32A39B5BF004D18A8 /* LemonImage.swift in Sources */,
 				B6C37EDD2A397950004D18A8 /* PredictionBoxView.swift in Sources */,
 				B6C37EE52A399EE1004D18A8 /* Math.swift in Sources */,
+				B6D4725A2A574BF30002CEEC /* JointPositionsView.swift in Sources */,
 				B6D461E72A4DD14D0002CEEC /* LemonSlider.swift in Sources */,
+				B6D472542A5748710002CEEC /* HandDetection.swift in Sources */,
 				B6D461E12A4D63330002CEEC /* TagmataQuadrantDetector.swift in Sources */,
 				B6D461CB2A4538CF0002CEEC /* LiveSpeechToTextDelegate.swift in Sources */,
 				B6C37EEF2A39B137004D18A8 /* LemonVStack.swift in Sources */,
@@ -587,6 +618,7 @@
 				B6C37E442A341CF5004D18A8 /* SceneDelegate.swift in Sources */,
 				B6D472482A5714EB0002CEEC /* WrapsToZero.swift in Sources */,
 				B6C37EED2A39AF22004D18A8 /* LemonText.swift in Sources */,
+				B6D472582A574A800002CEEC /* HandDetectionDelegate.swift in Sources */,
 				B6C37ECF2A396B56004D18A8 /* CaptureSession.swift in Sources */,
 				B6D461E92A4DDA550002CEEC /* LemonLabelledSlider.swift in Sources */,
 				B6D461DB2A4D2AC40002CEEC /* TagmataDetectionOutcome.swift in Sources */,

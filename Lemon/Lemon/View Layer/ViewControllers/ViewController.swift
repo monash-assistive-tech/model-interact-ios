@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import Vision
 
-class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegate, LiveSpeechToTextDelegate {
+class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, TagmataDetectionDelegate, LiveSpeechToTextDelegate {
     
     private var predictionInterval = 2
     private let captureSession = CaptureSession()
@@ -17,6 +17,7 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
     private let recognizer = SpeechRecognizer()
     private var tagmataDetector: DetectsTagmata = TagmataQuadrantDetector()
     private let tagmataDetectionCompiler = TagmataDetectionCompiler()
+    private let handDetector = HandDetector()
     @WrapsToZero(threshold: 600) private var currentFrameID = 0
     private var overlayFrameSyncRequired = true
     private var isRecordingAudio = false
@@ -24,6 +25,7 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
     private var root: LemonView { return LemonView(self.view) }
     private var image = LemonImage()
     private var predictionOverlay = PredictionBoxView()
+    private var jointPositionsOverlay = JointPositionsView()
     private let stack = LemonVStack()
     private let header = LemonText()
     private let speakButton = LemonButton()
@@ -38,6 +40,7 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
         super.viewDidLoad()
         self.setupSubviews()
         self.setupObjectDetection()
+        self.setupHandDetection()
         self.setupSpeechRecognition()
         self.setupAndBeginCapturingVideoFrames()
         // Stop the device automatically sleeping
@@ -49,8 +52,11 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
         self.root.addSubview(self.image)
         self.image.setFrame(to: self.root.frame)
         
-        // Prediction Overlay
+        // Prediction overlay
         self.image.addSubview(self.predictionOverlay)
+        
+        // Hand positions overlay
+        self.image.addSubview(self.jointPositionsOverlay)
         
         // Stack
         self.root.addSubview(self.stack)
@@ -173,6 +179,7 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
         overlayFrame.origin.x += self.image.frame.center.x - overlayFrame.center.x
         overlayFrame.origin.y += self.image.frame.center.y - overlayFrame.center.y
         self.predictionOverlay.setFrame(to: overlayFrame)
+        self.jointPositionsOverlay.setFrame(to: overlayFrame)
     }
     
     private func setupAndBeginCapturingVideoFrames() {
@@ -189,6 +196,10 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
     
     private func setupObjectDetection() {
         self.tagmataDetector.objectDetectionDelegate = self
+    }
+    
+    private func setupHandDetection() {
+        self.handDetector.handDetectionDelegate = self
     }
     
     private func setupSpeechRecognition() {
@@ -221,6 +232,7 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
         if let frame {
             if self.currentFrameID%self.predictionInterval == 0 {
                 self.tagmataDetector.makePrediction(on: frame)
+                self.handDetector.makePrediction(on: frame)
             }
             
             self.setVideoImage(to: frame)
@@ -237,6 +249,12 @@ class ViewController: UIViewController, CaptureDelegate, TagmataDetectionDelegat
         if self.tagmataDetectionCompiler.newResultsReady {
             let results = self.tagmataDetectionCompiler.retrieveResults()
             self.handleDetectionResults(results)
+        }
+    }
+    
+    func onHandDetection(outcome: HandDetectionOutcome?) {
+        if let outcome {
+            self.jointPositionsOverlay.drawJointPositions(for: outcome)
         }
     }
     
