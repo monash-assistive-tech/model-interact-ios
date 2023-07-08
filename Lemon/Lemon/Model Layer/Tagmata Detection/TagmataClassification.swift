@@ -17,6 +17,26 @@ enum TagmataClassification: String, CaseIterable {
     case leftWing = "wing-red"
     case rightWing = "wing-green"
     
+    public var name: String {
+        switch self {
+        case .head: return Strings("tagma.head").local
+        case .thorax: return Strings("tagma.thorax").local
+        case .abdomen: return Strings("tagma.abdomen").local
+        case .leftWing: return Strings("tagma.leftWing").local
+        case .rightWing: return Strings("tamga.rightWing").local
+        }
+    }
+    
+    public var description: String {
+        switch self {
+        case .head: return Strings("description.head").local
+        case .thorax: return Strings("description.thorax").local
+        case .abdomen: return Strings("description.abdomen").local
+        case .leftWing: return Strings("description.wings").local
+        case .rightWing: return Strings("description.wings").local
+        }
+    }
+    
     public var colorDescription: String {
         switch self {
         case .head: return "Yellow"

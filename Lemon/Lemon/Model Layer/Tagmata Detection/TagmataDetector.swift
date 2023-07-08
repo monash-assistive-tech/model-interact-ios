@@ -11,11 +11,12 @@ import Vision
 class TagmataDetector: DetectsTagmata {
     
     public let id = DetectorID()
+    private var visionModel: VNCoreMLModel? = nil
     private var request: VNCoreMLRequest? = nil
     public weak var objectDetectionDelegate: TagmataDetectionDelegate?
     
     init() {
-        self.setupRequest()
+        self.setupModel()
     }
     
     func makePrediction(on frame: CGImage) {
@@ -27,32 +28,45 @@ class TagmataDetector: DetectsTagmata {
     
     private func process(frame: CGImage) {
         assert(!Thread.isMainThread, "Predictions should be made off the main thread")
-        guard let request = self.request else {
-            // If the request previously failed to setup, try to set it up again and discard this frame
-            self.setupRequest()
+        guard let request = self.createRequest() else {
             self.delegateOutcome(nil)
             return
         }
+        
         let handler = VNImageRequestHandler(cgImage: frame)
-        try? handler.perform([request])
-    }
-    
-    private func setupRequest() {
-        if let model: MLModel = try? TagmataDetector4_6000(configuration: MLModelConfiguration()).model,
-           let visionModel = try? VNCoreMLModel(for: model) {
-            self.request = VNCoreMLRequest(model: visionModel, completionHandler: self.visionRequestDidComplete)
-            self.request?.imageCropAndScaleOption = .scaleFit
+        do {
+            try handler.perform([request])
+        } catch {
+            assertionFailure("Handler failed with error: \(error)")
         }
-    }
-    
-    private func visionRequestDidComplete(request: VNRequest, error: Error?) {
+        
         if let predictions = request.results as? [VNRecognizedObjectObservation] {
-            let detection = TagmataDetectionOutcome(detectorID: self.id, detections: predictions.map({ TagmataDetection(observation: $0) }))
+            let detection = TagmataDetectionOutcome(
+                detectorID: self.id,
+                frame: frame,
+                detections: predictions.map({ TagmataDetection(observation: $0) })
+            )
             detection.merge()
             self.delegateOutcome(detection)
         } else {
             self.delegateOutcome(nil)
         }
+    }
+    
+    private func setupModel() {
+        if let model = try? TagmataDetector5_5000(configuration: MLModelConfiguration()).model {
+            self.visionModel = try? VNCoreMLModel(for: model)
+        }
+    }
+    
+    private func createRequest() -> VNCoreMLRequest? {
+        guard let visionModel else {
+            self.setupModel()
+            return nil
+        }
+        let request = VNCoreMLRequest(model: visionModel)
+        request.imageCropAndScaleOption = .scaleFit
+        return request
     }
     
     private func delegateOutcome(_ outcome: TagmataDetectionOutcome?) {

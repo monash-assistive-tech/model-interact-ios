@@ -18,6 +18,7 @@ class AudioSessionManager {
     private init() { }
     
     func setup() {
+//        self.setToPlaybackMode()
         self.setToSpeakerMode()
     }
     

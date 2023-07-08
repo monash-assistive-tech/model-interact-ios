@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import CoreGraphics
 
 class TagmataDetectionOutcome {
     
     public let detectorID: DetectorID
+    public let frame: CGImage
     private var tagmataDetectionStore = [TagmataClassification: [TagmataDetection]]()
     /// Keep track of weights so if a merge occurs twice the confidences don't become skewed towards latest additions
     private var classificationWeights = [TagmataClassification: Int]()
@@ -21,16 +23,17 @@ class TagmataDetectionOutcome {
         return result
     }
     
-    init(detectorID: DetectorID) {
+    init(detectorID: DetectorID, frame: CGImage) {
         self.detectorID = detectorID
+        self.frame = frame
         for classification in TagmataClassification.allCases {
             self.tagmataDetectionStore[classification] = [TagmataDetection]()
             self.classificationWeights[classification] = 0
         }
     }
     
-    convenience init(detectorID: DetectorID, detections: [TagmataDetection]) {
-        self.init(detectorID: detectorID)
+    convenience init(detectorID: DetectorID, frame: CGImage, detections: [TagmataDetection]) {
+        self.init(detectorID: detectorID, frame: frame)
         for detection in detections {
             self.addDetection(detection)
         }
@@ -63,8 +66,8 @@ class TagmataDetectionOutcome {
         }
     }
     
-    func merged(with other: TagmataDetectionOutcome, newID: DetectorID) -> TagmataDetectionOutcome {
-        let new = TagmataDetectionOutcome(detectorID: newID)
+    func merged(with other: TagmataDetectionOutcome, newID: DetectorID, frame: CGImage) -> TagmataDetectionOutcome {
+        let new = TagmataDetectionOutcome(detectorID: newID, frame: frame)
         self.tagmataDetections.forEach({ new.addDetection($0) })
         other.tagmataDetections.forEach({ new.addDetection($0) })
         new.merge()

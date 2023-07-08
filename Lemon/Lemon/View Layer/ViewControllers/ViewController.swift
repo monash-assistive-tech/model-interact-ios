@@ -16,8 +16,9 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private let synthesizer = SpeechSynthesizer()
     private let recognizer = SpeechRecognizer()
     private var tagmataDetector: DetectsTagmata = TagmataQuadrantDetector()
-    private let tagmataDetectionCompiler = TagmataDetectionCompiler()
+    private let detectionCompiler = DetectionCompiler()
     private let handDetector = HandDetector()
+    private var activeHandDetection = HandDetectionOutcome()
     @WrapsToZero(threshold: 600) private var currentFrameID = 0
     private var overlayFrameSyncRequired = true
     private var isRecordingAudio = false
@@ -26,6 +27,8 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private var image = LemonImage()
     private var predictionOverlay = PredictionBoxView()
     private var jointPositionsOverlay = JointPositionsView()
+    private var proximityOverlay = ProximityView()
+    private var anglesOverlay = AnglesView()
     private let stack = LemonVStack()
     private let header = LemonText()
     private let speakButton = LemonButton()
@@ -35,6 +38,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private let toolbarStack = LemonVStack()
     private let intervalSlider = LemonLabelledSlider()
     private let detectorSwitch = LemonLabelledSwitch()
+    private let heldButton = LemonButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +46,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         self.setupObjectDetection()
         self.setupHandDetection()
         self.setupSpeechRecognition()
+        self.setupSpeechSynthesizer()
         self.setupAndBeginCapturingVideoFrames()
         // Stop the device automatically sleeping
         UIApplication.shared.isIdleTimerDisabled = true
@@ -52,11 +57,11 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         self.root.addSubview(self.image)
         self.image.setFrame(to: self.root.frame)
         
-        // Prediction overlay
+        // Overlays
         self.image.addSubview(self.predictionOverlay)
-        
-        // Hand positions overlay
+        self.image.addSubview(self.anglesOverlay)
         self.image.addSubview(self.jointPositionsOverlay)
+        self.image.addSubview(self.proximityOverlay)
         
         // Stack
         self.root.addSubview(self.stack)
@@ -70,6 +75,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             .addView(self.recordButton)
             .addView(self.flipButton)
             .addView(self.interruptButton)
+            .addView(self.heldButton)
             .addSpacer()
             .addView(self.toolbarStack)
         
@@ -180,6 +186,8 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         overlayFrame.origin.y += self.image.frame.center.y - overlayFrame.center.y
         self.predictionOverlay.setFrame(to: overlayFrame)
         self.jointPositionsOverlay.setFrame(to: overlayFrame)
+        self.proximityOverlay.setFrame(to: overlayFrame)
+        self.anglesOverlay.setFrame(to: overlayFrame)
     }
     
     private func setupAndBeginCapturingVideoFrames() {
@@ -206,6 +214,12 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         self.recognizer.liveSpeechToTextDelegate = self
     }
     
+    private func setupSpeechSynthesizer() {
+        self.synthesizer.didFinishDelegate = {
+//            self.recognizer.startTranscribing() // FLIP
+        }
+    }
+    
     private func toggleAudioRecording() {
         self.isRecordingAudio.toggle()
         if self.isRecordingAudio {
@@ -230,9 +244,9 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     
     func onCapture(session: CaptureSession, frame: CGImage?) {
         if let frame {
+            self.handDetector.makePrediction(on: frame)
             if self.currentFrameID%self.predictionInterval == 0 {
                 self.tagmataDetector.makePrediction(on: frame)
-                self.handDetector.makePrediction(on: frame)
             }
             
             self.setVideoImage(to: frame)
@@ -244,10 +258,12 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     func onTagmataDetection(outcome: TagmataDetectionOutcome?) {
         if let outcome {
             self.predictionOverlay.drawBoxes(for: outcome)
-            self.tagmataDetectionCompiler.addOutcome(outcome)
+            self.proximityOverlay.drawProximityJoints(tagmataDetectionOutcome: outcome, handDetectionOutcome: self.activeHandDetection)
+            self.anglesOverlay.drawOverlay(for: outcome)
+            self.detectionCompiler.addOutcome(outcome, handOutcome: self.activeHandDetection)
         }
-        if self.tagmataDetectionCompiler.newResultsReady {
-            let results = self.tagmataDetectionCompiler.retrieveResults()
+        if self.detectionCompiler.newResultsReady {
+            let results = self.detectionCompiler.retrieveResults()
             self.handleDetectionResults(results)
         }
     }
@@ -256,21 +272,46 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         if let outcome {
             self.jointPositionsOverlay.drawJointPositions(for: outcome)
         }
+        self.activeHandDetection = outcome ?? HandDetectionOutcome()
     }
     
     func onWordRecognition(currentTranscription: SpeechText) {
-        print(currentTranscription.words)
-        if currentTranscription.contains("STOP") {
-            self.synthesizer.stopSpeaking()
+        if currentTranscription.contains("name") {
+            self.loadedCommand = "name"
+//            self.recognizer.stopTranscribing() // FLIP
+            self.recognizer.resetTranscript()
+        } else if currentTranscription.contains("information") {
+            self.loadedCommand = "information"
+//            self.recognizer.stopTranscribing() // FLIP
             self.recognizer.resetTranscript()
         }
+//        if currentTranscription.contains("STOP") {
+//            self.synthesizer.stopSpeaking()
+//            self.recognizer.resetTranscript()
+//        }
     }
     
-    func handleDetectionResults(_ results: [TagmataClassification]) {
-        print(results)
-//        if results.count == 1 {
-//            print("")
-//        }
+    private var loadedCommand = ""
+    
+    func handleDetectionResults(_ results: CompiledResults) {
+        if let tagmata = results.heldTagmata.first {
+            self.heldButton
+                .setColor(to: tagmata.color)
+                .setLabel(to: tagmata.rawValue)
+            
+            if self.loadedCommand == "name" {
+                self.loadedCommand = ""
+                self.synthesizer.speak(tagmata.name)
+            } else if self.loadedCommand == "information" {
+                self.loadedCommand = ""
+                self.synthesizer.speak(tagmata.description)
+            }
+            
+        } else {
+            self.heldButton
+                .setColor(to: .black)
+                .setLabel(to: "")
+        }
     }
 
 }

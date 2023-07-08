@@ -19,6 +19,12 @@ extension CGPoint {
         left.y -= right.y
     }
     
+    func length(to point: CGPoint) -> CGFloat {
+        let dx = self.x - point.x
+        let dy = self.y - point.y
+        return sqrt(dx * dx + dy * dy)
+    }
+    
     func toString() -> String {
         return "(\(self.x.toString(decimalPlaces: 2)), \(self.y.toString(decimalPlaces: 2)))"
     }

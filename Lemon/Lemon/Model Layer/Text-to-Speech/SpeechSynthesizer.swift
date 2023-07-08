@@ -17,12 +17,17 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
     }
     
     private let synthesiser = AVSpeechSynthesizer()
-    private var rate: Float = 0.55
+    private var rate: Float = 0.50
     private var pitchMultiplier: Float = 0.9
     private var postUtteranceDelay: TimeInterval = 0.0
     private var volume: Float = 1.0 // [0.0, 1.0]
     private var voice: AVSpeechSynthesisVoice
     private var lastSpoken: String? = nil
+    public var didFinishDelegate: (() -> Void)? = nil
+    public var didStartDelegate: (() -> Void)? = nil
+    public var didPauseDelegate: (() -> Void)? = nil
+    public var didCancelDelegate: (() -> Void)? = nil
+    public var didContinueDelegate: (() -> Void)? = nil
     
     override init() {
         self.voice = AVSpeechSynthesisVoice(language: Accent.american.rawValue)!
@@ -61,15 +66,27 @@ extension SpeechSynthesizer {
     
     // MARK: - AVSpeechSynthesizerDelegate
     
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) { }
+    // TODO: Add function headers and add delegate for last method and make private
     
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) { }
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        self.didFinishDelegate?()
+    }
     
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) { }
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        self.didStartDelegate?()
+    }
     
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) { }
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) {
+        self.didPauseDelegate?()
+    }
     
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance) { }
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+        self.didCancelDelegate?()
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance) {
+        self.didContinueDelegate?()
+    }
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) { }
     

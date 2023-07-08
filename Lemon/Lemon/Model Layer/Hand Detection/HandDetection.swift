@@ -70,6 +70,11 @@ class HandDetection {
         return [self.wrist] + self.thumbPositions + self.indexPositions + self.middlePositions + self.ringPositions + self.littlePositions
     }
     
+    /// All the joints that are expected to be in high proximity to something being held
+    var holdingPositions: [JointPosition] {
+        return [self.thumbTip, self.indexTip, self.middleTip, self.ringTip, self.indexMCP, self.middleMCP, self.ringMCP]
+    }
+    
     func retrievePosition(from joint: VNHumanHandPoseObservation.JointName) -> JointPosition {
         switch joint {
         case .wrist: return self.wrist
