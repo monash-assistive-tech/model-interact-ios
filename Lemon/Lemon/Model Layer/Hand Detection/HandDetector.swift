@@ -11,7 +11,20 @@ import Vision
 
 class HandDetector {
     
+    private typealias HandDetectorModel = HandDetector2_70
+    
+    private var model: HandDetectorModel? = nil
     public weak var handDetectionDelegate: HandDetectionDelegate?
+    
+    init() {
+        self.setupModel()
+    }
+    
+    private func setupModel() {
+        DispatchQueue.global(qos: .userInitiated).async { [self] in
+            self.model = try? HandDetectorModel(configuration: MLModelConfiguration())
+        }
+    }
     
     func makePrediction(on frame: CGImage) {
         // Run on non-UI related background thread
@@ -49,6 +62,13 @@ class HandDetector {
     func getHandDetection(from observation: VNHumanHandPoseObservation) -> HandDetection {
         assert(!Thread.isMainThread, "Recognition should be made off the main thread")
         let handDetection = HandDetection()
+        // 1. Chirality
+        handDetection.setChirality(to: observation.chirality)
+        // 2. Classification
+        if let classification = self.getHandClassification(handPose: observation) {
+            handDetection.setHandClassification(to: classification)
+        }
+        // 3. Joint positions
         guard let recognisedPoints = try? observation.recognizedPoints(.all) else {
             return handDetection
         }
@@ -58,6 +78,21 @@ class HandDetector {
             jointPosition.confidence = point.value.confidence.magnitude
         }
         return handDetection
+    }
+    
+    func getHandClassification(handPose: VNHumanHandPoseObservation) -> HandClassification? {
+        guard let keyPointsMultiArray = try? handPose.keypointsMultiArray() else {
+            return nil
+        }
+        guard let model = self.model else {
+            self.setupModel()
+            return nil
+        }
+        let prediction = try? model.prediction(poses: keyPointsMultiArray)
+        if let label = prediction?.label, let confidence = prediction?.labelProbabilities[label] {
+            return HandClassification(label: label, confidence: confidence)
+        }
+        return nil
     }
     
     private func delegateOutcome(_ outcome: HandDetectionOutcome) {

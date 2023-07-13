@@ -53,7 +53,7 @@ class ProximityView: LemonUIView {
         }
     }
     
-    func drawLine(_ point1: CGPoint, _ point2: CGPoint) {
+    private func drawLine(_ point1: CGPoint, _ point2: CGPoint) {
         let linePath = UIBezierPath()
         linePath.move(to: point1)
         linePath.addLine(to: point2)

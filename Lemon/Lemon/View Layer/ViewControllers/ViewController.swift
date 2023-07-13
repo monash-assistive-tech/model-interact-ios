@@ -29,6 +29,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private var jointPositionsOverlay = JointPositionsView()
     private var proximityOverlay = ProximityView()
     private var anglesOverlay = AnglesView()
+    private var handClassificationOverlay = HandClassificationView()
     private let stack = LemonVStack()
     private let buttonRowStack = LemonHStack()
     private let optionsStack = LemonVStack()
@@ -42,6 +43,15 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private let jointsOverlaySwitch = LemonLabelledSwitch()
     private let predictionOverlaySwitch = LemonLabelledSwitch()
     private let proximityOverlaySwitch = LemonLabelledSwitch()
+    private var overlays: [LemonUIView] {
+        return [
+            self.predictionOverlay,
+            self.jointPositionsOverlay,
+            self.proximityOverlay,
+            self.anglesOverlay,
+            self.handClassificationOverlay,
+        ]
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,10 +71,9 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         self.image.setFrame(to: self.root.frame)
         
         // Overlays
-        self.image.addSubview(self.predictionOverlay)
-        self.image.addSubview(self.anglesOverlay)
-        self.image.addSubview(self.jointPositionsOverlay)
-        self.image.addSubview(self.proximityOverlay)
+        for overlay in self.overlays {
+            self.image.addSubview(overlay)
+        }
         
         // Stack
         self.root.addSubview(self.stack)
@@ -236,10 +245,9 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         // Align overlay frame center to view center
         overlayFrame.origin.x += self.image.frame.center.x - overlayFrame.center.x
         overlayFrame.origin.y += self.image.frame.center.y - overlayFrame.center.y
-        self.predictionOverlay.setFrame(to: overlayFrame)
-        self.jointPositionsOverlay.setFrame(to: overlayFrame)
-        self.proximityOverlay.setFrame(to: overlayFrame)
-        self.anglesOverlay.setFrame(to: overlayFrame)
+        for overlay in self.overlays {
+            overlay.setFrame(to: overlayFrame)
+        }
     }
     
     private func setupAndBeginCapturingVideoFrames() {
@@ -323,6 +331,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     func onHandDetection(outcome: HandDetectionOutcome?) {
         if let outcome {
             self.jointPositionsOverlay.drawJointPositions(for: outcome)
+            self.handClassificationOverlay.drawHandClassification(for: outcome)
         }
         self.activeHandDetection = outcome ?? HandDetectionOutcome()
     }

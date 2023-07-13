@@ -71,6 +71,10 @@
 		B6D4726F2A5962770002CEEC /* CompiledResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4726E2A5962770002CEEC /* CompiledResults.swift */; };
 		B6D472712A597D1C0002CEEC /* AnglesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472702A597D1C0002CEEC /* AnglesView.swift */; };
 		B6D472752A5FA6C30002CEEC /* LemonIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472742A5FA6C30002CEEC /* LemonIconButton.swift */; };
+		B6D472772A5FCDB20002CEEC /* HandDetector2_70.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B6D472762A5FCDB20002CEEC /* HandDetector2_70.mlmodel */; };
+		B6D472792A608CA10002CEEC /* HandChirality.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472782A608CA10002CEEC /* HandChirality.swift */; };
+		B6D4727B2A608EA60002CEEC /* HandClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4727A2A608EA60002CEEC /* HandClassification.swift */; };
+		B6D472802A60A3BA0002CEEC /* HandClassificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4727F2A60A3BA0002CEEC /* HandClassificationView.swift */; };
 		B6FD174F2A416DBB003EDD5F /* TagmataClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */; };
 /* End PBXBuildFile section */
 
@@ -160,6 +164,10 @@
 		B6D4726E2A5962770002CEEC /* CompiledResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompiledResults.swift; sourceTree = "<group>"; };
 		B6D472702A597D1C0002CEEC /* AnglesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnglesView.swift; sourceTree = "<group>"; };
 		B6D472742A5FA6C30002CEEC /* LemonIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonIconButton.swift; sourceTree = "<group>"; };
+		B6D472762A5FCDB20002CEEC /* HandDetector2_70.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = HandDetector2_70.mlmodel; sourceTree = "<group>"; };
+		B6D472782A608CA10002CEEC /* HandChirality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandChirality.swift; sourceTree = "<group>"; };
+		B6D4727A2A608EA60002CEEC /* HandClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandClassification.swift; sourceTree = "<group>"; };
+		B6D4727F2A60A3BA0002CEEC /* HandClassificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandClassificationView.swift; sourceTree = "<group>"; };
 		B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataClassification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -438,11 +446,14 @@
 		B6D4724E2A57475E0002CEEC /* Hand Detection */ = {
 			isa = PBXGroup;
 			children = (
+				B6D472762A5FCDB20002CEEC /* HandDetector2_70.mlmodel */,
 				B6D4724F2A5747780002CEEC /* HandDetector.swift */,
 				B6D472512A57485D0002CEEC /* JointPosition.swift */,
 				B6D472532A5748710002CEEC /* HandDetection.swift */,
 				B6D472552A57489A0002CEEC /* HandDetectionOutcome.swift */,
 				B6D472572A574A800002CEEC /* HandDetectionDelegate.swift */,
+				B6D472782A608CA10002CEEC /* HandChirality.swift */,
+				B6D4727A2A608EA60002CEEC /* HandClassification.swift */,
 			);
 			path = "Hand Detection";
 			sourceTree = "<group>";
@@ -483,6 +494,7 @@
 				B6D472592A574BF30002CEEC /* JointPositionsView.swift */,
 				B6D472632A5777470002CEEC /* ProximityView.swift */,
 				B6D472702A597D1C0002CEEC /* AnglesView.swift */,
+				B6D4727F2A60A3BA0002CEEC /* HandClassificationView.swift */,
 			);
 			path = Overlays;
 			sourceTree = "<group>";
@@ -629,6 +641,8 @@
 				B6D472682A57B6FF0002CEEC /* TagmataDetector5_5000.mlmodel in Sources */,
 				B6D461F82A4F18D60002CEEC /* LemonLabelledSwitch.swift in Sources */,
 				B6D472502A5747780002CEEC /* HandDetector.swift in Sources */,
+				B6D4727B2A608EA60002CEEC /* HandClassification.swift in Sources */,
+				B6D472802A60A3BA0002CEEC /* HandClassificationView.swift in Sources */,
 				B6C37EF12A39B308004D18A8 /* LemonUIView.swift in Sources */,
 				B6D472622A576BB20002CEEC /* Array.swift in Sources */,
 				B6D472662A5785210002CEEC /* Strings.swift in Sources */,
@@ -637,6 +651,8 @@
 				B6D461F32A4E74A00002CEEC /* CGFloat.swift in Sources */,
 				B6C37ED42A396D9A004D18A8 /* CGRect.swift in Sources */,
 				B6C37E7C2A3524D8004D18A8 /* SpeechRecognizer.swift in Sources */,
+				B6D472792A608CA10002CEEC /* HandChirality.swift in Sources */,
+				B6D472772A5FCDB20002CEEC /* HandDetector2_70.mlmodel in Sources */,
 				B6D4724A2A5719A70002CEEC /* DetectionCompiler.swift in Sources */,
 				B6D461EB2A4DDC760002CEEC /* LemonHStack.swift in Sources */,
 				B6D472562A57489A0002CEEC /* HandDetectionOutcome.swift in Sources */,

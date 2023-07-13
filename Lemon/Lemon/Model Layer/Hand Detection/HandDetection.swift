@@ -66,6 +66,9 @@ class HandDetection {
     
     // MARK: - All Properties
     
+    private(set) var chirality: HandChirality? = nil
+    private(set) var classification: HandClassification? = nil
+    
     var allPositions: [JointPosition] {
         return [self.wrist] + self.thumbPositions + self.indexPositions + self.middlePositions + self.ringPositions + self.littlePositions
     }
@@ -73,6 +76,23 @@ class HandDetection {
     /// All the joints that are expected to be in high proximity to something being held
     var holdingPositions: [JointPosition] {
         return [self.thumbTip, self.indexTip, self.middleTip, self.ringTip, self.indexMCP, self.middleMCP, self.ringMCP]
+    }
+    
+    func setChirality(to chirality: VNChirality) {
+        assert(self.chirality == nil, "Chirality shouldn't be set twice")
+        switch chirality {
+        case .unknown:
+            return
+        case .left:
+            self.chirality = .leftHand
+        case .right:
+            self.chirality = .rightHand
+        }
+    }
+    
+    func setHandClassification(to handClassification: HandClassification) {
+        assert(self.classification == nil, "Classification shouldn't be set twice")
+        self.classification = handClassification
     }
     
     func retrievePosition(from joint: VNHumanHandPoseObservation.JointName) -> JointPosition {

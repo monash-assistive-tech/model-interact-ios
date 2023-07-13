@@ -62,7 +62,7 @@ class AnglesView: LemonUIView {
         }
     }
     
-    func drawAngle(_ detection1: TagmataDetection?, _ detection2: TagmataDetection?, _ detection3: TagmataDetection?) -> Double? {
+    private func drawAngle(_ detection1: TagmataDetection?, _ detection2: TagmataDetection?, _ detection3: TagmataDetection?) -> Double? {
         guard let detection1, let detection2, let detection3 else {
             return nil
         }
@@ -87,13 +87,13 @@ class AnglesView: LemonUIView {
         return angle
     }
     
-    func midpointBetween(_ point1: CGPoint, _ point2: CGPoint) -> CGPoint {
+    private func midpointBetween(_ point1: CGPoint, _ point2: CGPoint) -> CGPoint {
         let midX = (point1.x + point2.x) / 2
         let midY = (point1.y + point2.y) / 2
         return CGPoint(x: midX, y: midY)
     }
     
-    func drawLine(_ point1: TagmataDetection, _ point2: TagmataDetection, _ point3: TagmataDetection) {
+    private func drawLine(_ point1: TagmataDetection, _ point2: TagmataDetection, _ point3: TagmataDetection) {
         self.drawLine(
             point1.getDenormalisedCenter(for: self.view),
             point2.getDenormalisedCenter(for: self.view)
@@ -104,7 +104,7 @@ class AnglesView: LemonUIView {
         )
     }
     
-    func drawLine(_ point1: CGPoint, _ point2: CGPoint) {
+    private func drawLine(_ point1: CGPoint, _ point2: CGPoint) {
         let linePath = UIBezierPath()
         linePath.move(to: point1)
         linePath.addLine(to: point2)
@@ -117,7 +117,7 @@ class AnglesView: LemonUIView {
         self.view.layer.addSublayer(shapeLayer)
     }
     
-    func drawCircle(radius: Double, center: CGPoint, color: UIColor) {
+    private func drawCircle(radius: Double, center: CGPoint, color: UIColor) {
         let newLayer = UIView()
         newLayer.frame = CGRect(x: center.x - radius/2, y: center.y - radius/2, width: radius, height: radius)
         newLayer.layer.cornerRadius = radius/2
@@ -125,7 +125,7 @@ class AnglesView: LemonUIView {
         self.view.addSubview(newLayer)
     }
     
-    func angleBetweenPoints(point1: CGPoint, point2: CGPoint, point3: CGPoint) -> Double {
+    private func angleBetweenPoints(point1: CGPoint, point2: CGPoint, point3: CGPoint) -> Double {
         let vector1 = CGPoint(x: point2.x - point1.x, y: point2.y - point1.y)
         let vector2 = CGPoint(x: point3.x - point2.x, y: point3.y - point2.y)
         
