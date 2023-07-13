@@ -43,6 +43,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private let jointsOverlaySwitch = LemonLabelledSwitch()
     private let predictionOverlaySwitch = LemonLabelledSwitch()
     private let proximityOverlaySwitch = LemonLabelledSwitch()
+    private let handClassificationSwitch = LemonLabelledSwitch()
     private var overlays: [LemonUIView] {
         return [
             self.predictionOverlay,
@@ -100,6 +101,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             .addView(self.jointsOverlaySwitch)
             .addView(self.predictionOverlaySwitch)
             .addView(self.proximityOverlaySwitch)
+            .addView(self.handClassificationSwitch)
         
         // Button row stack
         self.buttonRowStack
@@ -211,6 +213,17 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         self.proximityOverlaySwitch.switchView
             .setOnFlick({ isOn in
                 self.proximityOverlay.setHidden(to: !isOn)
+            })
+            .setState(isOn: false, animated: false)
+        
+        // Hand classification switch
+        self.handClassificationSwitch
+            .constrainHorizontal(padding: 24)
+        self.handClassificationSwitch.labelText
+            .setText(to: "Hand Classification Overlay")
+        self.handClassificationSwitch.switchView
+            .setOnFlick({ isOn in
+                self.handClassificationOverlay.setHidden(to: !isOn)
             })
             .setState(isOn: false, animated: false)
     }
