@@ -23,10 +23,15 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
     private var volume: Float = 1.0 // [0.0, 1.0]
     private var voice: AVSpeechSynthesisVoice
     private var lastSpoken: String? = nil
+    /// Called when the speech synthesizer finishes the utterance
     public var didFinishDelegate: (() -> Void)? = nil
+    /// Called when the speech synthesizer starts an utterance
     public var didStartDelegate: (() -> Void)? = nil
+    /// Called when the speech synthesizer pauses an utterance
     public var didPauseDelegate: (() -> Void)? = nil
+    /// Called when the speech synthesizer cancels an utterance
     public var didCancelDelegate: (() -> Void)? = nil
+    /// Called when the speech synthesizer continues an utterance after a pause
     public var didContinueDelegate: (() -> Void)? = nil
     
     override init() {
@@ -66,28 +71,44 @@ extension SpeechSynthesizer {
     
     // MARK: - AVSpeechSynthesizerDelegate
     
-    // TODO: Add function headers and add delegate for last method and make private
-    
+    /// Called when the speech synthesizer finishes the utterance.
+    /// - Parameters:
+    ///   - synthesizer: The speech synthesizer that has finished the utterance
+    ///   - utterance: The speech utterance that was completed
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         self.didFinishDelegate?()
     }
     
+    /// Called when the speech synthesizer starts an utterance.
+    /// - Parameters:
+    ///   - synthesizer: The speech synthesizer that has started the utterance
+    ///   - utterance: The speech utterance that was started
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
         self.didStartDelegate?()
     }
     
+    /// Called when the speech synthesizer pauses an utterance.
+    /// - Parameters:
+    ///   - synthesizer: The speech synthesizer that has paused the utterance
+    ///   - utterance: The speech utterance that was paused
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) {
         self.didPauseDelegate?()
     }
     
+    /// Called when the speech synthesizer cancels an utterance.
+    /// - Parameters:
+    ///   - synthesizer: The speech synthesizer that has canceled the utterance
+    ///   - utterance: The speech utterance that was canceled
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
         self.didCancelDelegate?()
     }
     
+    /// Called when the speech synthesizer continues an utterance after a pause.
+    /// - Parameters:
+    ///   - synthesizer: The speech synthesizer that has continued the utterance
+    ///   - utterance: The speech utterance that was continued
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance) {
         self.didContinueDelegate?()
     }
-    
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) { }
     
 }
