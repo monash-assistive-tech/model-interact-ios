@@ -38,7 +38,10 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private let interruptButton = LemonIconButton()
     private let intervalSlider = LemonLabelledSlider()
     private let detectorSwitch = LemonLabelledSwitch()
-    private let test = LemonIconButton()
+    private let anglesOverlaySwitch = LemonLabelledSwitch()
+    private let jointsOverlaySwitch = LemonLabelledSwitch()
+    private let predictionOverlaySwitch = LemonLabelledSwitch()
+    private let proximityOverlaySwitch = LemonLabelledSwitch()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,6 +87,10 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             .addView(self.buttonRowStack)
             .addView(self.intervalSlider)
             .addView(self.detectorSwitch)
+            .addView(self.anglesOverlaySwitch)
+            .addView(self.jointsOverlaySwitch)
+            .addView(self.predictionOverlaySwitch)
+            .addView(self.proximityOverlaySwitch)
         
         // Button row stack
         self.buttonRowStack
@@ -153,6 +160,50 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 }
                 self.setupObjectDetection()
             })
+        
+        // Angles overlay switch
+        self.anglesOverlaySwitch
+            .constrainHorizontal(padding: 24)
+        self.anglesOverlaySwitch.labelText
+            .setText(to: "Angles Overlay")
+        self.anglesOverlaySwitch.switchView
+            .setOnFlick({ isOn in
+                self.anglesOverlay.setHidden(to: !isOn)
+            })
+            .setState(isOn: false, animated: false)
+        
+        // Joints overlay switch
+        self.jointsOverlaySwitch
+            .constrainHorizontal(padding: 24)
+        self.jointsOverlaySwitch.labelText
+            .setText(to: "Joints Overlay")
+        self.jointsOverlaySwitch.switchView
+            .setOnFlick({ isOn in
+                self.jointPositionsOverlay.setHidden(to: !isOn)
+            })
+            .setState(isOn: false, animated: false)
+        
+        // Prediction overlay switch
+        self.predictionOverlaySwitch
+            .constrainHorizontal(padding: 24)
+        self.predictionOverlaySwitch.labelText
+            .setText(to: "Prediction Overlay")
+        self.predictionOverlaySwitch.switchView
+            .setOnFlick({ isOn in
+                self.predictionOverlay.setHidden(to: !isOn)
+            })
+            .setState(isOn: false, animated: false)
+        
+        // Proximity overlay switch
+        self.proximityOverlaySwitch
+            .constrainHorizontal(padding: 24)
+        self.proximityOverlaySwitch.labelText
+            .setText(to: "Joints Proximity Overlay")
+        self.proximityOverlaySwitch.switchView
+            .setOnFlick({ isOn in
+                self.proximityOverlay.setHidden(to: !isOn)
+            })
+            .setState(isOn: false, animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -29,6 +29,16 @@ protocol LemonUIViewProtocol {
 }
 extension LemonUIViewProtocol {
     
+    // MARK: - Properties
+    
+    public var isHidden: Bool {
+        return self.view.isHidden
+    }
+    
+    public var frame: CGRect {
+        return self.view.frame
+    }
+    
     // MARK: - Views
     
     @discardableResult
@@ -38,10 +48,6 @@ extension LemonUIViewProtocol {
     }
     
     // MARK: - Frame
-    
-    public var frame: CGRect {
-        return self.view.frame
-    }
     
     @discardableResult
     func setFrame(to rect: CGRect) -> Self {
@@ -178,6 +184,14 @@ extension LemonUIViewProtocol {
     func addBorder(width: CGFloat = 1.0, color: UIColor = UIColor.red) -> Self {
         self.view.layer.borderWidth = width
         self.view.layer.borderColor = color.cgColor
+        return self
+    }
+    
+    // MARK: - Visibility
+    
+    @discardableResult
+    func setHidden(to isHidden: Bool) -> Self {
+        self.view.isHidden = isHidden
         return self
     }
     

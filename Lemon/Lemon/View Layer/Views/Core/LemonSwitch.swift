@@ -28,6 +28,17 @@ class LemonSwitch: LemonUIView, LemonViewPublisher {
     }
     
     @discardableResult
+    func setState(isOn: Bool, animated: Bool = true) -> Self {
+        let before = self.isOn
+        self.switchView.setOn(isOn, animated: animated)
+        // If the value is the same, we still trigger the callback
+        if isOn == before {
+            self.switchValueChanged(self.switchView)
+        }
+        return self
+    }
+    
+    @discardableResult
     func setOnFlick(_ callback: ((_ isOn: Bool) -> Void)?) -> Self {
         self.onFlick = callback
         return self
