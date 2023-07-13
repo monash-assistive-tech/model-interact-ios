@@ -30,15 +30,13 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private var proximityOverlay = ProximityView()
     private var anglesOverlay = AnglesView()
     private let stack = LemonVStack()
-    private let header = LemonText()
+    private let optionsStack = LemonVStack()
     private let speakButton = LemonButton()
     private let recordButton = LemonButton()
     private let flipButton = LemonButton()
     private let interruptButton = LemonButton()
-    private let toolbarStack = LemonVStack()
     private let intervalSlider = LemonLabelledSlider()
     private let detectorSwitch = LemonLabelledSwitch()
-    private let heldButton = LemonButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,26 +64,30 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         // Stack
         self.root.addSubview(self.stack)
         self.stack
-            .setSpacing(to: 16)
-            .constrainHorizontal(padding: 16)
+            .constrainHorizontal()
             .constrainTop(padding: Environment.inst.topSafeAreaHeight)
             .constrainBottom(padding: Environment.inst.bottomSafeAreaHeight)
-            .addView(self.header)
+            .addView(self.optionsStack)
+            .addSpacer()
+            
+        // Options stack
+        self.stack.addSubview(self.optionsStack)
+        self.optionsStack
+            .constrainHorizontal(padding: 24)
+            .setBackgroundColor(to: UIColor.white.withAlphaComponent(0.6))
+            .setCornerRadius(to: 20)
+            .setPaddingVertical(to: 16)
+            .setSpacing(to: 8)
             .addView(self.speakButton)
             .addView(self.recordButton)
             .addView(self.flipButton)
             .addView(self.interruptButton)
-            .addView(self.heldButton)
-            .addSpacer()
-            .addView(self.toolbarStack)
-        
-        // Header
-        self.header
-            .setText(to: "Lemon")
-            .setSize(to: 24.0)
+            .addView(self.intervalSlider)
+            .addView(self.detectorSwitch)
         
         // Speak button
         self.speakButton
+            .constrainHorizontal(padding: 24)
             .setLabel(to: "Play Audio")
             .setOnTap({
                 self.synthesizer.speak("Hello Lemon! Filler text is text that shares some characteristics of a real written text, but is random or otherwise generated. It may be used to display a sample of fonts, generate text for testing, or to spoof an e-mail spam filter.")
@@ -93,38 +95,33 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         
         // Record button
         self.recordButton
+            .constrainHorizontal(padding: 24)
             .setLabel(to: "Start Recording")
             .setOnTap({
                 self.toggleAudioRecording()
             })
         
+        // Flip button
+        self.flipButton
+            .constrainHorizontal(padding: 24)
+            .setLabel(to: "Flip Camera")
+            .setOnTap({
+                self.flipCamera()
+            })
+        
         // Interrupt button
         self.interruptButton
+            .constrainHorizontal(padding: 24)
             .setLabel(to: "Interrupt")
             .setOnTap({
                 self.synthesizer.stopSpeaking()
             })
             .setAccessibilityLabel(to: "STOP")
         
-        // Flip button
-        self.flipButton
-            .setLabel(to: "Flip Camera")
-            .setOnTap({
-                self.flipCamera()
-            })
-        
-        // Toolbar Stack
-        self.toolbarStack
-            .constrainHorizontal(padding: 32)
-            .setBackgroundColor(to: UIColor.white)
-            .setCornerRadius(to: 20)
-            .addView(self.intervalSlider)
-            .addView(self.detectorSwitch)
-        
         // Interval slider
         self.intervalSlider
             .constrainHorizontal(padding: 24)
-            .setPaddingVertical(to: 16)
+            .setPadding(top: 8)
         self.intervalSlider.stack
             .setSpacing(to: 16)
         self.intervalSlider.labelText
@@ -140,7 +137,6 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         // Detector switch
         self.detectorSwitch
             .constrainHorizontal(padding: 24)
-            .setPadding(bottom: 16)
         self.detectorSwitch.labelText
             .setText(to: "Alternate Model")
         self.detectorSwitch.switchView
@@ -295,10 +291,6 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     
     func handleDetectionResults(_ results: CompiledResults) {
         if let tagmata = results.heldTagmata.first {
-            self.heldButton
-                .setColor(to: tagmata.color)
-                .setLabel(to: tagmata.rawValue)
-            
             if self.loadedCommand == "name" {
                 self.loadedCommand = ""
                 self.synthesizer.speak(tagmata.name)
@@ -306,11 +298,6 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 self.loadedCommand = ""
                 self.synthesizer.speak(tagmata.description)
             }
-            
-        } else {
-            self.heldButton
-                .setColor(to: .black)
-                .setLabel(to: "")
         }
     }
 
