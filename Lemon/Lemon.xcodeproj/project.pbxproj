@@ -70,6 +70,7 @@
 		B6D472682A57B6FF0002CEEC /* TagmataDetector5_5000.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B6D472672A57B6FF0002CEEC /* TagmataDetector5_5000.mlmodel */; };
 		B6D4726F2A5962770002CEEC /* CompiledResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4726E2A5962770002CEEC /* CompiledResults.swift */; };
 		B6D472712A597D1C0002CEEC /* AnglesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472702A597D1C0002CEEC /* AnglesView.swift */; };
+		B6D472752A5FA6C30002CEEC /* LemonIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472742A5FA6C30002CEEC /* LemonIconButton.swift */; };
 		B6FD174F2A416DBB003EDD5F /* TagmataClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */; };
 /* End PBXBuildFile section */
 
@@ -158,6 +159,7 @@
 		B6D472672A57B6FF0002CEEC /* TagmataDetector5_5000.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagmataDetector5_5000.mlmodel; sourceTree = "<group>"; };
 		B6D4726E2A5962770002CEEC /* CompiledResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompiledResults.swift; sourceTree = "<group>"; };
 		B6D472702A597D1C0002CEEC /* AnglesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnglesView.swift; sourceTree = "<group>"; };
+		B6D472742A5FA6C30002CEEC /* LemonIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonIconButton.swift; sourceTree = "<group>"; };
 		B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataClassification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -469,6 +471,7 @@
 				B6D461EC2A4DE0910002CEEC /* LemonViewObserver.swift */,
 				B6D461EE2A4DF11E0002CEEC /* LemonSwitch.swift */,
 				B6D461F72A4F18D60002CEEC /* LemonLabelledSwitch.swift */,
+				B6D472742A5FA6C30002CEEC /* LemonIconButton.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				B6D472522A57485D0002CEEC /* JointPosition.swift in Sources */,
 				B6D461CD2A4539C00002CEEC /* SpeechText.swift in Sources */,
 				B6C37E802A3525DF004D18A8 /* SFSpeechRecognizer.swift in Sources */,
+				B6D472752A5FA6C30002CEEC /* LemonIconButton.swift in Sources */,
 				B6D472682A57B6FF0002CEEC /* TagmataDetector5_5000.mlmodel in Sources */,
 				B6D461F82A4F18D60002CEEC /* LemonLabelledSwitch.swift in Sources */,
 				B6D472502A5747780002CEEC /* HandDetector.swift in Sources */,

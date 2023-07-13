@@ -61,4 +61,10 @@ class LemonVStack: LemonUIView {
         return self
     }
     
+    @discardableResult
+    func setDistribution(to distribution: UIStackView.Distribution) -> Self {
+        self.stack.distribution = distribution
+        return self
+    }
+    
 }

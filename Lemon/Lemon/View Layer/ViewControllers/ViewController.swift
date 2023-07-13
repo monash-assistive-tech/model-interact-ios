@@ -30,13 +30,15 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private var proximityOverlay = ProximityView()
     private var anglesOverlay = AnglesView()
     private let stack = LemonVStack()
+    private let buttonRowStack = LemonHStack()
     private let optionsStack = LemonVStack()
-    private let speakButton = LemonButton()
-    private let recordButton = LemonButton()
-    private let flipButton = LemonButton()
-    private let interruptButton = LemonButton()
+    private let speakButton = LemonIconButton()
+    private let recordButton = LemonIconButton()
+    private let flipButton = LemonIconButton()
+    private let interruptButton = LemonIconButton()
     private let intervalSlider = LemonLabelledSlider()
     private let detectorSwitch = LemonLabelledSwitch()
+    private let test = LemonIconButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +69,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             .constrainHorizontal()
             .constrainTop(padding: Environment.inst.topSafeAreaHeight)
             .constrainBottom(padding: Environment.inst.bottomSafeAreaHeight)
+            .addView(self.buttonRowStack)
             .addView(self.optionsStack)
             .addSpacer()
             
@@ -78,41 +81,43 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             .setCornerRadius(to: 20)
             .setPaddingVertical(to: 16)
             .setSpacing(to: 8)
+            .addView(self.buttonRowStack)
+            .addView(self.intervalSlider)
+            .addView(self.detectorSwitch)
+        
+        // Button row stack
+        self.buttonRowStack
+            .constrainHorizontal(padding: 24)
+            .setDistribution(to: .equalSpacing)
             .addView(self.speakButton)
             .addView(self.recordButton)
             .addView(self.flipButton)
             .addView(self.interruptButton)
-            .addView(self.intervalSlider)
-            .addView(self.detectorSwitch)
         
         // Speak button
         self.speakButton
-            .constrainHorizontal(padding: 24)
-            .setLabel(to: "Play Audio")
+            .setIcon(to: "waveform")
             .setOnTap({
                 self.synthesizer.speak("Hello Lemon! Filler text is text that shares some characteristics of a real written text, but is random or otherwise generated. It may be used to display a sample of fonts, generate text for testing, or to spoof an e-mail spam filter.")
             })
         
         // Record button
         self.recordButton
-            .constrainHorizontal(padding: 24)
-            .setLabel(to: "Start Recording")
+            .setIcon(to: "record.circle")
             .setOnTap({
                 self.toggleAudioRecording()
             })
         
         // Flip button
         self.flipButton
-            .constrainHorizontal(padding: 24)
-            .setLabel(to: "Flip Camera")
+            .setIcon(to: "arrow.clockwise.circle")
             .setOnTap({
                 self.flipCamera()
             })
         
         // Interrupt button
         self.interruptButton
-            .constrainHorizontal(padding: 24)
-            .setLabel(to: "Interrupt")
+            .setIcon(to: "xmark.circle.fill")
             .setOnTap({
                 self.synthesizer.stopSpeaking()
             })
@@ -219,11 +224,11 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private func toggleAudioRecording() {
         self.isRecordingAudio.toggle()
         if self.isRecordingAudio {
-            self.recordButton.setLabel(to: "End Recording")
+            self.recordButton.setIcon(to: "record.circle.fill")
             self.recognizer.resetTranscript()
             self.recognizer.startTranscribing()
         } else {
-            self.recordButton.setLabel(to: "Start Recording")
+            self.recordButton.setIcon(to: "record.circle")
             self.recognizer.stopTranscribing()
             print(self.recognizer.transcript)
         }
