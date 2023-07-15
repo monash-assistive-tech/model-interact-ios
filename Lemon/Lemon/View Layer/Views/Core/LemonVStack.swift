@@ -28,7 +28,7 @@ class LemonVStack: LemonUIView {
         self.stack.axis = .vertical
         self.stack.alignment = .center
         self.stack.translatesAutoresizingMaskIntoConstraints = false
-        self.stack.isLayoutMarginsRelativeArrangement = true
+        self.stack.isLayoutMarginsRelativeArrangement = false
     }
     
     @discardableResult

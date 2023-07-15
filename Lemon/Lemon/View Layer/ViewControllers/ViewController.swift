@@ -32,6 +32,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private var handClassificationOverlay = HandClassificationView()
     private let stack = LemonVStack()
     private let buttonRowStack = LemonHStack()
+    private let optionsContainer = LemonView()
     private let optionsStack = LemonVStack()
     private let speakButton = LemonIconButton()
     private let recordButton = LemonIconButton()
@@ -82,17 +83,20 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             .constrainHorizontal()
             .constrainTop(padding: Environment.inst.topSafeAreaHeight)
             .constrainBottom(padding: Environment.inst.bottomSafeAreaHeight)
-            .addView(self.buttonRowStack)
-            .addView(self.optionsStack)
+            .addView(self.optionsContainer)
             .addSpacer()
-            
-        // Options stack
-        self.stack.addSubview(self.optionsStack)
-        self.optionsStack
+        
+        // Options container
+        self.optionsContainer
             .constrainHorizontal(padding: 24)
             .setBackgroundColor(to: UIColor.white.withAlphaComponent(0.6))
             .setCornerRadius(to: 20)
-            .setPaddingVertical(to: 16)
+            .addSubview(self.optionsStack)
+            
+        // Options stack
+        self.optionsStack
+            .constrainHorizontal(padding: 24)
+            .constrainVertical(padding: 16)
             .setSpacing(to: 8)
             .addView(self.buttonRowStack)
             .addView(self.intervalSlider)
@@ -105,7 +109,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         
         // Button row stack
         self.buttonRowStack
-            .constrainHorizontal(padding: 24)
+            .constrainHorizontal()
             .setDistribution(to: .equalSpacing)
             .addView(self.speakButton)
             .addView(self.recordButton)
@@ -143,7 +147,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         
         // Interval slider
         self.intervalSlider
-            .constrainHorizontal(padding: 24)
+            .constrainHorizontal()
             .setPadding(top: 8)
         self.intervalSlider.stack
             .setSpacing(to: 16)
@@ -159,7 +163,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         
         // Detector switch
         self.detectorSwitch
-            .constrainHorizontal(padding: 24)
+            .constrainHorizontal()
         self.detectorSwitch.labelText
             .setText(to: "Alternate Model")
         self.detectorSwitch.switchView
@@ -174,7 +178,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         
         // Angles overlay switch
         self.anglesOverlaySwitch
-            .constrainHorizontal(padding: 24)
+            .constrainHorizontal()
         self.anglesOverlaySwitch.labelText
             .setText(to: "Angles Overlay")
         self.anglesOverlaySwitch.switchView
@@ -185,7 +189,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         
         // Joints overlay switch
         self.jointsOverlaySwitch
-            .constrainHorizontal(padding: 24)
+            .constrainHorizontal()
         self.jointsOverlaySwitch.labelText
             .setText(to: "Joints Overlay")
         self.jointsOverlaySwitch.switchView
@@ -196,7 +200,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         
         // Prediction overlay switch
         self.predictionOverlaySwitch
-            .constrainHorizontal(padding: 24)
+            .constrainHorizontal()
         self.predictionOverlaySwitch.labelText
             .setText(to: "Prediction Overlay")
         self.predictionOverlaySwitch.switchView
@@ -207,7 +211,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         
         // Proximity overlay switch
         self.proximityOverlaySwitch
-            .constrainHorizontal(padding: 24)
+            .constrainHorizontal()
         self.proximityOverlaySwitch.labelText
             .setText(to: "Joints Proximity Overlay")
         self.proximityOverlaySwitch.switchView
@@ -218,7 +222,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         
         // Hand classification switch
         self.handClassificationSwitch
-            .constrainHorizontal(padding: 24)
+            .constrainHorizontal()
         self.handClassificationSwitch.labelText
             .setText(to: "Hand Classification Overlay")
         self.handClassificationSwitch.switchView
