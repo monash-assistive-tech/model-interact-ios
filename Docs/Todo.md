@@ -13,7 +13,7 @@ TODO:
 * Make it so when the user lets go, it stops speaking
 * Polish audio
 * Get it working on iPad
-* Get it working if the screen rotates
+* ~~Get it working if the screen rotates~~
 * Fix the fact that the camera initially freezes
 * Make it more lenient with the wings
 * Make it so it compiles the result continuously ("continuous compiling" above)

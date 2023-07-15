@@ -80,9 +80,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         // Stack
         self.root.addSubview(self.stack)
         self.stack
-            .constrainHorizontal()
-            .constrainTop(padding: Environment.inst.topSafeAreaHeight)
-            .constrainBottom(padding: Environment.inst.bottomSafeAreaHeight)
+            .constrainAllSides()
             .addView(self.optionsContainer)
             .addSpacer()
         

@@ -58,83 +58,89 @@ extension LemonUIViewProtocol {
     // MARK: - Constraints
     
     @discardableResult
-    func matchWidthConstraint(to other: LemonUIView? = nil) -> Self {
+    func matchWidthConstraint(to other: LemonUIView? = nil, respectSafeArea: Bool = true) -> Self {
         assert(!self.view.translatesAutoresizingMaskIntoConstraints, "Constraints requirement failed")
         guard let target = other?.view ?? self.view.superview else {
             fatalError("No constraint target found")
         }
-        self.view.widthAnchor.constraint(equalTo: target.widthAnchor).isActive = true
+        let anchor = respectSafeArea ? target.safeAreaLayoutGuide.widthAnchor : target.widthAnchor
+        self.view.widthAnchor.constraint(equalTo: anchor).isActive = true
         return self
     }
     
     @discardableResult
-    func matchHeightConstraint(to other: LemonUIView? = nil) -> Self {
+    func matchHeightConstraint(to other: LemonUIView? = nil, respectSafeArea: Bool = true) -> Self {
         assert(!self.view.translatesAutoresizingMaskIntoConstraints, "Constraints requirement failed")
         guard let target = other?.view ?? self.view.superview else {
             fatalError("No constraint target found")
         }
-        self.view.widthAnchor.constraint(equalTo: target.heightAnchor).isActive = true
+        let anchor = respectSafeArea ? target.safeAreaLayoutGuide.heightAnchor : target.heightAnchor
+        self.view.widthAnchor.constraint(equalTo: anchor).isActive = true
         return self
     }
     
     @discardableResult
-    func constrainLeft(to other: LemonUIView? = nil, padding: CGFloat = 0.0) -> Self {
+    func constrainLeft(to other: LemonUIView? = nil, padding: CGFloat = 0.0, respectSafeArea: Bool = true) -> Self {
         assert(!self.view.translatesAutoresizingMaskIntoConstraints, "Constraints requirement failed")
         guard let target = other?.view ?? self.view.superview else {
             fatalError("No constraint target found")
         }
-        self.view.leadingAnchor.constraint(equalTo: target.leadingAnchor, constant: padding).isActive = true
+        let anchor = respectSafeArea ? target.safeAreaLayoutGuide.leadingAnchor : target.leadingAnchor
+        self.view.leadingAnchor.constraint(equalTo: anchor, constant: padding).isActive = true
         return self
     }
     
     @discardableResult
-    func constrainRight(to other: LemonUIView? = nil, padding: CGFloat = 0.0) -> Self {
+    func constrainRight(to other: LemonUIView? = nil, padding: CGFloat = 0.0, respectSafeArea: Bool = true) -> Self {
         assert(!self.view.translatesAutoresizingMaskIntoConstraints, "Constraints requirement failed")
         guard let target = other?.view ?? self.view.superview else {
             fatalError("No constraint target found")
         }
-        self.view.trailingAnchor.constraint(equalTo: target.trailingAnchor, constant: -padding).isActive = true
+        let anchor = respectSafeArea ? target.safeAreaLayoutGuide.trailingAnchor : target.trailingAnchor
+        self.view.trailingAnchor.constraint(equalTo: anchor, constant: -padding).isActive = true
         return self
     }
     
     @discardableResult
-    func constrainTop(to other: LemonUIView? = nil, padding: CGFloat = 0.0) -> Self {
+    func constrainTop(to other: LemonUIView? = nil, padding: CGFloat = 0.0, respectSafeArea: Bool = true) -> Self {
         assert(!self.view.translatesAutoresizingMaskIntoConstraints, "Constraints requirement failed")
         guard let target = other?.view ?? self.view.superview else {
             fatalError("No constraint target found")
         }
-        self.view.topAnchor.constraint(equalTo: target.topAnchor, constant: padding).isActive = true
+        let anchor = respectSafeArea ? target.safeAreaLayoutGuide.topAnchor : target.topAnchor
+        self.view.topAnchor.constraint(equalTo: anchor, constant: padding).isActive = true
         return self
     }
     
     @discardableResult
-    func constrainBottom(to other: LemonUIView? = nil, padding: CGFloat = 0.0) -> Self {
+    func constrainBottom(to other: LemonUIView? = nil, padding: CGFloat = 0.0, respectSafeArea: Bool = true) -> Self {
         assert(!self.view.translatesAutoresizingMaskIntoConstraints, "Constraints requirement failed")
         guard let target = other?.view ?? self.view.superview else {
             fatalError("No constraint target found")
         }
-        self.view.bottomAnchor.constraint(equalTo: target.bottomAnchor, constant: -padding).isActive = true
+        let anchor = respectSafeArea ? target.safeAreaLayoutGuide.bottomAnchor : target.bottomAnchor
+        self.view.bottomAnchor.constraint(equalTo: anchor, constant: -padding).isActive = true
         return self
     }
     
     @discardableResult
-    func constrainHorizontal(to other: LemonUIView? = nil, padding: CGFloat = 0.0) -> Self {
+    func constrainHorizontal(to other: LemonUIView? = nil, padding: CGFloat = 0.0, respectSafeArea: Bool = true) -> Self {
         self.constrainLeft(to: other, padding: padding)
         self.constrainRight(to: other, padding: padding)
         return self
     }
     
     @discardableResult
-    func constrainVertical(to other: LemonUIView? = nil, padding: CGFloat = 0.0) -> Self {
-        self.constrainTop(to: other, padding: padding)
-        self.constrainBottom(to: other, padding: padding)
+    func constrainVertical(to other: LemonUIView? = nil, padding: CGFloat = 0.0, respectSafeArea: Bool = true) -> Self {
+        self.constrainTop(to: other, padding: padding, respectSafeArea: respectSafeArea)
+        self.constrainBottom(to: other, padding: padding, respectSafeArea: respectSafeArea)
         return self
     }
     
     @discardableResult
-    func constrainAllSides(to other: LemonUIView? = nil, padding: CGFloat = 0.0) -> Self {
-        self.constrainHorizontal(to: other, padding: padding)
-        self.constrainVertical(to: other, padding: padding)
+    func constrainAllSides(to other: LemonUIView? = nil, padding: CGFloat = 0.0, respectSafeArea: Bool = true) -> Self {
+        self.constrainHorizontal(to: other, padding: padding, respectSafeArea: respectSafeArea)
+        self.constrainVertical(to: other, padding: padding, respectSafeArea: respectSafeArea)
         return self
     }
     
