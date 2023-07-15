@@ -138,7 +138,9 @@ class CaptureSession: NSObject {
                 DispatchQueue.main.async {
                     if let orientation = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.interfaceOrientation {
                         switch orientation {
-                        case .unknown, .portrait:
+                        case .unknown:
+                            break
+                        case .portrait:
                             connection.videoOrientation = .portrait
                         case .portraitUpsideDown:
                             connection.videoOrientation = .portraitUpsideDown
