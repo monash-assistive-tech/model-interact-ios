@@ -131,7 +131,27 @@ class CaptureSession: NSObject {
         // Update the video orientation
         if let connection = self.videoOutput.connection(with: .video), connection.isVideoOrientationSupported {
             switch UIDevice.current.orientation {
-            case .unknown, .portrait, .faceUp, .faceDown:
+            case .unknown:
+                // .unknown can be returned in the early stages of the app lifecycle
+                // or if orientation notifications have been disabled.
+                // We fall back on UIApplication if this is the case.
+                DispatchQueue.main.async {
+                    if let orientation = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.interfaceOrientation {
+                        switch orientation {
+                        case .unknown, .portrait:
+                            connection.videoOrientation = .portrait
+                        case .portraitUpsideDown:
+                            connection.videoOrientation = .portraitUpsideDown
+                        case .landscapeLeft:
+                            connection.videoOrientation = .landscapeLeft
+                        case .landscapeRight:
+                            connection.videoOrientation = .landscapeRight
+                        @unknown default:
+                            assertionFailure("Implement newly added orientation")
+                        }
+                    }
+                }
+            case .portrait, .faceUp, .faceDown:
                 connection.videoOrientation = .portrait
             case .portraitUpsideDown:
                 connection.videoOrientation = .portraitUpsideDown

@@ -237,6 +237,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        self.image.setFrame(to: CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height))
         // React to change in device orientation
         self.setupAndBeginCapturingVideoFrames()
         self.overlayFrameSyncRequired = true
