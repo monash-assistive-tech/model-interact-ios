@@ -51,7 +51,7 @@ class TagmataDetectionOutcome {
             }
             let boundingBoxesToMerge = detectionsToMerge.map({ $0.boundingBox })
             let confidencesToMerge = detectionsToMerge.map({ $0.confidence })
-            let boundingBox = boundingBoxesToMerge.mergeAll()
+            let boundingBox = boundingBoxesToMerge.unionAll()
             let classification = detectionsToMerge.first!.classification
             let label = detectionsToMerge.first!.label
             let confidence = confidencesToMerge.reduce(0, +) / Float(self.classificationWeights[classification]!)

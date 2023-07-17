@@ -52,7 +52,7 @@ class AnglesView: LemonUIView {
             let headIntersects = C.boundingBox.intersects(A.boundingBox)
             let validIntersects = abdomenIntersects && leftWingIntersects && rightWingIntersects && headIntersects
             if sumInRange && validAngles && validIntersects {
-                let boundingBox = [A, B, C, D, E].map({ $0.getDenormalisedBoundingBox(for: self.view) }).mergeAll()
+                let boundingBox = [A, B, C, D, E].map({ $0.getDenormalisedBoundingBox(for: self.view) }).unionAll()
                 let newLayer = UIView()
                 newLayer.frame = boundingBox
                 newLayer.backgroundColor = .green.withAlphaComponent(0.5)
