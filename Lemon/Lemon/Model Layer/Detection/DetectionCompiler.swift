@@ -208,7 +208,7 @@ class DetectionCompiler {
             // I apply * -1 below for readability (easier to compare positives)
             let sum = -(angle1.degrees + angle2.degrees + angle3.degrees + angle4.degrees)
             let sumInRange = sum >= 350 && sum <= 370
-            let validAngles = [angle1, angle2, angle3, angle4].allSatisfy({ -$0.degrees >= 60 && -$0.degrees <= 120 })
+            let validAngles = [angle1, angle2, angle3, angle4].allSatisfy({ -$0.degrees >= 50 && -$0.degrees <= 130 })
             let abdomenIntersects = C.boundingBox.intersects(E.boundingBox)
             let leftWingIntersects = C.boundingBox.intersects(B.boundingBox)
             let rightWingIntersects = C.boundingBox.intersects(D.boundingBox)

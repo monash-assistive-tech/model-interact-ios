@@ -15,8 +15,10 @@ TODO:
 * ~~Get it working on iPad~~
 * ~~Get it working if the screen rotates~~
 * ~~Fix the fact that the camera initially freezes~~
-* Make it more lenient with the wings
+* ~~Make it more lenient with the wings~~
 * Make it so it compiles the result continuously ("continuous compiling" above)
+    * Actually this may not be advantageous - if the user shows the insect and asks "complete?" immediately the answer will be "no" because of the last 10 frames, only the most recent will have shown the insect
+    * Actually I may consider adding a `clear` function to the compiled results thing so that when a new command is entered before the command is assigned I clear the compiled results so it can't answer too quickly
 * Try out depth for detecting which the user is holding
 * Try out improved algorithms for which piece the user is holding
 * Refactor `merged` and `mergeAll` to `unison` and `unisonAll`

@@ -45,7 +45,7 @@ class AnglesView: LemonUIView {
         if let angle1, let angle2, let angle3, let angle4, let A, let B, let C, let D, let E {
             let sum = angle1 + angle2 + angle3 + angle4
             let sumInRange = sum >= 350 && sum <= 370
-            let validAngles = [angle1, angle2, angle3, angle4].allSatisfy({ $0 >= 60 && $0 <= 120 })
+            let validAngles = [angle1, angle2, angle3, angle4].allSatisfy({ $0 >= 50 && $0 <= 130 })
             let abdomenIntersects = C.boundingBox.intersects(E.boundingBox)
             let leftWingIntersects = C.boundingBox.intersects(B.boundingBox)
             let rightWingIntersects = C.boundingBox.intersects(D.boundingBox)
