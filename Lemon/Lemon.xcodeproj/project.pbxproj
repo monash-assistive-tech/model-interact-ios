@@ -75,6 +75,7 @@
 		B6D472792A608CA10002CEEC /* HandChirality.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472782A608CA10002CEEC /* HandChirality.swift */; };
 		B6D4727B2A608EA60002CEEC /* HandClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4727A2A608EA60002CEEC /* HandClassification.swift */; };
 		B6D472802A60A3BA0002CEEC /* HandClassificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4727F2A60A3BA0002CEEC /* HandClassificationView.swift */; };
+		B6D472862A64E6DF0002CEEC /* Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472852A64E6DF0002CEEC /* Angle.swift */; };
 		B6FD174F2A416DBB003EDD5F /* TagmataClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */; };
 /* End PBXBuildFile section */
 
@@ -168,6 +169,7 @@
 		B6D472782A608CA10002CEEC /* HandChirality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandChirality.swift; sourceTree = "<group>"; };
 		B6D4727A2A608EA60002CEEC /* HandClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandClassification.swift; sourceTree = "<group>"; };
 		B6D4727F2A60A3BA0002CEEC /* HandClassificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandClassificationView.swift; sourceTree = "<group>"; };
+		B6D472852A64E6DF0002CEEC /* Angle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Angle.swift; sourceTree = "<group>"; };
 		B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataClassification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -430,6 +432,7 @@
 			isa = PBXGroup;
 			children = (
 				B6D472472A5714EB0002CEEC /* WrapsToZero.swift */,
+				B6D472852A64E6DF0002CEEC /* Angle.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -689,6 +692,7 @@
 				B6C37ECF2A396B56004D18A8 /* CaptureSession.swift in Sources */,
 				B6D461E92A4DDA550002CEEC /* LemonLabelledSlider.swift in Sources */,
 				B6D461DB2A4D2AC40002CEEC /* TagmataDetectionOutcome.swift in Sources */,
+				B6D472862A64E6DF0002CEEC /* Angle.swift in Sources */,
 				B6C37EEB2A39A1B9004D18A8 /* LemonButton.swift in Sources */,
 				B6D472712A597D1C0002CEEC /* AnglesView.swift in Sources */,
 				B6D461D82A4B65EF0002CEEC /* TagmataDetector4_3910.mlmodel in Sources */,

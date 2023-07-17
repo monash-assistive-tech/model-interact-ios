@@ -205,9 +205,10 @@ class DetectionCompiler {
         let angle4 = self.angleBetweenDetections(D, C, E, frameWidth: frameWidth, frameHeight: frameHeight)
         
         if let angle1, let angle2, let angle3, let angle4, let A, let B, let C, let D, let E {
-            let sum = -(angle1 + angle2 + angle3 + angle4) // * -1 for readability
+            // I apply * -1 below for readability (easier to compare positives)
+            let sum = -(angle1.degrees + angle2.degrees + angle3.degrees + angle4.degrees)
             let sumInRange = sum >= 350 && sum <= 370
-            let validAngles = [angle1, angle2, angle3, angle4].allSatisfy({ -$0 >= 60 && -$0 <= 120 }) // * -1 for readability
+            let validAngles = [angle1, angle2, angle3, angle4].allSatisfy({ -$0.degrees >= 60 && -$0.degrees <= 120 })
             let abdomenIntersects = C.boundingBox.intersects(E.boundingBox)
             let leftWingIntersects = C.boundingBox.intersects(B.boundingBox)
             let rightWingIntersects = C.boundingBox.intersects(D.boundingBox)
@@ -224,7 +225,7 @@ class DetectionCompiler {
         _ detection3: TagmataDetection?,
         frameWidth: Double,
         frameHeight: Double
-    ) -> Double? {
+    ) -> Angle? {
         guard let detection1, let detection2, let detection3 else {
             return nil
         }
@@ -234,7 +235,7 @@ class DetectionCompiler {
         return self.angleBetweenPoints(point1: point1, point2: point2, point3: point3)
     }
     
-    /// Calculates the angle (in degrees) formed by three points.
+    /// Calculates the angle formed by three points.
     /// Example:
     /// ``` angleBetweenPoints(
     ///         point1: CGPoint(x: 0, y: 1),
@@ -246,8 +247,8 @@ class DetectionCompiler {
     ///   - point1: The first point
     ///   - point2: The second point, serves as the vertex of the angle
     ///   - point3: The third point
-    /// - Returns: The signed angle (in degrees) between `point1` and `point3` with `point2` as the vertex
-    private func angleBetweenPoints(point1: CGPoint, point2: CGPoint, point3: CGPoint) -> Double {
+    /// - Returns: The signed angle between `point1` and `point3` with `point2` as the vertex
+    private func angleBetweenPoints(point1: CGPoint, point2: CGPoint, point3: CGPoint) -> Angle {
         let vector1 = CGPoint(x: point2.x - point1.x, y: point2.y - point1.y)
         let vector2 = CGPoint(x: point3.x - point2.x, y: point3.y - point2.y)
         
@@ -256,15 +257,11 @@ class DetectionCompiler {
         let magnitude2 = sqrt(vector2.x * vector2.x + vector2.y * vector2.y)
         
         let cosAngle = dotProduct / (magnitude1 * magnitude2)
-        let angleInRadians = acos(cosAngle)
+        let angle = acos(cosAngle)
         
         let crossProduct = vector1.x * vector2.y - vector1.y * vector2.x
-        let angleInDegrees = angleInRadians * (180.0 / .pi)
-        
-        // Determine the sign of the angle based on the cross product
-        let signedAngle = crossProduct >= 0 ? angleInDegrees : -angleInDegrees
-        
-        return signedAngle
+        let signedAngle = crossProduct >= 0 ? angle : -angle
+        return Angle(radians: signedAngle)
     }
     
 }
