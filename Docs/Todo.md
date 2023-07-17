@@ -19,3 +19,4 @@ TODO:
 * Make it so it compiles the result continuously ("continuous compiling" above)
 * Try out depth for detecting which the user is holding
 * Try out improved algorithms for which piece the user is holding
+* Refactor `merged` and `mergeAll` to `unison` and `unisonAll`

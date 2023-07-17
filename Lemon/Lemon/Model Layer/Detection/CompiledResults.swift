@@ -13,6 +13,8 @@ class CompiledResults {
     private(set) var detectedTagmata: [TagmataClassification]
     /// All detected tagmata that are currently being held within frame
     private(set) var heldTagmata: [TagmataClassification]
+    /// If the insect is complete (all pieces are correctly attached)
+    public let insectIsComplete: Bool
     /// True if there were no detected tagmata within frame
     public var hasNoDetections: Bool {
         return self.detectedTagmata.isEmpty
@@ -22,9 +24,14 @@ class CompiledResults {
         return self.heldTagmata.isEmpty
     }
     
-    init(detectedTagmata: [TagmataClassification] = [], heldTagmata: [TagmataClassification] = []) {
+    init(
+        detectedTagmata: [TagmataClassification] = [],
+        heldTagmata: [TagmataClassification] = [],
+        insectIsComplete: Bool = false
+    ) {
         self.detectedTagmata = detectedTagmata
         self.heldTagmata = heldTagmata
+        self.insectIsComplete = insectIsComplete
     }
     
 }

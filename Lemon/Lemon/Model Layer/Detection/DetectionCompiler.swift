@@ -18,6 +18,8 @@ class DetectionCompiler {
     private static let DETECTION_BATCH_SIZE = 8
     /// How many of the detections (model outputs) are needed to indicate that something indeed was detected
     private static let DETECTION_THRESHOLD = 3
+    /// How many of the detections (where the model is complete) are needed to indicate that the model is indeed complete
+    private static let COMPLETION_THRESHOLD = 3
     
     /// All the tagmata detections to be used to produce the results
     private var compiledTagmataOutcomes = [TagmataDetectionOutcome]()
@@ -97,7 +99,22 @@ class DetectionCompiler {
             }
         }
         
-        return CompiledResults(detectedTagmata: results, heldTagmata: filteredHeldResults)
+        var completionDetectionsCount = 0
+        for outcome in self.compiledTagmataOutcomes {
+            if self.detectInsectCompletion(for: outcome) {
+                completionDetectionsCount += 1
+                if completionDetectionsCount >= Self.COMPLETION_THRESHOLD {
+                    break
+                }
+            }
+        }
+        let insectIsComplete = completionDetectionsCount >= Self.COMPLETION_THRESHOLD
+        
+        return CompiledResults(
+            detectedTagmata: results,
+            heldTagmata: filteredHeldResults,
+            insectIsComplete: insectIsComplete
+        )
     }
     
     private func findTagmataBeingHeld(
@@ -122,8 +139,8 @@ class DetectionCompiler {
         )
         for handDetection in handDetectionOutcome.handDetections {
             var heldTagmata = [TagmataClassification]()
-            var jointPositions = handDetection.holdingPositions
-            var filteredJointPositions = [JointPosition]()
+            let jointPositions = handDetection.holdingPositions
+            let filteredJointPositions = [JointPosition]()
             for jointPosition in jointPositions {
                 for tagmataIndex in 0..<tagmataClassifications.count {
                     let tagmataPosition = tagmataPositions[tagmataIndex]
@@ -167,6 +184,87 @@ class DetectionCompiler {
         let newDiagonal = sqrt(pow(newWidth, 2) + pow(newHeight, 2))
         let newDistance = proportion * newDiagonal
         return newDistance
+    }
+    
+    private func detectInsectCompletion(for tagmataDetectionOutcome: TagmataDetectionOutcome) -> Bool {
+        var predictions = [TagmataClassification: TagmataDetection]()
+        for prediction in tagmataDetectionOutcome.tagmataDetections {
+            predictions[prediction.classification] = prediction
+        }
+        let A = predictions[.head]
+        let B = predictions[.leftWing]
+        let C = predictions[.thorax]
+        let D = predictions[.rightWing]
+        let E = predictions[.abdomen]
+        
+        let frameWidth = Double(tagmataDetectionOutcome.frame.width)
+        let frameHeight = Double(tagmataDetectionOutcome.frame.height)
+        let angle1 = self.angleBetweenDetections(A, C, D, frameWidth: frameWidth, frameHeight: frameHeight)
+        let angle2 = self.angleBetweenDetections(B, C, A, frameWidth: frameWidth, frameHeight: frameHeight)
+        let angle3 = self.angleBetweenDetections(E, C, B, frameWidth: frameWidth, frameHeight: frameHeight)
+        let angle4 = self.angleBetweenDetections(D, C, E, frameWidth: frameWidth, frameHeight: frameHeight)
+        
+        if let angle1, let angle2, let angle3, let angle4, let A, let B, let C, let D, let E {
+            let sum = angle1 + angle2 + angle3 + angle4
+            let sumInRange = sum >= 350 && sum <= 370
+            let validAngles = [angle1, angle2, angle3, angle4].allSatisfy({ $0 >= 60 && $0 <= 120 })
+            let abdomenIntersects = C.boundingBox.intersects(E.boundingBox)
+            let leftWingIntersects = C.boundingBox.intersects(B.boundingBox)
+            let rightWingIntersects = C.boundingBox.intersects(D.boundingBox)
+            let headIntersects = C.boundingBox.intersects(A.boundingBox)
+            let validIntersects = abdomenIntersects && leftWingIntersects && rightWingIntersects && headIntersects
+            return sumInRange && validAngles && validIntersects
+        }
+        return false
+    }
+    
+    private func angleBetweenDetections(
+        _ detection1: TagmataDetection?,
+        _ detection2: TagmataDetection?,
+        _ detection3: TagmataDetection?,
+        frameWidth: Double,
+        frameHeight: Double
+    ) -> Double? {
+        guard let detection1, let detection2, let detection3 else {
+            return nil
+        }
+        let point1 = detection1.getDenormalisedCenter(boundsWidth: frameWidth, boundsHeight: frameHeight)
+        let point2 = detection2.getDenormalisedCenter(boundsWidth: frameWidth, boundsHeight: frameHeight)
+        let point3 = detection3.getDenormalisedCenter(boundsWidth: frameWidth, boundsHeight: frameHeight)
+        return self.angleBetweenPoints(point1: point1, point2: point2, point3: point3)
+    }
+    
+    /// Calculates the angle (in degrees) formed by three points.
+    /// Example:
+    /// ``` angleBetweenPoints(
+    ///         point1: CGPoint(x: 0, y: 1),
+    ///         point2: CGPoint(x: 0, y: 0),
+    ///         point3: CGPoint(x: 1, y: 0)
+    ///     ) -> -90
+    /// ```
+    /// - Parameters:
+    ///   - point1: The first point
+    ///   - point2: The second point, serves as the vertex of the angle
+    ///   - point3: The third point
+    /// - Returns: The signed angle (in degrees) between `point1` and `point3` with `point2` as the vertex
+    private func angleBetweenPoints(point1: CGPoint, point2: CGPoint, point3: CGPoint) -> Double {
+        let vector1 = CGPoint(x: point2.x - point1.x, y: point2.y - point1.y)
+        let vector2 = CGPoint(x: point3.x - point2.x, y: point3.y - point2.y)
+        
+        let dotProduct = vector1.x * vector2.x + vector1.y * vector2.y
+        let magnitude1 = sqrt(vector1.x * vector1.x + vector1.y * vector1.y)
+        let magnitude2 = sqrt(vector2.x * vector2.x + vector2.y * vector2.y)
+        
+        let cosAngle = dotProduct / (magnitude1 * magnitude2)
+        let angleInRadians = acos(cosAngle)
+        
+        let crossProduct = vector1.x * vector2.y - vector1.y * vector2.x
+        let angleInDegrees = angleInRadians * (180.0 / .pi)
+        
+        // Determine the sign of the angle based on the cross product
+        let signedAngle = crossProduct >= 0 ? -angleInDegrees : angleInDegrees
+        
+        return signedAngle
     }
     
 }
