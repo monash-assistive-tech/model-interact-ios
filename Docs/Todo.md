@@ -14,7 +14,7 @@ TODO:
 * Polish audio
 * ~~Get it working on iPad~~
 * ~~Get it working if the screen rotates~~
-* Fix the fact that the camera initially freezes
+* ~~Fix the fact that the camera initially freezes~~
 * Make it more lenient with the wings
 * Make it so it compiles the result continuously ("continuous compiling" above)
 * Try out depth for detecting which the user is holding

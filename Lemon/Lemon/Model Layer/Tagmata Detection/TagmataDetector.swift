@@ -10,16 +10,23 @@ import Vision
 
 class TagmataDetector: DetectsTagmata {
     
+    private static let MAX_THREADS = 3
+    
     public let id = DetectorID()
     private var visionModel: VNCoreMLModel? = nil
     private var request: VNCoreMLRequest? = nil
     public weak var objectDetectionDelegate: TagmataDetectionDelegate?
+    private var activeThreads = 0
     
     init() {
         self.setupModel()
     }
     
     func makePrediction(on frame: CGImage) {
+        guard self.activeThreads < Self.MAX_THREADS else {
+            return
+        }
+        self.activeThreads += 1
         // Run on non-UI related background thread
         DispatchQueue.global(qos: .userInitiated).async { [self] in
             self.process(frame: frame)
@@ -72,6 +79,7 @@ class TagmataDetector: DetectsTagmata {
     private func delegateOutcome(_ outcome: TagmataDetectionOutcome?) {
         // Jump back to main thread
         DispatchQueue.main.async {
+            self.activeThreads -= 1
             self.objectDetectionDelegate?.onTagmataDetection(outcome: outcome)
         }
     }

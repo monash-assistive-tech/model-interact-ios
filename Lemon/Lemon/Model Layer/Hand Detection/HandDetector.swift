@@ -11,7 +11,10 @@ import Vision
 
 class HandDetector {
     
+    private static let MAX_THREADS = 4
+    
     private typealias HandDetectorModel = HandDetector2_70
+    private var activeThreads = 0
     
     private var model: HandDetectorModel? = nil
     public weak var handDetectionDelegate: HandDetectionDelegate?
@@ -27,6 +30,10 @@ class HandDetector {
     }
     
     func makePrediction(on frame: CGImage) {
+        guard self.activeThreads < Self.MAX_THREADS else {
+            return
+        }
+        self.activeThreads += 1
         // Run on non-UI related background thread
         DispatchQueue.global(qos: .userInitiated).async { [self] in
             self.process(frame: frame)
@@ -98,6 +105,7 @@ class HandDetector {
     private func delegateOutcome(_ outcome: HandDetectionOutcome) {
         // Jump back to main thread
         DispatchQueue.main.async {
+            self.activeThreads -= 1
             self.handDetectionDelegate?.onHandDetection(outcome: outcome)
         }
     }
