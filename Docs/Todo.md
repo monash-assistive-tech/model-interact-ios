@@ -21,5 +21,5 @@ TODO:
     * Actually I may consider adding a `clear` function to the compiled results thing so that when a new command is entered before the command is assigned I clear the compiled results so it can't answer too quickly
 * Try out depth for detecting which the user is holding
 * Try out improved algorithms for which piece the user is holding
-* Refactor `merged` and `mergeAll` to `unison` and `unisonAll`
+* ~~Refactor `merged` and `mergeAll` to `unison` and `unisonAll`~~
 * Add "wings are in the wrong place" to compiled results
