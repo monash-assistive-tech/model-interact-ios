@@ -205,9 +205,9 @@ class DetectionCompiler {
         let angle4 = self.angleBetweenDetections(D, C, E, frameWidth: frameWidth, frameHeight: frameHeight)
         
         if let angle1, let angle2, let angle3, let angle4, let A, let B, let C, let D, let E {
-            let sum = angle1 + angle2 + angle3 + angle4
+            let sum = -(angle1 + angle2 + angle3 + angle4) // * -1 for readability
             let sumInRange = sum >= 350 && sum <= 370
-            let validAngles = [angle1, angle2, angle3, angle4].allSatisfy({ $0 >= 60 && $0 <= 120 })
+            let validAngles = [angle1, angle2, angle3, angle4].allSatisfy({ -$0 >= 60 && -$0 <= 120 }) // * -1 for readability
             let abdomenIntersects = C.boundingBox.intersects(E.boundingBox)
             let leftWingIntersects = C.boundingBox.intersects(B.boundingBox)
             let rightWingIntersects = C.boundingBox.intersects(D.boundingBox)
@@ -240,7 +240,7 @@ class DetectionCompiler {
     ///         point1: CGPoint(x: 0, y: 1),
     ///         point2: CGPoint(x: 0, y: 0),
     ///         point3: CGPoint(x: 1, y: 0)
-    ///     ) -> -90
+    ///     ) -> 90
     /// ```
     /// - Parameters:
     ///   - point1: The first point
@@ -262,7 +262,7 @@ class DetectionCompiler {
         let angleInDegrees = angleInRadians * (180.0 / .pi)
         
         // Determine the sign of the angle based on the cross product
-        let signedAngle = crossProduct >= 0 ? -angleInDegrees : angleInDegrees
+        let signedAngle = crossProduct >= 0 ? angleInDegrees : -angleInDegrees
         
         return signedAngle
     }
