@@ -19,6 +19,8 @@ class LemonText: LemonUIView {
     
     init(text: String? = nil, font: UIFont? = UIFont.boldSystemFont(ofSize: 13.0)) {
         super.init()
+        self.view.translatesAutoresizingMaskIntoConstraints = false
+        self.toggleWordWrapping(to: true)
         self.setText(to: text)
         self.setFont(to: font)
     }
@@ -26,6 +28,19 @@ class LemonText: LemonUIView {
     @discardableResult
     func setText(to text: String?) -> Self {
         self.label.text = text
+        return self
+    }
+    
+    @discardableResult
+    func toggleWordWrapping(to status: Bool) -> Self {
+        if status {
+            self.label.numberOfLines = 0
+            self.label.lineBreakMode = .byWordWrapping
+        } else {
+            // Defaults
+            self.label.numberOfLines = 1
+            self.label.lineBreakMode = .byTruncatingTail
+        }
         return self
     }
     

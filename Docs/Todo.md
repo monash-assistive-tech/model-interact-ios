@@ -23,3 +23,4 @@ TODO:
 * Try out improved algorithms for which piece the user is holding
 * ~~Refactor `merged` and `mergeAll` to `unison` and `unisonAll`~~
 * Add "wings are in the wrong place" to compiled results
+* Polish commands

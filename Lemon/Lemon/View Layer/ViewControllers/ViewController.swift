@@ -11,7 +11,7 @@ import Vision
 
 class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, TagmataDetectionDelegate, LiveSpeechToTextDelegate {
     
-    private var predictionInterval = 2
+    private var predictionInterval = 60
     private let captureSession = CaptureSession()
     private let synthesizer = SpeechSynthesizer()
     private let recognizer = SpeechRecognizer()
@@ -45,6 +45,8 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private let predictionOverlaySwitch = LemonLabelledSwitch()
     private let proximityOverlaySwitch = LemonLabelledSwitch()
     private let handClassificationSwitch = LemonLabelledSwitch()
+    private let transcriptionContainer = LemonView()
+    private let transcriptionText = LemonText()
     private var overlays: [LemonUIView] {
         return [
             self.predictionOverlay,
@@ -83,6 +85,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             .constrainAllSides()
             .addView(self.optionsContainer)
             .addSpacer()
+            .addView(self.transcriptionContainer)
         
         // Options container
         self.optionsContainer
@@ -90,6 +93,17 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             .setBackgroundColor(to: UIColor.white.withAlphaComponent(0.6))
             .setCornerRadius(to: 20)
             .addSubview(self.optionsStack)
+        
+        // Transcription container
+        self.transcriptionContainer
+            .addSubview(self.transcriptionText)
+            .setBackgroundColor(to: UIColor.white)
+            .setCornerRadius(to: 12)
+        
+        // Transcription text
+        self.transcriptionText
+            .constrainAllSides(padding: 12)
+            .setSize(to: 16)
             
         // Options stack
         self.optionsStack
@@ -125,6 +139,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         self.recordButton
             .setIcon(to: "record.circle")
             .setOnTap({
+                self.transcriptionText.setText(to: "")
                 self.toggleAudioRecording()
             })
         
@@ -305,7 +320,6 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         } else {
             self.recordButton.setIcon(to: "record.circle")
             self.recognizer.stopTranscribing()
-            print(self.recognizer.transcript)
         }
     }
     
@@ -353,6 +367,9 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     }
     
     func onWordRecognition(currentTranscription: SpeechText) {
+        if !currentTranscription.text.isEmpty {
+            self.transcriptionText.setText(to: currentTranscription.text)
+        }
         if currentTranscription.contains("name") {
             self.loadedCommand = "name"
 //            self.recognizer.stopTranscribing() // FLIP
