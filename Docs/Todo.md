@@ -26,4 +26,4 @@ TODO:
 * ~~Polish commands~~
 * ~~Optimise models so it only detects when there's a command loaded~~
 * Remove hand pose classification model if no longer necessary
-* Add "completed" command
+* ~~Add "completed" command (and also include it into the compiled results)~~
