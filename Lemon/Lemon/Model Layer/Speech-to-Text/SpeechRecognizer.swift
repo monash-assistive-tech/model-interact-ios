@@ -107,7 +107,7 @@ actor SpeechRecognizer {
         let request = SFSpeechAudioBufferRecognitionRequest()
         request.shouldReportPartialResults = true
         
-        AudioSessionManager.inst.setToRecordMode()
+        // AudioSessionManager.inst.setToRecordMode() // Unnecessary with VOIP mode or speaker mode
         let inputNode = audioEngine.inputNode
         
         let recordingFormat = inputNode.outputFormat(forBus: 0)

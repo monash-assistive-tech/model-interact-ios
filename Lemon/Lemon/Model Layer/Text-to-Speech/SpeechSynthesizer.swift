@@ -52,7 +52,7 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
     
     func speak(_ speech: String) {
         let utterance = self.buildUtterance(speech: speech)
-        AudioSessionManager.inst.setToPlaybackMode()
+        // AudioSessionManager.inst.setToPlaybackMode() // Unnecessary with VOIP mode or speaker mode
         self.synthesiser.speak(utterance)
     }
     

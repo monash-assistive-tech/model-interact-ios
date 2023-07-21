@@ -45,6 +45,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private let predictionOverlaySwitch = LemonLabelledSwitch()
     private let proximityOverlaySwitch = LemonLabelledSwitch()
     private let handClassificationSwitch = LemonLabelledSwitch()
+    private let speakerModeSwitch = LemonLabelledSwitch()
     private let transcriptionContainer = LemonView()
     private let transcriptionText = LemonText()
     private var overlays: [LemonUIView] {
@@ -118,6 +119,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             .addView(self.predictionOverlaySwitch)
             .addView(self.proximityOverlaySwitch)
             .addView(self.handClassificationSwitch)
+            .addView(self.speakerModeSwitch)
         
         // Button row stack
         self.buttonRowStack
@@ -243,6 +245,21 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 self.handClassificationOverlay.setHidden(to: !isOn)
             })
             .setState(isOn: false, animated: false)
+        
+        // Speaker mode switch
+        self.speakerModeSwitch
+            .constrainHorizontal()
+        self.speakerModeSwitch.labelText
+            .setText(to: "Speaker Mode")
+        self.speakerModeSwitch.switchView
+            .setOnFlick({ isOn in
+                if isOn {
+                    AudioSessionManager.inst.setToSpeakerMode()
+                } else {
+                    AudioSessionManager.inst.setToVOIPMode()
+                }
+            })
+            .setState(isOn: true, animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
