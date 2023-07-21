@@ -76,6 +76,7 @@
 		B6D4727B2A608EA60002CEEC /* HandClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4727A2A608EA60002CEEC /* HandClassification.swift */; };
 		B6D472802A60A3BA0002CEEC /* HandClassificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4727F2A60A3BA0002CEEC /* HandClassificationView.swift */; };
 		B6D472862A64E6DF0002CEEC /* Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D472852A64E6DF0002CEEC /* Angle.swift */; };
+		B6DC100E2A6A2A3500C10100 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DC100D2A6A2A3500C10100 /* Command.swift */; };
 		B6FD174F2A416DBB003EDD5F /* TagmataClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */; };
 /* End PBXBuildFile section */
 
@@ -170,6 +171,7 @@
 		B6D4727A2A608EA60002CEEC /* HandClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandClassification.swift; sourceTree = "<group>"; };
 		B6D4727F2A60A3BA0002CEEC /* HandClassificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandClassificationView.swift; sourceTree = "<group>"; };
 		B6D472852A64E6DF0002CEEC /* Angle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Angle.swift; sourceTree = "<group>"; };
+		B6DC100D2A6A2A3500C10100 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataClassification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -251,6 +253,7 @@
 		B6C37E712A351630004D18A8 /* Model Layer */ = {
 			isa = PBXGroup;
 			children = (
+				B6DC100C2A6A2A2400C10100 /* Commands */,
 				B6D4725E2A5762100002CEEC /* Detection */,
 				B6D4724E2A57475E0002CEEC /* Hand Detection */,
 				B6C37ED52A397366004D18A8 /* Tagmata Detection */,
@@ -502,6 +505,14 @@
 			path = Overlays;
 			sourceTree = "<group>";
 		};
+		B6DC100C2A6A2A2400C10100 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				B6DC100D2A6A2A3500C10100 /* Command.swift */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -661,6 +672,7 @@
 				B6D472562A57489A0002CEEC /* HandDetectionOutcome.swift in Sources */,
 				B6C37E822A3525F4004D18A8 /* AVAudioSession.swift in Sources */,
 				B6C37ED12A396B71004D18A8 /* CaptureDelegate.swift in Sources */,
+				B6DC100E2A6A2A3500C10100 /* Command.swift in Sources */,
 				B6C37EE32A399D7E004D18A8 /* TagmataDetection.swift in Sources */,
 				B6D4726F2A5962770002CEEC /* CompiledResults.swift in Sources */,
 				B6C37EE72A399F30004D18A8 /* Float.swift in Sources */,

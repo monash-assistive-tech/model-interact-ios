@@ -24,8 +24,8 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private var isRecordingAudio = false
     /// If the app is "live" - audio is being recorded, commands being listed for
     private var isLive = false
-    private var loadedCommand = ""
-    private var commandHistory = [String]()
+    private var loadedCommand: Command = .none
+    private var commandHistory = [Command]()
     
     private var root: LemonView { return LemonView(self.view) }
     private var image = LemonImage()
@@ -391,7 +391,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     
     func onCapture(session: CaptureSession, frame: CGImage?) {
         if let frame {
-            if (!self.isLive || (self.isLive && !self.loadedCommand.isEmpty)) {
+            if (!self.isLive || (self.isLive && !(self.loadedCommand == .none))) {
                 self.handDetector.makePrediction(on: frame)
                 if self.currentFrameID%self.predictionInterval == 0 {
                     self.tagmataDetector.makePrediction(on: frame)
@@ -430,16 +430,20 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             self.transcriptionText.setText(to: currentTranscription.text)
         }
         if self.isLive {
-            if currentTranscription.count("name") > self.commandHistory.filter({ $0 == "name" }).count {
-                self.commandHistory.append("name")
+            if currentTranscription.count(Command.name.rawValue) > self.commandHistory.filter({ $0 == .name }).count {
+                self.commandHistory.append(.name)
                 self.detectionCompiler.clearOutcomes()
-                self.loadedCommand = "name"
-            } else if currentTranscription.count("information") > self.commandHistory.filter({ $0 == "information" }).count {
-                self.commandHistory.append("information")
+                self.loadedCommand = .name
+            } else if currentTranscription.count(Command.information.rawValue) > self.commandHistory.filter({ $0 == .information }).count {
+                self.commandHistory.append(.information)
                 self.detectionCompiler.clearOutcomes()
-                self.loadedCommand = "information"
-            } else if currentTranscription.count("test") > self.commandHistory.filter({ $0 == "test" }).count {
-                self.commandHistory.append("test")
+                self.loadedCommand = .information
+            } else if currentTranscription.count(Command.completed.rawValue) > self.commandHistory.filter({ $0 == .completed }).count {
+                self.commandHistory.append(.completed)
+                self.detectionCompiler.clearOutcomes()
+                self.loadedCommand = .completed
+            } else if currentTranscription.count(Command.test.rawValue) > self.commandHistory.filter({ $0 == .test }).count {
+                self.commandHistory.append(.test)
                 self.detectionCompiler.clearOutcomes()
                 self.synthesizer.speak("Lemon")
             }
@@ -453,12 +457,20 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     func handleDetectionResults(_ results: CompiledResults) {
         if self.isLive {
             if let tagmata = results.heldTagmata.first {
-                if self.loadedCommand == "name" {
-                    self.loadedCommand = ""
+                if self.loadedCommand == .name {
+                    self.loadedCommand = .none
                     self.synthesizer.speak(tagmata.name)
-                } else if self.loadedCommand == "information" {
-                    self.loadedCommand = ""
+                } else if self.loadedCommand == .information {
+                    self.loadedCommand = .none
                     self.synthesizer.speak(tagmata.description)
+                }
+            }
+            if self.loadedCommand == .completed {
+                self.loadedCommand = .none
+                if results.insectIsComplete {
+                    self.synthesizer.speak(Strings("completion.success").local)
+                } else {
+                    self.synthesizer.speak(Strings("completion.failure").local)
                 }
             }
         }

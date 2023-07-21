@@ -38,3 +38,9 @@
 "description.wings" = "The wings have no description.";
 
 "description.abdomen" = "The abdomen makes up the last, and probably the most recognizable, part of the insect. This section of the body stores the bug's digestive system, reproductive organs and sting organs (if applicable). The abdomen is a reactive part of the insect body, meaning that it can expand when the insect feeds.";
+
+// MARK: - Completed
+
+"completion.success" = "Yes! The insect is complete.";
+"completion.failure" = "No, the insect is not complete.";
+"completion.wrongWings" = "Almost, but the wings need to be switched.";
