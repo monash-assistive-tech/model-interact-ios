@@ -11,6 +11,11 @@
 TODO:
 
 * Make it so when the user lets go, it stops speaking
+    * Have a `isSpeaking` in the view controller
+    * Update `isSpeaking` using the delegates in the synthesiser
+    * Slow down the interval rate to like 10
+    * use `isSpeaking` in the condition in `onCapture`
+    * if we receive results and the user is no longer holding whatever was being held in the last results, stop the speaking
 * ~~Polish audio~~
 * ~~Get it working on iPad~~
 * ~~Get it working if the screen rotates~~
