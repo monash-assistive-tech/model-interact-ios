@@ -11,7 +11,7 @@ import Vision
 
 class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, TagmataDetectionDelegate, LiveSpeechToTextDelegate {
     
-    private var predictionInterval = 60
+    private var predictionInterval = 2
     private let captureSession = CaptureSession()
     private let synthesizer = SpeechSynthesizer()
     private let recognizer = SpeechRecognizer()
@@ -22,6 +22,10 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     @WrapsToZero(threshold: 600) private var currentFrameID = 0
     private var overlayFrameSyncRequired = true
     private var isRecordingAudio = false
+    /// If the app is "live" - audio is being recorded, commands being listed for
+    private var isLive = false
+    private var loadedCommand = ""
+    private var commandHistory = [String]()
     
     private var root: LemonView { return LemonView(self.view) }
     private var image = LemonImage()
@@ -46,6 +50,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private let proximityOverlaySwitch = LemonLabelledSwitch()
     private let handClassificationSwitch = LemonLabelledSwitch()
     private let speakerModeSwitch = LemonLabelledSwitch()
+    private let liveSwitch = LemonLabelledSwitch()
     private let transcriptionContainer = LemonView()
     private let transcriptionText = LemonText()
     private var overlays: [LemonUIView] {
@@ -120,6 +125,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             .addView(self.proximityOverlaySwitch)
             .addView(self.handClassificationSwitch)
             .addView(self.speakerModeSwitch)
+            .addView(self.liveSwitch)
         
         // Button row stack
         self.buttonRowStack
@@ -143,6 +149,9 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             .setOnTap({
                 self.transcriptionText.setText(to: "")
                 self.toggleAudioRecording()
+                if !self.isRecordingAudio {
+                    self.liveSwitch.switchView.setState(isOn: false, animated: true)
+                }
             })
         
         // Flip button
@@ -260,6 +269,23 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 }
             })
             .setState(isOn: true, animated: false)
+        
+        // Live switch
+        self.liveSwitch
+            .constrainHorizontal()
+        self.liveSwitch.labelText
+            .setText(to: "App is Live")
+        self.liveSwitch.switchView
+            .setOnFlick({ isOn in
+                self.isLive = isOn
+                if isOn {
+                    self.transcriptionText.setText(to: "")
+                    self.commandHistory.removeAll()
+                    self.startAudioRecording()
+                } else {
+                    self.stopAudioRecording()
+                }
+            })
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -322,11 +348,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         self.recognizer.liveSpeechToTextDelegate = self
     }
     
-    private func setupSpeechSynthesizer() {
-        self.synthesizer.didFinishDelegate = {
-//            self.recognizer.startTranscribing() // FLIP
-        }
-    }
+    private func setupSpeechSynthesizer() { }
     
     private func toggleAudioRecording() {
         self.isRecordingAudio.toggle()
@@ -340,6 +362,24 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         }
     }
     
+    private func startAudioRecording() {
+        guard !self.isRecordingAudio else {
+            return
+        }
+        self.isRecordingAudio = true
+        self.recordButton.setIcon(to: "record.circle.fill")
+        self.recognizer.startTranscribing()
+    }
+    
+    private func stopAudioRecording() {
+        guard self.isRecordingAudio else {
+            return
+        }
+        self.isRecordingAudio = false
+        self.recordButton.setIcon(to: "record.circle")
+        self.recognizer.stopTranscribing()
+    }
+    
     private func flipCamera() {
         self.captureSession.flipCamera { error in
             if let error {
@@ -351,9 +391,11 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     
     func onCapture(session: CaptureSession, frame: CGImage?) {
         if let frame {
-            self.handDetector.makePrediction(on: frame)
-            if self.currentFrameID%self.predictionInterval == 0 {
-                self.tagmataDetector.makePrediction(on: frame)
+            if (!self.isLive || (self.isLive && !self.loadedCommand.isEmpty)) {
+                self.handDetector.makePrediction(on: frame)
+                if self.currentFrameID%self.predictionInterval == 0 {
+                    self.tagmataDetector.makePrediction(on: frame)
+                }
             }
             
             self.setVideoImage(to: frame)
@@ -387,31 +429,37 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         if !currentTranscription.text.isEmpty {
             self.transcriptionText.setText(to: currentTranscription.text)
         }
-        if currentTranscription.contains("name") {
-            self.loadedCommand = "name"
-//            self.recognizer.stopTranscribing() // FLIP
-            self.recognizer.resetTranscript()
-        } else if currentTranscription.contains("information") {
-            self.loadedCommand = "information"
-//            self.recognizer.stopTranscribing() // FLIP
-            self.recognizer.resetTranscript()
+        if self.isLive {
+            if currentTranscription.count("name") > self.commandHistory.filter({ $0 == "name" }).count {
+                self.commandHistory.append("name")
+                self.detectionCompiler.clearOutcomes()
+                self.loadedCommand = "name"
+            } else if currentTranscription.count("information") > self.commandHistory.filter({ $0 == "information" }).count {
+                self.commandHistory.append("information")
+                self.detectionCompiler.clearOutcomes()
+                self.loadedCommand = "information"
+            } else if currentTranscription.count("test") > self.commandHistory.filter({ $0 == "test" }).count {
+                self.commandHistory.append("test")
+                self.detectionCompiler.clearOutcomes()
+                self.synthesizer.speak("Lemon")
+            }
+            //else if currentTranscription.contains("stop") {
+            //    self.synthesizer.stopSpeaking()
+            //    self.recognizer.clearLiveTranscription()
+            //}
         }
-//        if currentTranscription.contains("STOP") {
-//            self.synthesizer.stopSpeaking()
-//            self.recognizer.resetTranscript()
-//        }
     }
     
-    private var loadedCommand = ""
-    
     func handleDetectionResults(_ results: CompiledResults) {
-        if let tagmata = results.heldTagmata.first {
-            if self.loadedCommand == "name" {
-                self.loadedCommand = ""
-                self.synthesizer.speak(tagmata.name)
-            } else if self.loadedCommand == "information" {
-                self.loadedCommand = ""
-                self.synthesizer.speak(tagmata.description)
+        if self.isLive {
+            if let tagmata = results.heldTagmata.first {
+                if self.loadedCommand == "name" {
+                    self.loadedCommand = ""
+                    self.synthesizer.speak(tagmata.name)
+                } else if self.loadedCommand == "information" {
+                    self.loadedCommand = ""
+                    self.synthesizer.speak(tagmata.description)
+                }
             }
         }
     }

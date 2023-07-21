@@ -29,6 +29,11 @@ class DetectionCompiler {
     private var results = CompiledResults()
     /// If new results are ready to be read (once retrieved, is toggled to false again)
     private(set) var newResultsReady = false
+    
+    func clearOutcomes() {
+        self.compiledTagmataOutcomes.removeAll()
+        self.compiledHandOutcomes.removeAll()
+    }
 
     func addOutcome(_ tagmataOutcome: TagmataDetectionOutcome, handOutcome: HandDetectionOutcome) {
         self.compiledTagmataOutcomes.append(tagmataOutcome)
