@@ -14,7 +14,6 @@
         * Hand Detection
         * Completion Detection
         * Etc...
-* Fix bug where command queue doesn't work
-    * Either stop/start transcribing
-    * Or use the last word
+* ~~Fix bug where command queue doesn't work~~
 * Add in the feature where if two hands are detected, read "Two hands are detected"
+* Add audio file playing and recording
