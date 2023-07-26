@@ -168,7 +168,11 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         self.speakButton
             .setIcon(to: "waveform")
             .setOnTap({
-                self.synthesizer.speak("Hello Lemon! Filler text is text that shares some characteristics of a real written text, but is random or otherwise generated. It may be used to display a sample of fonts, generate text for testing, or to spoof an e-mail spam filter.")
+                if AudioPlayer.inst.isPlaying {
+                    AudioPlayer.inst.stopAudio()
+                } else {
+                    AudioPlayer.inst.playAudio(file: "wings", type: "m4a")
+                }
             })
         
         // Record button
