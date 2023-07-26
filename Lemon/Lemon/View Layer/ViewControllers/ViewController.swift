@@ -11,16 +11,27 @@ import Vision
 
 class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, TagmataDetectionDelegate, LiveSpeechToTextDelegate {
     
+    /// Determines how frequently the model is ran on a frame (every nth frame)
     private var predictionInterval = 6
+    /// The camera capture session for producing a camera output
     private let captureSession = CaptureSession()
+    /// Speech synthesizer for producing speech (tts)
     private let synthesizer = SpeechSynthesizer()
+    /// Speech recognizer for recognising speech
     private let recognizer = SpeechRecognizer()
+    /// The model used for detecting tagmata within a frame
     private var tagmataDetector: DetectsTagmata = TagmataQuadrantDetector()
+    /// Compiles multiple detections into usable results
     private let detectionCompiler = DetectionCompiler()
+    /// The model used for detecting hands within a frame
     private let handDetector = HandDetector()
+    /// The currently detected hands to read to make associations with the results from the tagmata detector
     private var activeHandDetection = HandDetectionOutcome()
+    /// The frame id used as a counter to run a model on every nth frame
     @WrapsToZero(threshold: 600) private var currentFrameID = 0
+    /// Indicates if the overlay frames needs to be synced up (frames matched) to the main screen dimensions (e.g. if the device rotates)
     private var overlayFrameSyncRequired = true
+    /// True if audio is being recorded
     private var isRecordingAudio = false
     /// If the app is "live" - audio is being recorded, commands being listed for
     private var isLive = false
