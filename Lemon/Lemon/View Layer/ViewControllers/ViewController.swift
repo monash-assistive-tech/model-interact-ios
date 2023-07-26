@@ -66,6 +66,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private let liveSwitch = LemonLabelledSwitch()
     private let transcriptionContainer = LemonView()
     private let transcriptionText = LemonText()
+    private let hideEverythingButton = LemonIconButton()
     private var overlays: [LemonUIView] {
         return [
             self.predictionOverlay,
@@ -89,8 +90,13 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     }
     
     func setupSubviews() {
+        // Root
+        self.root
+            .addSubview(self.image)
+            .addSubview(self.stack)
+            .addSubview(self.hideEverythingButton)
+        
         // Video view
-        self.root.addSubview(self.image)
         self.image.setFrame(to: self.root.frame)
         
         // Overlays
@@ -98,8 +104,17 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             self.image.addSubview(overlay)
         }
         
+        // Hide everything button
+        self.hideEverythingButton
+            .constrainRight(padding: 20)
+            .constrainBottom()
+            .setIcon(to: "eye.circle.fill")
+            .setOnTap({
+                self.hideEverythingButton.setIcon(to: self.stack.isHidden ? "eye.circle.fill" : "eye.circle")
+                self.stack.setHidden(to: !self.stack.isHidden)
+            })
+        
         // Stack
-        self.root.addSubview(self.stack)
         self.stack
             .constrainAllSides()
             .addView(self.optionsContainer)

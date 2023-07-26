@@ -24,6 +24,7 @@ class LemonIconButton: LemonUIView {
     
     override init() {
         super.init()
+        self.button.translatesAutoresizingMaskIntoConstraints = false
         self.button.widthAnchor.constraint(equalTo: self.button.heightAnchor).isActive = true
         var config = UIButton.Configuration.filled()
         config.contentInsets = NSDirectionalEdgeInsets(
