@@ -16,6 +16,9 @@ class LemonText: LemonUIView {
     public var view: UIView {
         return self.label
     }
+    public var text: String {
+        return self.label.text ?? ""
+    }
     
     init(text: String? = nil, font: UIFont? = UIFont.boldSystemFont(ofSize: 13.0)) {
         super.init()

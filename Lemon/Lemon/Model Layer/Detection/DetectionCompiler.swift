@@ -17,11 +17,11 @@ class DetectionCompiler {
     typealias HeldTagmata = (held: [TagmataClassification], maybeHeld: [TagmataClassification])
     
     /// How many detections (model outputs) until we compile results (whether there was something detected)
-    private static let DETECTION_BATCH_SIZE = 8
+    private static let DETECTION_BATCH_SIZE = 10
     /// How many of the detections (model outputs) are needed to indicate that something indeed was detected
     private static let DETECTION_THRESHOLD = 3
     /// How many of the detections (where the model is complete) are needed to indicate that the model is indeed complete
-    private static let COMPLETION_THRESHOLD = 3
+    private static let COMPLETION_THRESHOLD = 4
     
     /// All the tagmata detections to be used to produce the results
     private var compiledTagmataOutcomes = [TagmataDetectionOutcome]()

@@ -11,7 +11,7 @@ import Vision
 
 class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, TagmataDetectionDelegate, LiveSpeechToTextDelegate {
     
-    private var predictionInterval = 2
+    private var predictionInterval = 6
     private let captureSession = CaptureSession()
     private let synthesizer = SpeechSynthesizer()
     private let recognizer = SpeechRecognizer()
