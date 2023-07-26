@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Command: String {
+enum Command: String, CaseIterable {
     
     case name
     case information

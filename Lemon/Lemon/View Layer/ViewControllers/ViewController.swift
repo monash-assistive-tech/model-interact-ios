@@ -25,7 +25,6 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     /// If the app is "live" - audio is being recorded, commands being listed for
     private var isLive = false
     private var loadedCommand: Command = .none
-    private var commandHistory = [Command]()
     
     private var root: LemonView { return LemonView(self.view) }
     private var image = LemonImage()
@@ -280,7 +279,6 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 self.isLive = isOn
                 if isOn {
                     self.transcriptionText.setText(to: "")
-                    self.commandHistory.removeAll()
                     self.startAudioRecording()
                 } else {
                     self.stopAudioRecording()
@@ -430,39 +428,32 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             self.transcriptionText.setText(to: currentTranscription.text)
         }
         if self.isLive {
-            if currentTranscription.count(Command.name.rawValue) > self.commandHistory.filter({ $0 == .name }).count {
-                self.commandHistory.append(.name)
-                self.detectionCompiler.clearOutcomes()
-                self.loadedCommand = .name
-            } else if currentTranscription.count(Command.information.rawValue) > self.commandHistory.filter({ $0 == .information }).count {
-                self.commandHistory.append(.information)
-                self.detectionCompiler.clearOutcomes()
-                self.loadedCommand = .information
-            } else if currentTranscription.count(Command.completed.rawValue) > self.commandHistory.filter({ $0 == .completed }).count {
-                self.commandHistory.append(.completed)
-                self.detectionCompiler.clearOutcomes()
-                self.loadedCommand = .completed
-            } else if currentTranscription.count(Command.test.rawValue) > self.commandHistory.filter({ $0 == .test }).count {
-                self.commandHistory.append(.test)
-                self.detectionCompiler.clearOutcomes()
-                self.synthesizer.speak("Lemon")
+            for command in Command.allCases {
+                if currentTranscription.contains(command) {
+                    self.detectionCompiler.clearOutcomes()
+                    self.loadedCommand = command
+                    self.recognizer.resetTranscript()
+                }
             }
-            //else if currentTranscription.contains("stop") {
-            //    self.synthesizer.stopSpeaking()
-            //    self.recognizer.clearLiveTranscription()
-            //}
         }
     }
     
     func handleDetectionResults(_ results: CompiledResults) {
         if self.isLive {
+            if self.loadedCommand == .test {
+                self.synthesizer.speak("Lemon")
+                self.loadedCommand = .none
+                return
+            }
             if let tagmata = results.heldTagmata.first {
                 if self.loadedCommand == .name {
                     self.loadedCommand = .none
                     self.synthesizer.speak(tagmata.name)
+                    return
                 } else if self.loadedCommand == .information {
                     self.loadedCommand = .none
                     self.synthesizer.speak(tagmata.description)
+                    return
                 }
             }
             if self.loadedCommand == .completed {
@@ -472,6 +463,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 } else {
                     self.synthesizer.speak(Strings("completion.failure").local)
                 }
+                return
             }
         }
     }

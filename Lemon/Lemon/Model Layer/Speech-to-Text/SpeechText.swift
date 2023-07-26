@@ -20,6 +20,10 @@ class SpeechText {
         self.words = self.text.components(separatedBy: " ")
     }
     
+    func contains(_ command: Command) -> Bool {
+        return self.contains(command.rawValue)
+    }
+    
     func contains(_ text: String) -> Bool {
         return self.text.contains(text.lowercased())
     }
