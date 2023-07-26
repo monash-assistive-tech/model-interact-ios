@@ -2,10 +2,10 @@
 
 * ~~Make it so when the user lets go, it stops speaking~~
 * Try out depth for detecting which the user is holding
-* Try out improved algorithms for which piece the user is holding
+* ~~Try out improved algorithms for which piece the user is holding~~
 * Add "wings are in the wrong place" to compiled results
 * Remove hand pose classification model if no longer necessary
-* Add a mega toggle which toggles everything on the screen (like a FAB)
+* ~~Add a mega toggle which toggles everything on the screen (like a FAB)~~
 * Record demos
     * Main Demo
     * Features
