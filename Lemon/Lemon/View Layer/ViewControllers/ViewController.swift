@@ -24,7 +24,10 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private var isRecordingAudio = false
     /// If the app is "live" - audio is being recorded, commands being listed for
     private var isLive = false
+    /// The currently queued command to be executed upon the next compiled results being available
     private var loadedCommand: Command = .none
+    /// Whatever tagma is in focus (currently being described by the synthesizer, or equivalent) or was last in focus
+    private var focusedTagma: TagmataClassification? = nil
     
     private var root: LemonView { return LemonView(self.view) }
     private var image = LemonImage()
@@ -389,7 +392,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     
     func onCapture(session: CaptureSession, frame: CGImage?) {
         if let frame {
-            if (!self.isLive || (self.isLive && !(self.loadedCommand == .none))) {
+            if (!self.isLive || (self.isLive && !(self.loadedCommand == .none)) || (self.isLive && self.synthesizer.isSpeaking)) {
                 self.handDetector.makePrediction(on: frame)
                 if self.currentFrameID%self.predictionInterval == 0 {
                     self.tagmataDetector.makePrediction(on: frame)
@@ -448,10 +451,12 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             if let tagmata = results.heldTagmata.first {
                 if self.loadedCommand == .name {
                     self.loadedCommand = .none
+                    self.focusedTagma = tagmata
                     self.synthesizer.speak(tagmata.name)
                     return
                 } else if self.loadedCommand == .information {
                     self.loadedCommand = .none
+                    self.focusedTagma = tagmata
                     self.synthesizer.speak(tagmata.description)
                     return
                 }
@@ -464,6 +469,9 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                     self.synthesizer.speak(Strings("completion.failure").local)
                 }
                 return
+            }
+            if let focusedTagma, !results.tagmaStillHeld(original: focusedTagma) {
+                self.synthesizer.stopSpeaking()
             }
         }
     }

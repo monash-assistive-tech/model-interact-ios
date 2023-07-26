@@ -23,6 +23,12 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
     private var volume: Float = 1.0 // [0.0, 1.0]
     private var voice: AVSpeechSynthesisVoice
     private var lastSpoken: String? = nil
+    public var isSpeaking: Bool {
+        return self.synthesiser.isSpeaking
+    }
+    public var isPaused: Bool {
+        return self.synthesiser.isPaused
+    }
     /// Called when the speech synthesizer finishes the utterance
     public var didFinishDelegate: (() -> Void)? = nil
     /// Called when the speech synthesizer starts an utterance
@@ -57,6 +63,9 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
     }
     
     func stopSpeaking() {
+        guard self.synthesiser.isSpeaking else {
+            return
+        }
         self.synthesiser.stopSpeaking(at: .immediate)
     }
     

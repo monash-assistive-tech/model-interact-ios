@@ -14,6 +14,8 @@ import Foundation
 /// This also means we don't instantly react to detections. If there's only one frame where a tagma is detected, we don't want to jump the gun and assume that we want to react to it.
 class DetectionCompiler {
     
+    typealias HeldTagmata = (held: [TagmataClassification], maybeHeld: [TagmataClassification])
+    
     /// How many detections (model outputs) until we compile results (whether there was something detected)
     private static let DETECTION_BATCH_SIZE = 8
     /// How many of the detections (model outputs) are needed to indicate that something indeed was detected
@@ -88,6 +90,7 @@ class DetectionCompiler {
         }
         
         var heldResults = [TagmataClassification]()
+        var maybeHeldResults = [TagmataClassification]()
         for index in 0..<self.compiledTagmataOutcomes.count {
             let tagmataOutcome = self.compiledTagmataOutcomes[index]
             let handOutcome = self.compiledHandOutcomes[index]
@@ -95,12 +98,19 @@ class DetectionCompiler {
                 tagmataDetectionOutcome: tagmataOutcome,
                 handDetectionOutcome: handOutcome
             )
-            heldResults.append(contentsOf: beingHeld)
+            heldResults.append(contentsOf: beingHeld.held)
+            maybeHeldResults.append(contentsOf: beingHeld.maybeHeld)
         }
         var filteredHeldResults = [TagmataClassification]()
-        for heldResult in heldResults.filterDuplicates() {
+        for heldResult in heldResults {
             if results.contains(heldResult) {
                 filteredHeldResults.append(heldResult)
+            }
+        }
+        var filteredMaybeHeldResults = [TagmataClassification]()
+        for maybeHeldResult in maybeHeldResults {
+            if results.contains(maybeHeldResult) {
+                filteredMaybeHeldResults.append(maybeHeldResult)
             }
         }
         
@@ -117,7 +127,8 @@ class DetectionCompiler {
         
         return CompiledResults(
             detectedTagmata: results,
-            heldTagmata: filteredHeldResults,
+            heldTagmata: filteredHeldResults.filterDuplicates(),
+            maybeHeldTagmata: filteredMaybeHeldResults.filterDuplicates(),
             insectIsComplete: insectIsComplete
         )
     }
@@ -125,9 +136,9 @@ class DetectionCompiler {
     private func findTagmataBeingHeld(
         tagmataDetectionOutcome: TagmataDetectionOutcome,
         handDetectionOutcome: HandDetectionOutcome
-    ) -> [TagmataClassification] {
+    ) -> HeldTagmata {
         if tagmataDetectionOutcome.tagmataDetections.isEmpty {
-            return []
+            return HeldTagmata(held: [], maybeHeld: [])
         }
         let frameWidth = Double(tagmataDetectionOutcome.frame.width)
         let frameHeight = Double(tagmataDetectionOutcome.frame.height)
@@ -135,7 +146,7 @@ class DetectionCompiler {
         let tagmataPositions = tagmataDetectionOutcome.tagmataDetections.map({
             $0.getDenormalisedCenter(boundsWidth: frameWidth, boundsHeight: frameHeight)
         })
-        var result = [TagmataClassification]()
+        var result = HeldTagmata(held: [], maybeHeld: [])
         // Initially the distance threshold was empirically measured using a width/height of 504x896 and was found to be 80
         // This converts the distance threshold to match the frame's width and height
         let distanceThreshold = self.equivalentDistance(
@@ -157,9 +168,14 @@ class DetectionCompiler {
                 }
             }
             if let mostCommon = heldTagmata.mostCommonElement() {
-                result.append(mostCommon)
+                // To qualify for being held, you need to be within the threshold distance to the most joints
+                result.held.append(mostCommon)
             }
+            // To qualify for being maybe held, you need to be within the threshold distance to at least one joint
+            result.maybeHeld.append(contentsOf: heldTagmata)
         }
+        result.held = result.held.filterDuplicates()
+        result.maybeHeld = result.maybeHeld.filterDuplicates()
         return result
     }
     
