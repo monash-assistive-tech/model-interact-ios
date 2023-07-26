@@ -156,7 +156,6 @@ class DetectionCompiler {
         for handDetection in handDetectionOutcome.handDetections {
             var heldTagmata = [TagmataClassification]()
             let jointPositions = handDetection.holdingPositions
-            let filteredJointPositions = [JointPosition]()
             for jointPosition in jointPositions {
                 for tagmataIndex in 0..<tagmataClassifications.count {
                     let tagmataPosition = tagmataPositions[tagmataIndex]
