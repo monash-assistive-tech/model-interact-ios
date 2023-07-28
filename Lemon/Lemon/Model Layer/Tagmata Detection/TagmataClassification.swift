@@ -32,8 +32,8 @@ enum TagmataClassification: String, CaseIterable {
         case .head: return Strings("description.head").local
         case .thorax: return Strings("description.thorax").local
         case .abdomen: return Strings("description.abdomen").local
-        case .leftWing: return Strings("description.wings").local
-        case .rightWing: return Strings("description.wings").local
+        case .leftWing: return Strings("description.leftWing").local
+        case .rightWing: return Strings("description.rightWing").local
         }
     }
     

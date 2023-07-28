@@ -31,13 +31,15 @@
 
 // MARK: - Descriptions
 
-"description.head" = "The head of an insect is where the main receptor parts are located. Typically, you will find the eyes, mouthparts constituting the mouth and biting parts (which also serve to guide food into the mouth), and a pair of antennae, which are sensory organs that allow the insect to use it's smell, taste, touch and 'hearing' abilities. The head of the insect is the most powerful part of it's body and is built from several connecting plates.\nThe eyes of an insect are known as 'compound eyes' meaning that they are made up of several smaller eyes functioning in unison.";
+"description.head" = "My head is where my main receptor parts are located. You will find my eyes, mouthparts constituting my mouth and biting parts (which also serve to guide food into my mouth), and a pair of antennae, which are sensory organs that allow me to smell, taste, and touch. Like many of my insect friends my head is the most powerful part of my body and is built from several connecting plates. My eyes are known as 'compound eyes' meaning that they are made up of several smaller eyes functioning in unison.";
 
-"description.thorax" = "The thorax, or mid-section, typically holds the wings (if the insect can fly), usually two pairs (for a total of 4 wings) and 3 sets of legs (for a total of 6 legs). The thorax is also the central location of the more powerful muscles used in operating the wings and legs of the insect.\nThe wings of most insects are setup with a support structure of thickened veins. The pattern of these veins varies from insect to insect. The feet-tips of insects will usually contain sticky pads, hooks or suckers of some type which allow the inset to cling to various types of surfaces or to clasp on to it's prey.";
+"description.thorax" = "The thorax, or my mid-section, holds my wings and is the central location of the more powerful muscles used in operating my wings and six legs. My feet-tips contain sticky pads which allow me to cling to various types of surfaces or to clasp onto prey.";
 
-"description.wings" = "The wings have no description.";
+"description.leftWing" = "My left wing comprises the forewing and hindwing. The forewing muscles generate the main power for the flight, whereas the hindwings, with their less powerful muscles generate less power.";
 
-"description.abdomen" = "The abdomen makes up the last, and probably the most recognizable, part of the insect. This section of the body stores the bug's digestive system, reproductive organs and sting organs (if applicable). The abdomen is a reactive part of the insect body, meaning that it can expand when the insect feeds.";
+"description.rightWing" = "My right wing comprises the forewing and hindwing. The forewing muscles generate the main power for the flight, whereas the hindwings, with their less powerful muscles generate less power.";
+
+"description.abdomen" = "My abdomen stores my digestive system and reproductive organs. My abdomen is a reactive part of my insect body, meaning that it can expand when I feed.";
 
 // MARK: - Completed
 
