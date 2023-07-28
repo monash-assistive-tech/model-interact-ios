@@ -80,6 +80,9 @@
 		B6DC10132A712CD300C10100 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DC10122A712CD300C10100 /* AudioPlayer.swift */; };
 		B6DC10142A712F5800C10100 /* wings.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B6DC10112A712CB500C10100 /* wings.m4a */; };
 		B6DC10162A71336300C10100 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DC10152A71336300C10100 /* AudioRecorder.swift */; };
+		B6DC101A2A7353E400C10100 /* thorax.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B6DC10172A7353E400C10100 /* thorax.m4a */; };
+		B6DC101B2A7353E400C10100 /* abdomen.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B6DC10182A7353E400C10100 /* abdomen.m4a */; };
+		B6DC101C2A7353E400C10100 /* head.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B6DC10192A7353E400C10100 /* head.m4a */; };
 		B6FD174F2A416DBB003EDD5F /* TagmataClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */; };
 /* End PBXBuildFile section */
 
@@ -178,6 +181,9 @@
 		B6DC10112A712CB500C10100 /* wings.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = wings.m4a; sourceTree = "<group>"; };
 		B6DC10122A712CD300C10100 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		B6DC10152A71336300C10100 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
+		B6DC10172A7353E400C10100 /* thorax.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = thorax.m4a; sourceTree = "<group>"; };
+		B6DC10182A7353E400C10100 /* abdomen.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = abdomen.m4a; sourceTree = "<group>"; };
+		B6DC10192A7353E400C10100 /* head.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = head.m4a; sourceTree = "<group>"; };
 		B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataClassification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -533,6 +539,9 @@
 		B6DC10102A712C7900C10100 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				B6DC10182A7353E400C10100 /* abdomen.m4a */,
+				B6DC10192A7353E400C10100 /* head.m4a */,
+				B6DC10172A7353E400C10100 /* thorax.m4a */,
 				B6DC10112A712CB500C10100 /* wings.m4a */,
 			);
 			path = Audio;
@@ -644,9 +653,12 @@
 			files = (
 				B6DC10142A712F5800C10100 /* wings.m4a in Resources */,
 				B6C37E4E2A341CF6004D18A8 /* LaunchScreen.storyboard in Resources */,
+				B6DC101C2A7353E400C10100 /* head.m4a in Resources */,
 				B6D4724D2A5724E40002CEEC /* Localizable.strings in Resources */,
 				B6C37E4B2A341CF6004D18A8 /* Assets.xcassets in Resources */,
+				B6DC101A2A7353E400C10100 /* thorax.m4a in Resources */,
 				B6C37E492A341CF5004D18A8 /* Main.storyboard in Resources */,
+				B6DC101B2A7353E400C10100 /* abdomen.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
