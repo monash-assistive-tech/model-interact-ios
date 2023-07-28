@@ -496,6 +496,11 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 self.loadedCommand = .none
                 return
             }
+            if (self.loadedCommand == .name || self.loadedCommand == .information) && results.handsUsed > 1 {
+                self.loadedCommand = .none
+                self.synthesizer.speak(Strings("tip.twoHands").local)
+                return
+            }
             if let tagmata = results.heldTagmata.first {
                 if self.loadedCommand == .name {
                     self.loadedCommand = .none

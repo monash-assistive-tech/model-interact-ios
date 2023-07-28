@@ -21,7 +21,7 @@
 "command.slower" = "slower";
 "command.complete" = "complete";
 
-// MARK: - Tagmata
+// MARK: - Names
 
 "tagma.head" = "Head";
 "tagma.thorax" = "Thorax";
@@ -44,3 +44,7 @@
 "completion.success" = "Yes! The insect is complete.";
 "completion.failure" = "No, the insect is not complete.";
 "completion.wrongWings" = "Almost, but the wings need to be switched.";
+
+// MARK: - Tips
+
+"tip.twoHands" = "Try only holding one at a time.";
