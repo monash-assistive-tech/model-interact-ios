@@ -79,6 +79,7 @@
 		B6DC100E2A6A2A3500C10100 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DC100D2A6A2A3500C10100 /* Command.swift */; };
 		B6DC10132A712CD300C10100 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DC10122A712CD300C10100 /* AudioPlayer.swift */; };
 		B6DC10142A712F5800C10100 /* wings.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B6DC10112A712CB500C10100 /* wings.m4a */; };
+		B6DC10162A71336300C10100 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DC10152A71336300C10100 /* AudioRecorder.swift */; };
 		B6FD174F2A416DBB003EDD5F /* TagmataClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */; };
 /* End PBXBuildFile section */
 
@@ -176,6 +177,7 @@
 		B6DC100D2A6A2A3500C10100 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		B6DC10112A712CB500C10100 /* wings.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = wings.m4a; sourceTree = "<group>"; };
 		B6DC10122A712CD300C10100 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		B6DC10152A71336300C10100 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		B6FD174E2A416DBB003EDD5F /* TagmataClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagmataClassification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -523,6 +525,7 @@
 			isa = PBXGroup;
 			children = (
 				B6DC10122A712CD300C10100 /* AudioPlayer.swift */,
+				B6DC10152A71336300C10100 /* AudioRecorder.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -728,6 +731,7 @@
 				B6C37ECF2A396B56004D18A8 /* CaptureSession.swift in Sources */,
 				B6D461E92A4DDA550002CEEC /* LemonLabelledSlider.swift in Sources */,
 				B6D461DB2A4D2AC40002CEEC /* TagmataDetectionOutcome.swift in Sources */,
+				B6DC10162A71336300C10100 /* AudioRecorder.swift in Sources */,
 				B6D472862A64E6DF0002CEEC /* Angle.swift in Sources */,
 				B6C37EEB2A39A1B9004D18A8 /* LemonButton.swift in Sources */,
 				B6D472712A597D1C0002CEEC /* AnglesView.swift in Sources */,

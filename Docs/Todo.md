@@ -13,8 +13,10 @@
         * Commands
         * Hand Detection
         * Completion Detection
+        * Audio playback
+        * Audio recording and playback
         * Etc...
 * ~~Fix bug where command queue doesn't work~~
 * Add in the feature where if two hands are detected, read "Two hands are detected"
-* Add audio file playing and recording
+* ~~Add audio file playing and recording~~
 * Train the model a bit more

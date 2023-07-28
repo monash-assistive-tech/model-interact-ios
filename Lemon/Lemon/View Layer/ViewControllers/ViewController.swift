@@ -39,6 +39,8 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private var loadedCommand: Command = .none
     /// Whatever tagma is in focus (currently being described by the synthesizer, or equivalent) or was last in focus
     private var focusedTagma: TagmataClassification? = nil
+    /// Responsible for recording and playing back audio
+    private let audioRecorder = AudioRecorder()
     
     private var root: LemonView { return LemonView(self.view) }
     private var image = LemonImage()
@@ -52,6 +54,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private let optionsContainer = LemonView()
     private let optionsStack = LemonVStack()
     private let speakButton = LemonIconButton()
+    private let audioButton = LemonIconButton()
     private let recordButton = LemonIconButton()
     private let flipButton = LemonIconButton()
     private let interruptButton = LemonIconButton()
@@ -160,18 +163,33 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             .constrainHorizontal()
             .setDistribution(to: .equalSpacing)
             .addView(self.speakButton)
+            .addView(self.audioButton)
             .addView(self.recordButton)
             .addView(self.flipButton)
             .addView(self.interruptButton)
         
         // Speak button
         self.speakButton
-            .setIcon(to: "waveform")
+            .setIcon(to: "waveform.circle.fill")
             .setOnTap({
-                if AudioPlayer.inst.isPlaying {
-                    AudioPlayer.inst.stopAudio()
+                print(AudioSessionManager.inst.activeMode)
+                if self.audioRecorder.isPlaying {
+                    self.audioRecorder.stopPlayback()
                 } else {
-                    AudioPlayer.inst.playAudio(file: "wings", type: "m4a")
+                    self.audioRecorder.startPlayback()
+                }
+            })
+        
+        // Audio button
+        self.audioButton
+            .setIcon(to: "mic.circle")
+            .setOnTap({
+                if self.audioRecorder.isRecording {
+                    self.audioRecorder.stopRecording()
+                    self.audioButton.setIcon(to: "mic.circle")
+                } else {
+                    self.audioRecorder.startRecording()
+                    self.audioButton.setIcon(to: "mic.circle.fill")
                 }
             })
         
