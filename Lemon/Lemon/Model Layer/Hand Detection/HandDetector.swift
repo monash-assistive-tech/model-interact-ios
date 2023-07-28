@@ -11,7 +11,7 @@ import Vision
 
 class HandDetector {
     
-    private static let MAX_THREADS = 4
+    private static let MAX_THREADS = 3
     
     private typealias HandDetectorModel = HandDetector2_70
     private var activeThreads = 0

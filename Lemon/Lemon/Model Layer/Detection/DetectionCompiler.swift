@@ -14,7 +14,14 @@ import Foundation
 /// This also means we don't instantly react to detections. If there's only one frame where a tagma is detected, we don't want to jump the gun and assume that we want to react to it.
 class DetectionCompiler {
     
-    typealias HeldTagmata = (held: [TagmataClassification], maybeHeld: [TagmataClassification])
+    typealias HeldTagmata = (
+        // Tagmata being held
+        held: [TagmataClassification],
+        // Tagmata maybe being held (close proximity to a hand)
+        maybeHeld: [TagmataClassification],
+        // The number of hands used to hold unique tagmata (two hands holding one or a hand holding none don't count)
+        handsUsed: Int
+    )
     
     /// How many detections (model outputs) until we compile results (whether there was something detected)
     private static let DETECTION_BATCH_SIZE = 10
@@ -91,6 +98,7 @@ class DetectionCompiler {
         
         var heldResults = [TagmataClassification]()
         var maybeHeldResults = [TagmataClassification]()
+        var handsUsed = 0
         for index in 0..<self.compiledTagmataOutcomes.count {
             let tagmataOutcome = self.compiledTagmataOutcomes[index]
             let handOutcome = self.compiledHandOutcomes[index]
@@ -100,6 +108,7 @@ class DetectionCompiler {
             )
             heldResults.append(contentsOf: beingHeld.held)
             maybeHeldResults.append(contentsOf: beingHeld.maybeHeld)
+            handsUsed = max(handsUsed, beingHeld.handsUsed)
         }
         var filteredHeldResults = [TagmataClassification]()
         for heldResult in heldResults {
@@ -125,10 +134,15 @@ class DetectionCompiler {
         }
         let insectIsComplete = completionDetectionsCount >= Self.COMPLETION_THRESHOLD
         
+        let compiledHeldTagmata = filteredHeldResults.filterDuplicates()
+        let compiledMaybeHeldTagmata = filteredMaybeHeldResults.filterDuplicates()
+        // Number of hands used can't be more than the actual amount of held tagmata
+        let compiledHandsUsed = min(handsUsed, compiledHeldTagmata.count)
         return CompiledResults(
             detectedTagmata: results,
-            heldTagmata: filteredHeldResults.filterDuplicates(),
-            maybeHeldTagmata: filteredMaybeHeldResults.filterDuplicates(),
+            heldTagmata: compiledHeldTagmata,
+            maybeHeldTagmata: compiledMaybeHeldTagmata,
+            handsUsed: compiledHandsUsed,
             insectIsComplete: insectIsComplete
         )
     }
@@ -138,7 +152,7 @@ class DetectionCompiler {
         handDetectionOutcome: HandDetectionOutcome
     ) -> HeldTagmata {
         if tagmataDetectionOutcome.tagmataDetections.isEmpty {
-            return HeldTagmata(held: [], maybeHeld: [])
+            return HeldTagmata(held: [], maybeHeld: [], handsUsed: 0)
         }
         let frameWidth = Double(tagmataDetectionOutcome.frame.width)
         let frameHeight = Double(tagmataDetectionOutcome.frame.height)
@@ -146,7 +160,7 @@ class DetectionCompiler {
         let tagmataPositions = tagmataDetectionOutcome.tagmataDetections.map({
             $0.getDenormalisedCenter(boundsWidth: frameWidth, boundsHeight: frameHeight)
         })
-        var result = HeldTagmata(held: [], maybeHeld: [])
+        var result = HeldTagmata(held: [], maybeHeld: [], handsUsed: 0)
         // Initially the distance threshold was empirically measured using a width/height of 504x896 and was found to be 80
         // This converts the distance threshold to match the frame's width and height
         let distanceThreshold = self.equivalentDistance(
@@ -175,6 +189,7 @@ class DetectionCompiler {
         }
         result.held = result.held.filterDuplicates()
         result.maybeHeld = result.maybeHeld.filterDuplicates()
+        result.handsUsed = result.held.count
         return result
     }
     
