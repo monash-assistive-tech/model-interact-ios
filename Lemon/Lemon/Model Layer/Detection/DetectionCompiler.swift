@@ -127,7 +127,7 @@ class DetectionCompiler {
         // We want to take the largest number (because detecting fake hands is very rare) that passes the threshold
         // [0, 1, 1, 1, 1, 1, 2] -> We'd say 1 hand is used here
         // [0, 1, 1, 1, 2, 2, 2] -> Okay, now we'd say 2 hands were used here
-        var sortedHandsUsed = handsUsedResults.groupAndSort(reverseOrder: true)
+        let sortedHandsUsed = handsUsedResults.groupAndSort(reverseOrder: true)
         // We set the default to the first result, in case none pass the threshold
         // [1, 2, 2] -> None pass the threshold, so we'd say 2 hands were used
         // [0, 0, 0, 2, 2] -> Okay now that 0 passes the threshold, we can use 0
