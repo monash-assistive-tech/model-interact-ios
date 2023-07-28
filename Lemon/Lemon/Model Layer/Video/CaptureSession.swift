@@ -22,7 +22,7 @@ class CaptureSession: NSObject {
     
     private let captureSession = AVCaptureSession()
     private let videoOutput = AVCaptureVideoDataOutput()
-    private var cameraPosition = AVCaptureDevice.Position.front
+    private var cameraPosition = AVCaptureDevice.Position.back
     private let sessionQueue = DispatchQueue(label: "andrepham.Lemon.sessionqueue")
     public weak var captureDelegate: CaptureDelegate?
     

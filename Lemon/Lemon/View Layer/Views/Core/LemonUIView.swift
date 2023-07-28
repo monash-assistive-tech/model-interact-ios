@@ -47,6 +47,13 @@ extension LemonUIViewProtocol {
         return self
     }
     
+    @discardableResult
+    func clearSubviewsAndLayers() -> Self {
+        self.view.subviews.forEach({ $0.removeFromSuperview() })
+        self.view.layer.sublayers?.forEach({ $0.removeFromSuperlayer() })
+        return self
+    }
+    
     // MARK: - Frame
     
     @discardableResult

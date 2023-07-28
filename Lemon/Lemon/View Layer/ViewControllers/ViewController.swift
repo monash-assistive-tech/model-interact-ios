@@ -41,6 +41,10 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private var focusedTagma: TagmataClassification? = nil
     /// Responsible for recording and playing back audio
     private let audioRecorder = AudioRecorder()
+    /// True if the models should be continuously running at this moment
+    private var runModels: Bool {
+        return (!self.isLive || (self.isLive && !(self.loadedCommand == .none)) || (self.isLive && self.synthesizer.isSpeaking))
+    }
     
     private var root: LemonView { return LemonView(self.view) }
     private var image = LemonImage()
@@ -82,7 +86,11 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupSubviews()
+        #if DEBUG
+            self.setupSubviews()
+        #else
+            self.startLiveSession()
+        #endif
         self.setupObjectDetection()
         self.setupHandDetection()
         self.setupSpeechRecognition()
@@ -90,6 +98,16 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         self.setupAndBeginCapturingVideoFrames()
         // Stop the device automatically sleeping
         UIApplication.shared.isIdleTimerDisabled = true
+    }
+    
+    func startLiveSession() {
+        self.root
+            .addSubview(self.image)
+            .addSubview(self.proximityOverlay)
+            .addSubview(self.anglesOverlay)
+        self.image.setFrame(to: self.root.frame)
+        self.isLive = true
+        self.startAudioRecording()
     }
     
     func setupSubviews() {
@@ -337,6 +355,10 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             })
     }
     
+    func clearOverlays() {
+        self.overlays.forEach({ $0.clearSubviewsAndLayers() })
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         self.captureSession.stopCapturing {
             super.viewWillDisappear(animated)
@@ -440,7 +462,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     
     func onCapture(session: CaptureSession, frame: CGImage?) {
         if let frame {
-            if (!self.isLive || (self.isLive && !(self.loadedCommand == .none)) || (self.isLive && self.synthesizer.isSpeaking)) {
+            if self.runModels {
                 self.handDetector.makePrediction(on: frame)
                 if self.currentFrameID%self.predictionInterval == 0 {
                     self.tagmataDetector.makePrediction(on: frame)
@@ -455,9 +477,13 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     
     func onTagmataDetection(outcome: TagmataDetectionOutcome?) {
         if let outcome {
-            self.predictionOverlay.drawBoxes(for: outcome)
-            self.proximityOverlay.drawProximityJoints(tagmataDetectionOutcome: outcome, handDetectionOutcome: self.activeHandDetection)
-            self.anglesOverlay.drawOverlay(for: outcome)
+            if self.runModels {
+                self.predictionOverlay.drawBoxes(for: outcome)
+                self.proximityOverlay.drawProximityJoints(tagmataDetectionOutcome: outcome, handDetectionOutcome: self.activeHandDetection)
+                self.anglesOverlay.drawOverlay(for: outcome)
+            } else {
+                self.clearOverlays()
+            }
             self.detectionCompiler.addOutcome(outcome, handOutcome: self.activeHandDetection)
         }
         if self.detectionCompiler.newResultsReady {
@@ -468,8 +494,12 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     
     func onHandDetection(outcome: HandDetectionOutcome?) {
         if let outcome {
-            self.jointPositionsOverlay.drawJointPositions(for: outcome)
-            self.handClassificationOverlay.drawHandClassification(for: outcome)
+            if self.runModels {
+                self.jointPositionsOverlay.drawJointPositions(for: outcome)
+                self.handClassificationOverlay.drawHandClassification(for: outcome)
+            } else {
+                self.clearOverlays()
+            }
         }
         self.activeHandDetection = outcome ?? HandDetectionOutcome()
     }
