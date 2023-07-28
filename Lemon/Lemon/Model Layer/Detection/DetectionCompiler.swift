@@ -48,7 +48,12 @@ class DetectionCompiler {
         self.compiledTagmataOutcomes.append(tagmataOutcome)
         self.compiledHandOutcomes.append(handOutcome)
         let results = self.compileResults(detectionThreshold: Self.DETECTION_THRESHOLD)
-        let resultsAreReady = !results.hasNoDetections
+        let detectionsFound = !results.hasNoDetections
+        let unsureAboutCompletion = (
+            // The insect isn't yet registered as complete but there's a chance it becomes detected as complete
+            !results.insectIsComplete && isGreaterZero(results.completionConfidence)
+        )
+        let resultsAreReady = detectionsFound && !unsureAboutCompletion
         let thresholdReached = self.compiledTagmataOutcomes.count >= Self.DETECTION_BATCH_SIZE
         if resultsAreReady || thresholdReached {
             self.publishResults(results)
@@ -145,12 +150,10 @@ class DetectionCompiler {
         for outcome in self.compiledTagmataOutcomes {
             if self.detectInsectCompletion(for: outcome) {
                 completionDetectionsCount += 1
-                if completionDetectionsCount >= Self.COMPLETION_THRESHOLD {
-                    break
-                }
             }
         }
         let insectIsComplete = completionDetectionsCount >= Self.COMPLETION_THRESHOLD
+        let completionConfidence = Double(completionDetectionsCount)/Double(self.compiledTagmataOutcomes.count)
         
         let compiledHeldTagmata = filteredHeldResults.filterDuplicates()
         let compiledMaybeHeldTagmata = filteredMaybeHeldResults.filterDuplicates()
@@ -161,7 +164,8 @@ class DetectionCompiler {
             heldTagmata: compiledHeldTagmata,
             maybeHeldTagmata: compiledMaybeHeldTagmata,
             handsUsed: compiledHandsUsed,
-            insectIsComplete: insectIsComplete
+            insectIsComplete: insectIsComplete,
+            completionConfidence: completionConfidence
         )
     }
     

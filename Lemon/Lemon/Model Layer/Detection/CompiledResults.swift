@@ -17,6 +17,8 @@ class CompiledResults {
     private(set) var maybeHeldTagmata: [TagmataClassification]
     /// If the insect is complete (all pieces are correctly attached)
     public let insectIsComplete: Bool
+    /// The confidence that the insect is complete (the proportion of outcomes analysed that said it was complete), range [0, 1]
+    public let completionConfidence: Double
     /// The number of hands used to hold unique tagmata (two hands holding one or a hand holding none don't count)
     public let handsUsed: Int
     /// True if there were no detected tagmata within frame
@@ -37,13 +39,15 @@ class CompiledResults {
         heldTagmata: [TagmataClassification] = [],
         maybeHeldTagmata: [TagmataClassification] = [],
         handsUsed: Int = 0,
-        insectIsComplete: Bool = false
+        insectIsComplete: Bool = false,
+        completionConfidence: Double = 0.0
     ) {
         self.detectedTagmata = detectedTagmata
         self.heldTagmata = heldTagmata
         self.maybeHeldTagmata = maybeHeldTagmata
         self.handsUsed = handsUsed
         self.insectIsComplete = insectIsComplete
+        self.completionConfidence = completionConfidence
     }
     
     func tagmaStillHeld(original: TagmataClassification) -> Bool {

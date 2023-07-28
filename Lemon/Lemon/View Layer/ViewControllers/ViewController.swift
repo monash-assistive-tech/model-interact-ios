@@ -39,6 +39,8 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private var loadedCommand: Command = .none
     /// Whatever tagma is in focus (currently being described by the synthesizer, or equivalent) or was last in focus
     private var focusedTagma: TagmataClassification? = nil
+    /// If the is "focused" on the insect's completion (currently being described by the synthesizer, or equivalent)
+    private var completionInFocus = false
     /// Responsible for recording and playing back audio
     private let audioRecorder = AudioRecorder()
     /// True if the models should be continuously running at this moment
@@ -419,7 +421,16 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         self.recognizer.liveSpeechToTextDelegate = self
     }
     
-    private func setupSpeechSynthesizer() { }
+    private func setupSpeechSynthesizer() {
+        self.synthesizer.didFinishDelegate = {
+            // If we just finished speaking, we can't be still in focus
+            self.completionInFocus = false
+            // Make sure we clear overlays if necessary after focus is lost
+            if !self.runModels {
+                self.clearOverlays()
+            }
+        }
+    }
     
     private func toggleAudioRecording() {
         self.isRecordingAudio.toggle()
@@ -546,6 +557,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             }
             if self.loadedCommand == .completed {
                 self.loadedCommand = .none
+                self.completionInFocus = true
                 if results.insectIsComplete {
                     self.synthesizer.speak(Strings("completion.success").local)
                 } else {
@@ -553,7 +565,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 }
                 return
             }
-            if let focusedTagma, !results.tagmaStillHeld(original: focusedTagma) {
+            if let focusedTagma, !results.tagmaStillHeld(original: focusedTagma) && !self.completionInFocus {
                 self.synthesizer.stopSpeaking()
             }
         }
