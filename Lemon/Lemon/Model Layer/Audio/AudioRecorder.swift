@@ -19,6 +19,8 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         return self.audioPlayer?.isPlaying ?? false
     }
     
+    // This class saves an audio file called this - data persistence is occurring
+    // If we want to save many files one day, just serialise and persist the names
     private let audioFileName = "test.m4a"
     
     func startRecording() {
