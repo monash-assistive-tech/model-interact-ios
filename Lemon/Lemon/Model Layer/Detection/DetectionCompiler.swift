@@ -98,7 +98,7 @@ class DetectionCompiler {
         
         var heldResults = [TagmataClassification]()
         var maybeHeldResults = [TagmataClassification]()
-        var handsUsed = 0
+        var handsUsedResults = [Int]()
         for index in 0..<self.compiledTagmataOutcomes.count {
             let tagmataOutcome = self.compiledTagmataOutcomes[index]
             let handOutcome = self.compiledHandOutcomes[index]
@@ -108,7 +108,7 @@ class DetectionCompiler {
             )
             heldResults.append(contentsOf: beingHeld.held)
             maybeHeldResults.append(contentsOf: beingHeld.maybeHeld)
-            handsUsed = max(handsUsed, beingHeld.handsUsed)
+            handsUsedResults.append(beingHeld.handsUsed)
         }
         var filteredHeldResults = [TagmataClassification]()
         for heldResult in heldResults {
@@ -120,6 +120,24 @@ class DetectionCompiler {
         for maybeHeldResult in maybeHeldResults {
             if results.contains(maybeHeldResult) {
                 filteredMaybeHeldResults.append(maybeHeldResult)
+            }
+        }
+        // Here, we're validating the number of hands used
+        // If the number of hands used for each outcome goes [0, 1, 1, 1, 1, 1, 2] we don't want to just take the largest number
+        // We want to take the largest number (because detecting fake hands is very rare) that passes the threshold
+        // [0, 1, 1, 1, 1, 1, 2] -> We'd say 1 hand is used here
+        // [0, 1, 1, 1, 2, 2, 2] -> Okay, now we'd say 2 hands were used here
+        var sortedHandsUsed = handsUsedResults.groupAndSort(reverseOrder: true)
+        // We set the default to the first result, in case none pass the threshold
+        // [1, 2, 2] -> None pass the threshold, so we'd say 2 hands were used
+        // [0, 0, 0, 2, 2] -> Okay now that 0 passes the threshold, we can use 0
+        // Next line should never fail (self.compiledTagmataOutcomes.count would need to be 0), but just in case we default to 0
+        var handsUsed = sortedHandsUsed.first?.first ?? 0
+        for group in sortedHandsUsed {
+            assert(group.count > 0, "Every group generated should have more than 0 elements")
+            if group.count >= detectionThreshold {
+                handsUsed = group.first ?? handsUsed // Every element in every group should be the same
+                break
             }
         }
         
