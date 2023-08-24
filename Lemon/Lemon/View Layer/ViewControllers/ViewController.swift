@@ -45,7 +45,11 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private var synthesisDidFinishAudioAction: AudioAction = .none
     /// True if the models should be continuously running at this moment
     private var runModels: Bool {
-        return (!self.isLive || (self.isLive && !(self.loadedCommand == .none)) || (self.isLive && self.synthesizer.isSpeaking))
+        return ((!self.isLive) ||
+                (self.isLive && !(self.loadedCommand == .none)) ||
+                (self.isLive && self.synthesizer.isSpeaking) ||
+                (self.isLive && self.quizMaster.readyForVisualAnswer)
+        )
     }
     
     private var root: LemonView { return LemonView(self.view) }
@@ -549,7 +553,10 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 return
             }
             
-            if self.quizMaster.readyForAnswer {
+            if self.quizMaster.readyForAudioAnswer {
+                if currentTranscription.words.contains("quiz") || currentTranscription.text.isEmpty {
+                    return
+                }
                 let outcome = self.quizMaster.acceptAnswer(provided: currentTranscription)
                 if outcome == .correct {
                     print("Correct!")
@@ -567,23 +574,11 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 return
             }
             
-            // if self.quizMaster.readyForAudioAnswer -> put transcription there
-            // quiz master checks for matching key words
-            // if all matching key words are there: quizMaster.delegate incorrectAnswerReceived / correctAnswerReceived
-            // quizMaster.readyForAnswer = false
-            
-            /*
-             Wrong answer detection -> only look for the correct parts, and "and"
-             
-             */
-            
             // Special commands
-            if currentTranscription.contains("quiz me") {
-                self.recognizer.resetTranscript()
+            if currentTranscription.contains("quiz me") && !self.quizMaster.readyForVisualAnswer {
                 self.quizMaster.loadNextQuestion()
-                self.synthesizer.speak(self.quizMaster.loadedQuestion!)
+                self.synthesizer.speak(self.quizMaster.loadedQuestionText)
                 return
-                // onFinishSpeaking -> if self.quizMaster.readyForAnswer ->
             }
             
             for command in Command.allCases {
@@ -591,13 +586,13 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                     self.detectionCompiler.clearOutcomes()
                     self.loadedCommand = command
                     self.recognizer.resetTranscript()
+                    return
                 }
             }
         }
     }
     
     func handleDetectionResults(_ results: CompiledResults) {
-        // if self.quizMaster.readyForVisualAnswer
         if self.isLive {
             // Test command to make sure everything is working
             if self.loadedCommand == .test {
@@ -649,12 +644,53 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 }
                 return
             }
+            // If the quiz master is waiting for an answer, handle it
+            if self.quizMaster.readyForVisualAnswer {
+                guard results.handsUsed <= 1 else {
+                    self.synthesizer.speak(Strings("tip.twoHands").local)
+                    return
+                }
+                if let tagmata = results.heldTagmata.first {
+                    let outcome = self.quizMaster.acceptAnswer(provided: tagmata)
+                    if outcome == .correct {
+                        self.synthesizer.stopSpeaking()
+                        self.synthesisDidFinishAudioAction = .correct
+                        self.detectionCompiler.clearOutcomes()
+                        self.synthesizer.speak("Correct!")
+                    }
+                    if outcome == .incorrect {
+                        // We don't want to continuously bombard the user with "please try again"
+                        // But we only care about continuously stating they're wrong - if they're right, respond straight away
+                        // Hence we only manage the lastVisualAnswerCheck in the incorrect response
+                        let now = DispatchTime.now()
+                        let seconds = Double(now.uptimeNanoseconds - self.lastVisualAnswerCheck.uptimeNanoseconds)/1_000_000_000
+                        if seconds < 3.0 {
+                            return
+                        } else {
+                            self.lastVisualAnswerCheck = DispatchTime.now()
+                        }
+                        self.detectionCompiler.clearOutcomes()
+                        self.synthesizer.speak("Please try again.")
+                    }
+                }
+                // Return here so we don't cancel any speaking (triggered below)
+                return
+            }
             // If there's no command to be responded to, and they were holding a tagma, and they stopped, stop speaking
             if let focusedTagma, !results.tagmaStillHeld(original: focusedTagma) {
                 self.synthesizer.stopSpeaking()
             }
         }
     }
+    
+    private var lastVisualAnswerCheck = DispatchTime.now()
+    
+    /*
+     let start = DispatchTime.now()
+     test()
+     let end = DispatchTime.now()
+     let seconds = Double(end.uptimeNanoseconds - start.uptimeNanoseconds)/1_000_000_000
+     */
 
 }
 

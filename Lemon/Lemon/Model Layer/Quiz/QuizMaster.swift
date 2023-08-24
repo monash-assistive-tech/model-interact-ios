@@ -13,65 +13,179 @@ enum AnswerStatus {
     case partial
 }
 
+class Question {
+    
+    enum AnswerType {
+        case audio
+        case visual
+    }
+    
+    public let questionText: String
+    public let answerType: AnswerType
+    
+    init(questionText: String, answerType: AnswerType) {
+        self.questionText = questionText
+        self.answerType = answerType
+    }
+    
+}
+
+class AudioQuestion: Question {
+    
+    private let answers: [[String]]
+    
+    init(questionText: String, answers: [[String]]) {
+        self.answers = answers
+        super.init(questionText: questionText, answerType: .audio)
+    }
+    
+    func checkAnswer(provided: SpeechText) -> AnswerStatus {
+        // We start off assuming they're incorrect
+        var finalAnswer: AnswerStatus = .incorrect
+        for answer in self.answers {
+            var correctCount = 0
+            var incorrectCount = 0
+            let filteredProvided = provided.getWords(without: "and", "a", "do")
+            for word in filteredProvided {
+                if answer.contains(word) {
+                    correctCount += 1
+                } else {
+                    incorrectCount += 1
+                }
+            }
+            if correctCount == answer.count {
+                // If they've got the correct answer, return correct immediately
+                return .correct
+            } else if incorrectCount == 0 {
+                // If the answer is partially there, we set the final answer to partial
+                // (We still check the rest in case they're correct)
+                finalAnswer = .partial
+            }
+            // If we make it here, it's incorrect - either we've already found a partial answer (hence discard the incorrect)
+            // or, the final answer is already incorrect (by default)
+        }
+        return finalAnswer
+    }
+    
+}
+
+class VisualQuestion: Question {
+    
+    private let answers: [TagmataClassification]
+    
+    init(questionText: String, answers: [TagmataClassification]) {
+        self.answers = answers
+        super.init(questionText: questionText, answerType: .visual)
+    }
+    
+    func checkAnswer(provided: TagmataClassification) -> AnswerStatus {
+        for answer in self.answers {
+            if provided == answer {
+                return .correct
+            }
+        }
+        return .incorrect
+    }
+    
+}
+
 class QuizMaster {
     
-    private var questions = [String]()
-    private var answers = [[String]]()
-    private var questionIndex: Int? = nil
-    private(set) var readyForAnswer = false
-    public var loadedQuestion: String? {
-        return self.questionIndex == nil ? nil : self.questions[questionIndex!]
+    private var questions = [Question]()
+    private var questionIndex: Int = -1
+    private(set) var readyForAudioAnswer = false
+    private(set) var readyForVisualAnswer = false
+    private var loadedQuestion: Question {
+        return self.questions[self.questionIndex]
+    }
+    public var loadedQuestionText: String {
+        return self.questions[self.questionIndex].questionText
     }
     
     init() {
         self.questions = [
-            "Question 1",
-            "Question 2",
-        ]
-        self.answers = [
-            ["cats", "dogs"],
-            ["milk", "honey"],
+//            AudioQuestion(
+//                questionText: "What are my three main body segments?",
+//                answers: [
+//                    ["head", "thorax", "abdomen"], // heard
+//                    ["how", "thorax", "abdomen"],
+//                    ["had", "thorax", "abdomen"],
+//                    ["add", "thorax", "abdomen"],
+//                    ["head", "thrax", "abdomen"],
+//                    ["how", "thrax", "abdomen"],
+//                    ["had", "thrax", "abdomen"],
+//                    ["add", "thrax", "abdomen"],
+//                ]
+//            ),
+//            AudioQuestion(
+//                questionText: "Which main body segment is connected to the wings?",
+//                answers: [["thorax"], ["thrax"]]
+//            ),
+//            AudioQuestion(
+//                questionText: "What three main receptor parts can be found on my head?",
+//                answers: [["antenna", "eyes", "mouthparts"], ["antenna", "eyes", "mouth", "parts"]] // in tenna
+//            ),
+//            AudioQuestion(
+//                questionText: "What two parts make up my wing?",
+//                answers: [
+//                    ["for", "wing", "hind"],
+//                    ["four", "wing", "hind"],
+//                    ["forewing", "hindwing"],
+//                    ["forewing", "hind", "wing"],
+//                    ["for", "wing", "hindwing"],
+//                    ["four", "wing", "hindwing"], // find instead of hindwing
+//                ]
+//            ),
+            VisualQuestion(
+                questionText: "Can you identify my left wing?",
+                answers: [.leftWing]
+            )
         ]
     }
     
     func loadNextQuestion() {
-        if let questionIndex {
-            self.questionIndex = (questionIndex + 1)%self.questions.count
-        } else {
-            self.questionIndex = 0
+        // Reset ready-for answers (just in case)
+        self.readyForAudioAnswer = false
+        self.readyForVisualAnswer = false
+        self.questionIndex = (questionIndex + 1)%self.questions.count
+        switch self.loadedQuestion.answerType {
+        case .audio:
+            self.readyForAudioAnswer = true
+        case .visual:
+            self.readyForVisualAnswer = true
         }
-        self.readyForAnswer = true
     }
     
     func acceptAnswer(provided: SpeechText) -> AnswerStatus {
-        guard let questionIndex else {
-            assertionFailure("Answer shouldn't be accepted with no question loaded")
-            self.readyForAnswer = false
-            return .partial
-        }
-        let answer = self.answers[questionIndex]
-        var correctCount = 0
-        var incorrectCount = 0
-        let filteredProvided = provided.getWords(without: "and")
-        for word in filteredProvided {
-            if answer.contains(word) {
-                correctCount += 1
-            } else {
-                incorrectCount += 1
+        print("> > > > PROVIDED: \(provided.words) | \(provided.text)")
+        let question = self.questions[questionIndex]
+        if let audioQuestion = question as? AudioQuestion {
+            let result = audioQuestion.checkAnswer(provided: provided)
+            if result == .correct {
+                // The question is complete - stop listening for answers
+                self.readyForAudioAnswer = false
             }
-        }
-        
-        print("provided: \(provided.words)")
-        print("answer: \(answer)")
-        print("correct/incorrect: \(correctCount)/\(incorrectCount)")
-        
-        if correctCount == answer.count {
-            self.readyForAnswer = false
-            return .correct
-        } else if incorrectCount == 0 {
-            return .partial
+            return result
         } else {
-            return .incorrect
+            assertionFailure("Answer was provided when the corresponding question wasn't ready")
+            self.readyForAudioAnswer = false
+            return .partial
+        }
+    }
+    
+    func acceptAnswer(provided: TagmataClassification) -> AnswerStatus {
+        let question = self.questions[questionIndex]
+        if let visualQuestion = question as? VisualQuestion {
+            let result = visualQuestion.checkAnswer(provided: provided)
+            if result == .correct {
+                // The question is complete - stop listening for answers
+                self.readyForVisualAnswer = false
+            }
+            return result
+        } else {
+            assertionFailure("Answer was provided when the corresponding question wasn't ready")
+            self.readyForVisualAnswer = false
+            return .partial
         }
     }
     

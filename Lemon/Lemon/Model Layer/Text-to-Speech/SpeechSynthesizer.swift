@@ -29,6 +29,8 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
     public var isPaused: Bool {
         return self.synthesiser.isPaused
     }
+    /// Called when the speech synthesizer finishes the utterance - provided as per call to `speak`
+    private var speakDidFinishDelegate: (() -> Void)? = nil
     /// Called when the speech synthesizer finishes the utterance
     public var didFinishDelegate: (() -> Void)? = nil
     /// Called when the speech synthesizer starts an utterance
@@ -56,7 +58,8 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
         return utterance
     }
     
-    func speak(_ speech: String) {
+    func speak(_ speech: String, onCompletion: (() -> Void)? = nil) {
+        self.speakDidFinishDelegate = onCompletion
         let utterance = self.buildUtterance(speech: speech)
         // AudioSessionManager.inst.setToPlaybackMode() // Unnecessary with VOIP mode or speaker mode
         self.synthesiser.speak(utterance)
@@ -85,7 +88,9 @@ extension SpeechSynthesizer {
     ///   - synthesizer: The speech synthesizer that has finished the utterance
     ///   - utterance: The speech utterance that was completed
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        self.speakDidFinishDelegate?()
         self.didFinishDelegate?()
+        self.speakDidFinishDelegate = nil
     }
     
     /// Called when the speech synthesizer starts an utterance.
