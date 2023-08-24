@@ -438,6 +438,8 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 AudioPlayer.inst.playAudio(file: "abdomen", type: "m4a")
             case .wings:
                 AudioPlayer.inst.playAudio(file: "wings", type: "m4a")
+            case .completed:
+                AudioPlayer.inst.playAudio(file: "completed", type: "m4a")
             case .none:
                 break
             }
@@ -597,6 +599,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 self.loadedCommand = .none
                 self.focusedTagma = nil
                 if results.insectIsComplete {
+                    self.synthesisDidFinishAudioAction = .completed
                     self.synthesizer.speak(Strings("completion.success").local)
                 } else {
                     self.synthesizer.speak(Strings("completion.failure").local)

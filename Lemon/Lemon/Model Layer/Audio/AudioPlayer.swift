@@ -19,7 +19,7 @@ class AudioPlayer {
     private init() { }
 
     /// Play the audio from a local file.
-    /// Remember to add all files to project build.
+    /// Remember to add all files to project build (Project/TARGET/Build Phases/Copy Bundle Resources).
     /// Example: `AudioPlayer.inst.playAudio(file: "myAudioFile", type: "m4a")`
     /// - Parameters:
     ///   - file: The filename

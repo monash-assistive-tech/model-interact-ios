@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B67F06502A97C11B00591789 /* AudioAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F064F2A97C11B00591789 /* AudioAction.swift */; };
+		B67F06522A97C5D800591789 /* completed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B67F06512A97C49400591789 /* completed.m4a */; };
 		B6C37E422A341CF5004D18A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37E412A341CF5004D18A8 /* AppDelegate.swift */; };
 		B6C37E442A341CF5004D18A8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37E432A341CF5004D18A8 /* SceneDelegate.swift */; };
 		B6C37E462A341CF5004D18A8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37E452A341CF5004D18A8 /* ViewController.swift */; };
@@ -106,6 +107,7 @@
 
 /* Begin PBXFileReference section */
 		B67F064F2A97C11B00591789 /* AudioAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAction.swift; sourceTree = "<group>"; };
+		B67F06512A97C49400591789 /* completed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = completed.m4a; sourceTree = "<group>"; };
 		B6C37E3E2A341CF5004D18A8 /* Lemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6C37E412A341CF5004D18A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6C37E432A341CF5004D18A8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 		B6DC10102A712C7900C10100 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				B67F06512A97C49400591789 /* completed.m4a */,
 				B6DC10182A7353E400C10100 /* abdomen.m4a */,
 				B6DC10192A7353E400C10100 /* head.m4a */,
 				B6DC10172A7353E400C10100 /* thorax.m4a */,
@@ -662,6 +665,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B67F06522A97C5D800591789 /* completed.m4a in Resources */,
 				B6DC10142A712F5800C10100 /* wings.m4a in Resources */,
 				B6C37E4E2A341CF6004D18A8 /* LaunchScreen.storyboard in Resources */,
 				B6DC101C2A7353E400C10100 /* head.m4a in Resources */,

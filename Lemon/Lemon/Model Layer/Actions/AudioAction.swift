@@ -13,6 +13,7 @@ enum AudioAction {
     case thorax
     case abdomen
     case wings
+    case completed
     case none
     
 }
