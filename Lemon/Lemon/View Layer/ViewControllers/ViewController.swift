@@ -440,6 +440,8 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 AudioPlayer.inst.playAudio(file: "wings", type: "m4a")
             case .completed:
                 AudioPlayer.inst.playAudio(file: "completed", type: "m4a")
+            case .correct:
+                AudioPlayer.inst.playAudio(file: "correct", type: "m4a")
             case .none:
                 break
             }
@@ -534,6 +536,8 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         self.activeHandDetection = outcome ?? HandDetectionOutcome()
     }
     
+    private let quizMaster = QuizMaster()
+    
     func onWordRecognition(currentTranscription: SpeechText) {
         if !currentTranscription.text.isEmpty {
             self.transcriptionText.setText(to: currentTranscription.text)
@@ -544,6 +548,44 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 // Otherwise responses can cause loops if the response has the command within it (or similar text to the command)
                 return
             }
+            
+            if self.quizMaster.readyForAnswer {
+                let outcome = self.quizMaster.acceptAnswer(provided: currentTranscription)
+                if outcome == .correct {
+                    print("Correct!")
+                    self.synthesisDidFinishAudioAction = .correct
+                    self.synthesizer.speak("Correct!")
+                }
+                if outcome == .incorrect {
+                    print("Wrong!")
+                    self.recognizer.resetTranscript()
+                    self.synthesizer.speak("Please try again.")
+                }
+                if outcome == .partial {
+                    print("Partial!")
+                }
+                return
+            }
+            
+            // if self.quizMaster.readyForAudioAnswer -> put transcription there
+            // quiz master checks for matching key words
+            // if all matching key words are there: quizMaster.delegate incorrectAnswerReceived / correctAnswerReceived
+            // quizMaster.readyForAnswer = false
+            
+            /*
+             Wrong answer detection -> only look for the correct parts, and "and"
+             
+             */
+            
+            // Special commands
+            if currentTranscription.contains("quiz me") {
+                self.recognizer.resetTranscript()
+                self.quizMaster.loadNextQuestion()
+                self.synthesizer.speak(self.quizMaster.loadedQuestion!)
+                return
+                // onFinishSpeaking -> if self.quizMaster.readyForAnswer ->
+            }
+            
             for command in Command.allCases {
                 if currentTranscription.contains(command) {
                     self.detectionCompiler.clearOutcomes()
@@ -555,6 +597,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     }
     
     func handleDetectionResults(_ results: CompiledResults) {
+        // if self.quizMaster.readyForVisualAnswer
         if self.isLive {
             // Test command to make sure everything is working
             if self.loadedCommand == .test {

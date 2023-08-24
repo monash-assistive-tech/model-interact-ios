@@ -20,6 +20,12 @@ class SpeechText {
         self.words = self.text.components(separatedBy: " ")
     }
     
+    func getWords(without filterWords: String...) -> [String] {
+        return words.filter { word in
+            !filterWords.contains(word)
+        }
+    }
+    
     func contains(_ command: Command) -> Bool {
         for commandString in command.strings {
             if self.contains(commandString) {
