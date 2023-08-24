@@ -19,7 +19,10 @@
 "command.repeat" = "repeat";
 "command.faster" = "faster";
 "command.slower" = "slower";
-"command.complete" = "complete";
+"command.complete" = "completed";
+"command.connect" = "connect to";
+"command.connect1" = "connected to";
+"command.test" = "test";
 
 // MARK: - Names
 
@@ -40,6 +43,14 @@
 "description.rightWing" = "My right wing comprises the forewing and hindwing. The forewing muscles generate the main power for the flight, whereas the hindwings, with their less powerful muscles generate less power.";
 
 "description.abdomen" = "My abdomen stores my digestive system and reproductive organs. My abdomen is a reactive part of my insect body, meaning that it can expand when I feed.";
+
+// MARK: - Connections
+
+"connection.head" = "My head connects to the top of my thorax.";
+"connection.thorax" = "My thorax is at my core and acts as the central point to which my head, wings and abdomen connect.";
+"connection.leftWing" = "My left wing connects to the left side of my thorax.";
+"connection.rightWing" = "My right wing connects to the right side of my thorax.";
+"connection.abdomen" = "My abdomen connects to the bottom of my thorax.";
 
 // MARK: - Completed
 

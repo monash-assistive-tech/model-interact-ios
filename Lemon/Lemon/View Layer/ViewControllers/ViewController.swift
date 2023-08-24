@@ -420,7 +420,13 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     }
     
     private func setupSpeechSynthesizer() {
+        self.synthesizer.didCancelDelegate = {
+            // Reset the transcript so none of the text the synthesiser said gets registered as a command
+            self.recognizer.resetTranscript()
+        }
         self.synthesizer.didFinishDelegate = {
+            // Reset the transcript so none of the text the synthesiser said gets registered as a command
+            self.recognizer.resetTranscript()
             // Make sure we clear overlays if necessary after focus is lost
             if !self.runModels {
                 self.clearOverlays()
@@ -516,6 +522,11 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             self.transcriptionText.setText(to: currentTranscription.text)
         }
         if self.isLive {
+            guard !self.synthesizer.isSpeaking else {
+                // We don't accept commands while the synthesiser is speaking
+                // Otherwise responses can cause loops if the response has the command within it (or similar text to the command)
+                return
+            }
             for command in Command.allCases {
                 if currentTranscription.contains(command) {
                     self.detectionCompiler.clearOutcomes()
@@ -528,17 +539,25 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     
     func handleDetectionResults(_ results: CompiledResults) {
         if self.isLive {
+            // Test command to make sure everything is working
             if self.loadedCommand == .test {
                 self.synthesizer.speak("Lemon")
                 self.loadedCommand = .none
                 return
             }
-            if (self.loadedCommand == .name || self.loadedCommand == .information) && results.handsUsed > 1 {
+            // First, if the command requires only one tagma to be held at once, cancel the command and tell the user
+            // E.g. if they're using two hands AND holding two tagma, we don't want to guess which one they mean, we bail
+            if ((self.loadedCommand == .name ||
+                 self.loadedCommand == .information ||
+                 self.loadedCommand == .connect) &&
+                results.handsUsed > 1
+            ) {
                 self.loadedCommand = .none
                 self.focusedTagma = nil
                 self.synthesizer.speak(Strings("tip.twoHands").local)
                 return
             }
+            // Alright now we can check for the commands that require they hold one tagma
             if let tagmata = results.heldTagmata.first {
                 if self.loadedCommand == .name {
                     self.loadedCommand = .none
@@ -550,8 +569,14 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                     self.focusedTagma = tagmata
                     self.synthesizer.speak(tagmata.description)
                     return
+                } else if self.loadedCommand == .connect {
+                    self.loadedCommand = .none
+                    self.focusedTagma = tagmata
+                    self.synthesizer.speak(tagmata.connection)
+                    return
                 }
             }
+            // Any other commands go next
             if self.loadedCommand == .completed {
                 self.loadedCommand = .none
                 self.focusedTagma = nil
@@ -562,6 +587,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 }
                 return
             }
+            // If there's no command to be responded to, and they were holding a tagma, and they stopped, stop speaking
             if let focusedTagma, !results.tagmaStillHeld(original: focusedTagma) {
                 self.synthesizer.stopSpeaking()
             }

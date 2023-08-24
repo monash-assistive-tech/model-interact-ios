@@ -21,7 +21,12 @@ class SpeechText {
     }
     
     func contains(_ command: Command) -> Bool {
-        return self.contains(command.rawValue)
+        for commandString in command.strings {
+            if self.contains(commandString) {
+                return true
+            }
+        }
+        return false
     }
     
     func contains(_ text: String) -> Bool {

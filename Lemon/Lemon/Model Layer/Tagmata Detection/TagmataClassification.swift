@@ -37,6 +37,16 @@ enum TagmataClassification: String, CaseIterable {
         }
     }
     
+    public var connection: String {
+        switch self {
+        case .head: return Strings("connection.head").local
+        case .thorax: return Strings("connection.thorax").local
+        case .abdomen: return Strings("connection.abdomen").local
+        case .leftWing: return Strings("connection.leftWing").local
+        case .rightWing: return Strings("connection.rightWing").local
+        }
+    }
+    
     public var colorDescription: String {
         switch self {
         case .head: return "Yellow"
