@@ -41,6 +41,8 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private var focusedTagma: TagmataClassification? = nil
     /// Responsible for recording and playing back audio
     private let audioRecorder = AudioRecorder()
+    /// The audio action to trigger when the synthesis finishes speaking
+    private var synthesisDidFinishAudioAction: AudioAction = .none
     /// True if the models should be continuously running at this moment
     private var runModels: Bool {
         return (!self.isLive || (self.isLive && !(self.loadedCommand == .none)) || (self.isLive && self.synthesizer.isSpeaking))
@@ -427,6 +429,19 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         self.synthesizer.didFinishDelegate = {
             // Reset the transcript so none of the text the synthesiser said gets registered as a command
             self.recognizer.resetTranscript()
+            switch self.synthesisDidFinishAudioAction {
+            case .head:
+                AudioPlayer.inst.playAudio(file: "head", type: "m4a")
+            case .thorax:
+                AudioPlayer.inst.playAudio(file: "thorax", type: "m4a")
+            case .abdomen:
+                AudioPlayer.inst.playAudio(file: "abdomen", type: "m4a")
+            case .wings:
+                AudioPlayer.inst.playAudio(file: "wings", type: "m4a")
+            case .none:
+                break
+            }
+            self.synthesisDidFinishAudioAction = .none
             // Make sure we clear overlays if necessary after focus is lost
             if !self.runModels {
                 self.clearOverlays()
@@ -562,6 +577,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 if self.loadedCommand == .name {
                     self.loadedCommand = .none
                     self.focusedTagma = tagmata
+                    self.synthesisDidFinishAudioAction = tagmata.audioAction
                     self.synthesizer.speak(tagmata.name)
                     return
                 } else if self.loadedCommand == .information {

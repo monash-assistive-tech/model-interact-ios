@@ -47,6 +47,15 @@ enum TagmataClassification: String, CaseIterable {
         }
     }
     
+    public var audioAction: AudioAction {
+        switch self {
+        case .head: return .head
+        case .thorax: return .thorax
+        case .abdomen: return .abdomen
+        case .leftWing, .rightWing: return .wings
+        }
+    }
+    
     public var colorDescription: String {
         switch self {
         case .head: return "Yellow"
