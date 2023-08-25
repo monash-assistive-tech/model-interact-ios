@@ -20,6 +20,10 @@ enum Command: CaseIterable {
     case completed
     /// Ask for a description of what a piece connects to
     case connect
+    /// Add a custom label to a piece
+    case addLabel
+    /// Listen to a custom label assigned to a piece
+    case listenLabel
     /// A test command (for development purposes)
     case test
     /// No command
@@ -36,6 +40,10 @@ enum Command: CaseIterable {
             return [Strings("command.complete").local]
         case .connect:
             return [Strings("command.connect").local, Strings("command.connect1").local]
+        case .addLabel:
+            return [Strings("command.addLabel").local, Strings("command.addLabel1").local]
+        case .listenLabel:
+            return [Strings("command.listenLabel").local, Strings("command.listenLabel1").local]
         case .test:
             return [Strings("command.test").local]
         case .none:

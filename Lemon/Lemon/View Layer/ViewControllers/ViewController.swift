@@ -52,7 +52,8 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         return ((!self.isLive) ||
                 (self.isLive && !(self.loadedCommand == .none)) ||
                 (self.isLive && self.synthesizer.isSpeaking) ||
-                (self.isLive && self.quizMaster.readyForVisualAnswer)
+                (self.isLive && self.quizMaster.readyForVisualAnswer) ||
+                (self.isLive && self.audioRecorder.isRecording)
         )
     }
     
@@ -204,7 +205,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 if self.audioRecorder.isPlaying {
                     self.audioRecorder.stopPlayback()
                 } else {
-                    self.audioRecorder.startPlayback()
+                    self.audioRecorder.startPlayback(audioFileName: "test.m4a")
                 }
             })
         
@@ -216,7 +217,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                     self.audioRecorder.stopRecording()
                     self.audioButton.setIcon(to: "mic.circle")
                 } else {
-                    self.audioRecorder.startRecording()
+                    self.audioRecorder.startRecording(audioFileName: "test.m4a")
                     self.audioButton.setIcon(to: "mic.circle.fill")
                 }
             })
@@ -554,6 +555,10 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 // Otherwise responses can cause loops if the response has the command within it (or similar text to the command)
                 return
             }
+            guard !self.audioRecorder.isRecording && !self.audioRecorder.isPlaying else {
+                // If the audio recorder is recording/playing, we don't want command and recognition to interrupt it
+                return
+            }
             
             // React to audio answer (for quiz)
             if self.quizMaster.readyForAudioAnswer {
@@ -606,7 +611,9 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             // E.g. if they're using two hands AND holding two tagma, we don't want to guess which one they mean, we bail
             if ((self.loadedCommand == .name ||
                  self.loadedCommand == .information ||
-                 self.loadedCommand == .connect) &&
+                 self.loadedCommand == .connect ||
+                 self.loadedCommand == .addLabel ||
+                 self.loadedCommand == .listenLabel) &&
                 results.handsUsed > 1
             ) {
                 self.loadedCommand = .none
@@ -631,6 +638,34 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                     self.loadedCommand = .none
                     self.focusedTagma = tagmata
                     self.synthesizer.speak(tagmata.connection)
+                    return
+                } else if self.loadedCommand == .addLabel {
+                    // If a command was said during the recording, we don't want it being maintained in the transcript
+                    self.recognizer.stopTranscribing()
+                    self.loadedCommand = .none
+                    self.focusedTagma = tagmata
+                    AudioPlayer.inst.playAudio(file: "correct", type: "m4a")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self.audioRecorder.startRecording(audioFileName: tagmata.rawValue + ".m4a")
+                        let recordingID = self.audioRecorder.recordingSessionID
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+                            // Force-end after 10 seconds
+                            if self.audioRecorder.recordingSessionID == recordingID {
+                                self.endLabelRecording()
+                            }
+                        }
+                    }
+                    // TODO: If I add a queue on to stop recording, then I start a new recording before the old finished,
+                    // it will cancel the new one
+                    return
+                } else if self.loadedCommand == .listenLabel {
+                    // If a command was said during the recording, we don't want it being maintained in the transcript
+                    self.recognizer.stopTranscribing()
+                    self.loadedCommand = .none
+                    self.focusedTagma = tagmata
+                    self.audioRecorder.startPlayback(audioFileName: tagmata.rawValue + ".m4a") {
+                        self.recognizer.startTranscribing()
+                    }
                     return
                 }
             }
@@ -681,7 +716,16 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             // If there's no command to be responded to, and they were holding a tagma, and they stopped, stop speaking
             if let focusedTagma, !results.tagmaStillHeld(original: focusedTagma) {
                 self.synthesizer.stopSpeaking()
+                self.endLabelRecording()
             }
+        }
+    }
+    
+    func endLabelRecording() {
+        if self.audioRecorder.isRecording {
+            self.audioRecorder.stopRecording()
+            AudioPlayer.inst.playAudio(file: "correct", type: "m4a")
+            self.recognizer.startTranscribing()
         }
     }
 

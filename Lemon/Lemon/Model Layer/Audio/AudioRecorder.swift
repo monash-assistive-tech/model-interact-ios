@@ -12,6 +12,8 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     private var audioRecorder: AVAudioRecorder!
     private var audioPlayer: AVAudioPlayer!
+    private var onPlaybackCompletion: (() -> Void)? = nil
+    private(set) var recordingSessionID = UUID()
     public var isRecording: Bool {
         return self.audioRecorder?.isRecording ?? false
     }
@@ -19,12 +21,12 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         return self.audioPlayer?.isPlaying ?? false
     }
     
-    // This class saves an audio file called this - data persistence is occurring
-    // If we want to save many files one day, just serialise and persist the names
-    private let audioFileName = "test.m4a"
-    
-    func startRecording() {
-        let audioFilename = getDocumentsDirectory().appendingPathComponent(audioFileName)
+    /// Start recording audio to write to file.
+    /// - Parameters:
+    ///   - audioFileName: The filename of the audio file, with extension included (e.g. "test.m4a")
+    func startRecording(audioFileName: String) {
+        self.recordingSessionID = UUID()
+        let audioFilename = self.getDocumentsDirectory().appendingPathComponent(audioFileName)
         
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC), // AAC is a good choice for lossy compression
@@ -32,9 +34,6 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
             AVNumberOfChannelsKey: 2, // 2 signifies stereo recording
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue // High quality recording
         ]
-        
-        // Better quality audio (less noise)
-        AudioSessionManager.inst.setToRecordMode()
 
         do {
             self.audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
@@ -48,11 +47,13 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     func stopRecording() {
         self.audioRecorder.stop()
         self.audioRecorder = nil
-        // Undo setting to record mode
-        AudioSessionManager.inst.setPreviousMode()
     }
     
-    func startPlayback() {
+    /// Start playback of a written audio file.
+    /// - Parameters:
+    ///   - audioFileName: The filename of the audio file, with extension included (e.g. "test.m4a")
+    func startPlayback(audioFileName: String, onCompletion: (() -> Void)? = nil) {
+        self.onPlaybackCompletion = onCompletion
         let audioFilename = self.getDocumentsDirectory().appendingPathComponent(audioFileName)
         
         do {
@@ -64,9 +65,13 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         }
     }
     
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        self.onPlaybackCompletion?()
+    }
+    
     func stopPlayback() {
-        audioPlayer.stop()
-        audioPlayer = nil
+        self.audioPlayer.stop()
+        self.audioPlayer = nil
     }
     
     func getDocumentsDirectory() -> URL {

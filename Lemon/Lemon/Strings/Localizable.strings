@@ -22,6 +22,10 @@
 "command.complete" = "completed";
 "command.connect" = "connect to";
 "command.connect1" = "connected to";
+"command.addLabel" = "add label";
+"command.addLabel1" = "add level";
+"command.listenLabel" = "label";
+"command.listenLabel1" = "level";
 "command.test" = "test";
 
 // MARK: - Names
