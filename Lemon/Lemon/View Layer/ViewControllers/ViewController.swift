@@ -555,6 +555,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 return
             }
             
+            // React to audio answer (for quiz)
             if self.quizMaster.readyForAudioAnswer {
                 if currentTranscription.words.contains("quiz") || currentTranscription.text.isEmpty {
                     return
@@ -572,7 +573,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 return
             }
             
-            // Special commands
+            // Quiz command
             if currentTranscription.contains("quiz me") && !self.quizMaster.readyForVisualAnswer {
                 self.quizMaster.loadNextQuestion()
                 self.synthesizer.speak(self.quizMaster.loadedQuestionText) {
