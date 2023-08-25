@@ -43,6 +43,10 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private let audioRecorder = AudioRecorder()
     /// The audio action to trigger when the synthesis finishes speaking
     private var synthesisDidFinishAudioAction: AudioAction = .none
+    /// The manager for controlling the quiz component of the application
+    private let quizMaster = QuizMaster()
+    /// The last time a visual check for a quiz answer was made (so the tts doesn't spam an "incorrect" response)
+    private var lastVisualAnswerCheck = DispatchTime.now()
     /// True if the models should be continuously running at this moment
     private var runModels: Bool {
         return ((!self.isLive) ||
@@ -540,8 +544,6 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
         self.activeHandDetection = outcome ?? HandDetectionOutcome()
     }
     
-    private let quizMaster = QuizMaster()
-    
     func onWordRecognition(currentTranscription: SpeechText) {
         if !currentTranscription.text.isEmpty {
             self.transcriptionText.setText(to: currentTranscription.text)
@@ -559,25 +561,24 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                 }
                 let outcome = self.quizMaster.acceptAnswer(provided: currentTranscription)
                 if outcome == .correct {
-                    print("Correct!")
                     self.synthesisDidFinishAudioAction = .correct
                     self.synthesizer.speak("Correct!")
                 }
                 if outcome == .incorrect {
-                    print("Wrong!")
                     self.recognizer.resetTranscript()
                     self.synthesizer.speak("Please try again.")
                 }
-                if outcome == .partial {
-                    print("Partial!")
-                }
+                // If it's a partially correct answer, just continue receiving input until it's wrong/right
                 return
             }
             
             // Special commands
             if currentTranscription.contains("quiz me") && !self.quizMaster.readyForVisualAnswer {
                 self.quizMaster.loadNextQuestion()
-                self.synthesizer.speak(self.quizMaster.loadedQuestionText)
+                self.synthesizer.speak(self.quizMaster.loadedQuestionText) {
+                    // Only be ready to respond to answers AFTER the question has been asked
+                    self.quizMaster.markReadyForAnswer()
+                }
                 return
             }
             
@@ -682,15 +683,6 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             }
         }
     }
-    
-    private var lastVisualAnswerCheck = DispatchTime.now()
-    
-    /*
-     let start = DispatchTime.now()
-     test()
-     let end = DispatchTime.now()
-     let seconds = Double(end.uptimeNanoseconds - start.uptimeNanoseconds)/1_000_000_000
-     */
 
 }
 

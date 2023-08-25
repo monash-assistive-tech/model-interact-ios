@@ -45,7 +45,7 @@ class AudioQuestion: Question {
         for answer in self.answers {
             var correctCount = 0
             var incorrectCount = 0
-            let filteredProvided = provided.getWords(without: "and", "a", "do")
+            let filteredProvided = provided.getWords(without: "and", "a", "do", "the")
             for word in filteredProvided {
                 if answer.contains(word) {
                     correctCount += 1
@@ -104,38 +104,45 @@ class QuizMaster {
     
     init() {
         self.questions = [
-//            AudioQuestion(
-//                questionText: "What are my three main body segments?",
-//                answers: [
-//                    ["head", "thorax", "abdomen"], // heard
-//                    ["how", "thorax", "abdomen"],
-//                    ["had", "thorax", "abdomen"],
-//                    ["add", "thorax", "abdomen"],
-//                    ["head", "thrax", "abdomen"],
-//                    ["how", "thrax", "abdomen"],
-//                    ["had", "thrax", "abdomen"],
-//                    ["add", "thrax", "abdomen"],
-//                ]
-//            ),
-//            AudioQuestion(
-//                questionText: "Which main body segment is connected to the wings?",
-//                answers: [["thorax"], ["thrax"]]
-//            ),
-//            AudioQuestion(
-//                questionText: "What three main receptor parts can be found on my head?",
-//                answers: [["antenna", "eyes", "mouthparts"], ["antenna", "eyes", "mouth", "parts"]] // in tenna
-//            ),
-//            AudioQuestion(
-//                questionText: "What two parts make up my wing?",
-//                answers: [
-//                    ["for", "wing", "hind"],
-//                    ["four", "wing", "hind"],
-//                    ["forewing", "hindwing"],
-//                    ["forewing", "hind", "wing"],
-//                    ["for", "wing", "hindwing"],
-//                    ["four", "wing", "hindwing"], // find instead of hindwing
-//                ]
-//            ),
+            AudioQuestion(
+                questionText: "What are my three main body segments?",
+                answers: [
+                    // It's hard to split these into variations - if you only expect x words you can't expect them broken up
+                    // E.g. mouthparts / mouth parts
+                    ["head", "thorax", "abdomen"],
+                    ["how", "thorax", "abdomen"],
+                    ["had", "thorax", "abdomen"],
+                    ["add", "thorax", "abdomen"],
+                    ["heard", "thorax", "abdomen"],
+                    ["head", "thrax", "abdomen"],
+                    ["how", "thrax", "abdomen"],
+                    ["had", "thrax", "abdomen"],
+                    ["add", "thrax", "abdomen"],
+                    ["heard", "thrax", "abdomen"],
+                ]
+            ),
+            AudioQuestion(
+                questionText: "Which main body segment is connected to the wings?",
+                answers: [["thorax"], ["thrax"]]
+            ),
+            AudioQuestion(
+                questionText: "What three main receptor parts can be found on my head?",
+                answers: [["antenna", "eyes", "mouthparts"], ["antenna", "eyes", "mouth", "parts"]] // in tenna
+            ),
+            AudioQuestion(
+                questionText: "What two parts make up my wing?",
+                answers: [
+                    ["for", "wing", "hind"],
+                    ["four", "wing", "hind"],
+                    ["forewing", "hindwing"],
+                    ["forewing", "hind", "wing"],
+                    ["for", "wing", "hindwing"],
+                    ["four", "wing", "hindwing"],
+                    ["for", "wing", "find"],
+                    ["four", "wing", "find"],
+                    ["forewing", "find"],
+                ]
+            ),
             VisualQuestion(
                 questionText: "Can you identify my left wing?",
                 answers: [.leftWing]
@@ -148,6 +155,9 @@ class QuizMaster {
         self.readyForAudioAnswer = false
         self.readyForVisualAnswer = false
         self.questionIndex = (questionIndex + 1)%self.questions.count
+    }
+    
+    func markReadyForAnswer() {
         switch self.loadedQuestion.answerType {
         case .audio:
             self.readyForAudioAnswer = true
@@ -157,7 +167,6 @@ class QuizMaster {
     }
     
     func acceptAnswer(provided: SpeechText) -> AnswerStatus {
-        print("> > > > PROVIDED: \(provided.words) | \(provided.text)")
         let question = self.questions[questionIndex]
         if let audioQuestion = question as? AudioQuestion {
             let result = audioQuestion.checkAnswer(provided: provided)
