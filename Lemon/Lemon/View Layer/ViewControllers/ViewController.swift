@@ -49,11 +49,14 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
     private var lastVisualAnswerCheck = DispatchTime.now()
     /// True if the models should be continuously running at this moment
     private var runModels: Bool {
-        return ((!self.isLive) ||
-                (self.isLive && !(self.loadedCommand == .none)) ||
-                (self.isLive && self.synthesizer.isSpeaking) ||
-                (self.isLive && self.quizMaster.readyForVisualAnswer) ||
-                (self.isLive && self.audioRecorder.isRecording)
+        return (
+            (!self.isLive) ||
+            (self.isLive && (
+                !(self.loadedCommand == .none) ||
+                self.synthesizer.isSpeaking ||
+                self.quizMaster.readyForVisualAnswer ||
+                self.audioRecorder.isRecording
+            ))
         )
     }
     
@@ -562,7 +565,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             
             // React to audio answer (for quiz)
             if self.quizMaster.readyForAudioAnswer {
-                if currentTranscription.words.contains("quiz") || currentTranscription.text.isEmpty {
+                if currentTranscription.words.contains("quiz") || currentTranscription.words.contains("chris") || currentTranscription.text.isEmpty {
                     return
                 }
                 let outcome = self.quizMaster.acceptAnswer(provided: currentTranscription)
@@ -579,7 +582,8 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             }
             
             // Quiz command
-            if currentTranscription.contains("quiz me") && !self.quizMaster.readyForVisualAnswer {
+            if (currentTranscription.contains("quiz me") || currentTranscription.contains("chris me")) && !self.quizMaster.readyForVisualAnswer {
+                self.focusedTagma = nil // Remove any focus so the text isn't cancelled by letting go
                 self.quizMaster.loadNextQuestion()
                 self.synthesizer.speak(self.quizMaster.loadedQuestionText) {
                     // Only be ready to respond to answers AFTER the question has been asked
