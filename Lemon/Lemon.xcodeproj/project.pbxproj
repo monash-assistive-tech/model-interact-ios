@@ -976,6 +976,7 @@
 				DEVELOPMENT_TEAM = W9DP42NB5D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Lemon/App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Beesly;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need the camera to see your insect model";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to your microphone to hear your commands";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We need to transcribe to your voice to recognise commands";
@@ -1007,6 +1008,7 @@
 				DEVELOPMENT_TEAM = W9DP42NB5D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Lemon/App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Beesly;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need the camera to see your insect model";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to your microphone to hear your commands";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We need to transcribe to your voice to recognise commands";
