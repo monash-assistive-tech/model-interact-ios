@@ -585,9 +585,12 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             if (currentTranscription.contains("quiz me") || currentTranscription.contains("chris me")) && !self.quizMaster.readyForVisualAnswer {
                 self.focusedTagma = nil // Remove any focus so the text isn't cancelled by letting go
                 self.quizMaster.loadNextQuestion()
-                self.synthesizer.speak(self.quizMaster.loadedQuestionText) {
-                    // Only be ready to respond to answers AFTER the question has been asked
-                    self.quizMaster.markReadyForAnswer()
+                // Add a delay so we don't respond immediately - feels more conversational
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.synthesizer.speak(self.quizMaster.loadedQuestionText) {
+                        // Only be ready to respond to answers AFTER the question has been asked
+                        self.quizMaster.markReadyForAnswer()
+                    }
                 }
                 return
             }
