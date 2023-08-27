@@ -1,4 +1,4 @@
-<img src="beesly_splash.png" alt="beesly_splash" style="zoom:10%;" />
+<img src="beesly_splash.png" alt="beesly_splash" width="150" height="150" />
 
 # Beesly
 
