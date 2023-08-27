@@ -1,4 +1,4 @@
-<img src="/Users/andrepham/Desktop/Repos/LemonApp/beesly_splash.png" alt="beesly_splash" style="zoom:10%;" />
+<img src="beesly_splash.png" alt="beesly_splash" style="zoom:10%;" />
 
 # Beesly
 
