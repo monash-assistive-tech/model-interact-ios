@@ -94,10 +94,16 @@ class VisualQuestion: Question {
 
 class QuizMaster {
     
+    /// The questions to ask - when every question is asked they repeat in order again
     private var questions = [Question]()
+    /// The index of the active question from the questions list
     private var questionIndex: Int = -1
+    /// If the quiz master is awaiting an audio answer (a spoken answer provided by the user)
     private(set) var readyForAudioAnswer = false
+    /// If the quiz master is awaiting a visual answer (e.g. holding a specific part of the insect)
     private(set) var readyForVisualAnswer = false
+    /// If the quiz master has received a question, but has not yet been flagged as ready for an answer
+    private(set) var questionReceived = false
     private var loadedQuestion: Question {
         return self.questions[self.questionIndex]
     }
@@ -151,6 +157,10 @@ class QuizMaster {
                 answers: [.leftWing]
             )
         ]
+    }
+    
+    func markQuestionAsReceived(_ received: Bool) {
+        self.questionReceived = received
     }
     
     func loadNextQuestion() {

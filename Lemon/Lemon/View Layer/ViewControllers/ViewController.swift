@@ -582,7 +582,8 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             }
             
             // Quiz command
-            if (currentTranscription.contains("quiz me") || currentTranscription.contains("chris me")) && !self.quizMaster.readyForVisualAnswer {
+            if (currentTranscription.contains("quiz me") || currentTranscription.contains("chris me")) && !self.quizMaster.readyForVisualAnswer && !self.quizMaster.questionReceived {
+                self.quizMaster.markQuestionAsReceived(true)
                 self.focusedTagma = nil // Remove any focus so the text isn't cancelled by letting go
                 self.quizMaster.loadNextQuestion()
                 // Add a delay so we don't respond immediately - feels more conversational
@@ -590,6 +591,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                     self.synthesizer.speak(self.quizMaster.loadedQuestionText) {
                         // Only be ready to respond to answers AFTER the question has been asked
                         self.quizMaster.markReadyForAnswer()
+                        self.quizMaster.markQuestionAsReceived(false)
                     }
                 }
                 return
