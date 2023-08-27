@@ -565,24 +565,25 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             
             // React to audio answer (for quiz)
             if self.quizMaster.readyForAudioAnswer {
-                if currentTranscription.words.contains("quiz") || currentTranscription.words.contains("chris") || currentTranscription.text.isEmpty {
+                if self.quizMaster.isActivatedBy(speech: currentTranscription, useShorthand: true) || currentTranscription.text.isEmpty {
+                    // We're receiving the original speech to activate the quiz but delayed - bail
                     return
                 }
                 let outcome = self.quizMaster.acceptAnswer(provided: currentTranscription)
                 if outcome == .correct {
                     self.synthesisDidFinishAudioAction = .correct
-                    self.synthesizer.speak("Correct!")
+                    self.synthesizer.speak(Strings("feedback.correct").local)
                 }
                 if outcome == .incorrect {
                     self.recognizer.resetTranscript()
-                    self.synthesizer.speak("Please try again.")
+                    self.synthesizer.speak(Strings("feedback.tryAgain").local)
                 }
                 // If it's a partially correct answer, just continue receiving input until it's wrong/right
                 return
             }
             
             // Quiz command
-            if (currentTranscription.contains("quiz me") || currentTranscription.contains("chris me")) && !self.quizMaster.readyForVisualAnswer && !self.quizMaster.questionReceived {
+            if self.quizMaster.isActivatedBy(speech: currentTranscription) && !self.quizMaster.readyForVisualAnswer && !self.quizMaster.questionReceived {
                 self.quizMaster.markQuestionAsReceived(true)
                 self.focusedTagma = nil // Remove any focus so the text isn't cancelled by letting go
                 self.quizMaster.loadNextQuestion()
@@ -702,7 +703,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                         self.synthesizer.stopSpeaking()
                         self.synthesisDidFinishAudioAction = .correct
                         self.detectionCompiler.clearOutcomes()
-                        self.synthesizer.speak("Correct!")
+                        self.synthesizer.speak(Strings("feedback.correct").local)
                     }
                     if outcome == .incorrect {
                         // We don't want to continuously bombard the user with "please try again"
@@ -716,7 +717,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                             self.lastVisualAnswerCheck = DispatchTime.now()
                         }
                         self.detectionCompiler.clearOutcomes()
-                        self.synthesizer.speak("Please try again.")
+                        self.synthesizer.speak(Strings("feedback.tryAgain").local)
                     }
                 }
                 // Return here so we don't cancel any speaking (triggered below)

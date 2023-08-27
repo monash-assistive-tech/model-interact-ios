@@ -110,6 +110,12 @@ class QuizMaster {
     public var loadedQuestionText: String {
         return self.questions[self.questionIndex].questionText
     }
+    public var activationPhrases: [String] {
+        return ["quiz me", "chris me"]
+    }
+    public var shorthandActivationPhrases: [String] {
+        return ["quiz", "chris"]
+    }
     
     init() {
         self.questions = [
@@ -157,6 +163,16 @@ class QuizMaster {
                 answers: [.leftWing]
             )
         ]
+    }
+    
+    func isActivatedBy(speech: SpeechText, useShorthand: Bool = false) -> Bool {
+        let phrases = useShorthand ? self.shorthandActivationPhrases : self.activationPhrases
+        for phrase in phrases {
+            if speech.contains(phrase) {
+                return true
+            }
+        }
+        return false
     }
     
     func markQuestionAsReceived(_ received: Bool) {

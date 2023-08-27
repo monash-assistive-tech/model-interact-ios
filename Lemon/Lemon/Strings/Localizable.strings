@@ -6,9 +6,18 @@
   
 */
 
-// Strings that take in parameters should be marked with an "XParam" suffix.
-// Example: "car.description1Param" = "The car has %@ wheels";
-// Numbers typically should be displayed using `YonderNumeral` and related, rather than be embedded into a string.
+/*
+  MARK: - IMPORTANT
+  The strings for the quiz component of this application are NOT stored as string resources.
+  They are stored as string literals and are encapsulated within QuizMaster.
+  This app doesn't have the budget to be storing those strings as string resources.
+*/
+
+/*
+  MARK: - Params Usage
+  Strings that take in parameters should be marked with an "XParam" suffix.
+  Example: "car.description1Param" = "The car has %@ wheels";
+*/
 
 // MARK: - Commands
 
@@ -65,3 +74,8 @@
 // MARK: - Tips
 
 "tip.twoHands" = "Try only holding one at a time.";
+
+// MARK: - Feedback
+
+"feedback.correct" = "Correct!";
+"feedback.tryAgain" = "Please try again.";
