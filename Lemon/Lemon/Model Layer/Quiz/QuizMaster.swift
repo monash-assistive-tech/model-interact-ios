@@ -43,12 +43,15 @@ class AudioQuestion: Question {
         // We start off assuming they're incorrect
         var finalAnswer: AnswerStatus = .incorrect
         for answer in self.answers {
+            // We don't want to accept duplicate answers, such as "thorax, thorax, thorax"
+            var answerChecklist = Array(answer)
             var correctCount = 0
             var incorrectCount = 0
             let filteredProvided = provided.getWords(without: "and", "a", "do", "the")
             for word in filteredProvided {
-                if answer.contains(word) {
+                if let matchingIndex = answerChecklist.firstIndex(where: { $0 == word }) {
                     correctCount += 1
+                    answerChecklist.remove(at: matchingIndex)
                 } else {
                     incorrectCount += 1
                 }
