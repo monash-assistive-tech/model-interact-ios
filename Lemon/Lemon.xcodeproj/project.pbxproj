@@ -976,11 +976,14 @@
 				DEVELOPMENT_TEAM = W9DP42NB5D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Lemon/App/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need the camera to see your insect model";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to your microphone to hear your commands";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We need to transcribe to your voice to recognise commands";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1004,11 +1007,14 @@
 				DEVELOPMENT_TEAM = W9DP42NB5D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Lemon/App/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need the camera to see your insect model";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to your microphone to hear your commands";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We need to transcribe to your voice to recognise commands";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

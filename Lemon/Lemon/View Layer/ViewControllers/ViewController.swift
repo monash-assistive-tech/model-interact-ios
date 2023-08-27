@@ -443,17 +443,17 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             self.recognizer.resetTranscript()
             switch self.synthesisDidFinishAudioAction {
             case .head:
-                AudioPlayer.inst.playAudio(file: "head", type: "m4a")
+                AudioPlayer.inst.playAudio(file: "head", type: "m4a", volume: 0.45)
             case .thorax:
-                AudioPlayer.inst.playAudio(file: "thorax", type: "m4a")
+                AudioPlayer.inst.playAudio(file: "thorax", type: "m4a", volume: 0.45)
             case .abdomen:
-                AudioPlayer.inst.playAudio(file: "abdomen", type: "m4a")
+                AudioPlayer.inst.playAudio(file: "abdomen", type: "m4a", volume: 0.8)
             case .wings:
-                AudioPlayer.inst.playAudio(file: "wings", type: "m4a")
+                AudioPlayer.inst.playAudio(file: "wings", type: "m4a", volume: 1.0)
             case .completed:
-                AudioPlayer.inst.playAudio(file: "completed", type: "m4a")
+                AudioPlayer.inst.playAudio(file: "completed", type: "m4a", volume: 0.8)
             case .correct:
-                AudioPlayer.inst.playAudio(file: "correct", type: "m4a")
+                AudioPlayer.inst.playAudio(file: "correct", type: "m4a", volume: 0.8)
             case .none:
                 break
             }

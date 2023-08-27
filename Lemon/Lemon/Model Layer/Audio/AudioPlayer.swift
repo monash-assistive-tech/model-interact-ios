@@ -24,7 +24,7 @@ class AudioPlayer {
     /// - Parameters:
     ///   - file: The filename
     ///   - type: The file extension
-    func playAudio(file: String, type: String) {
+    func playAudio(file: String, type: String, volume: Float = 1.0) {
         guard let path = Bundle.main.path(forResource: file, ofType: type) else {
             assertionFailure("Unable to find audio file \(file). Have you added it to bundle resources? (Project -> select target -> open Build Phases -> add to Copy Bundle Resources)")
             return
@@ -32,6 +32,7 @@ class AudioPlayer {
         let url = URL(fileURLWithPath: path)
         do {
             self.audioPlayer = try AVAudioPlayer(contentsOf: url)
+            self.audioPlayer?.volume = volume
             self.audioPlayer?.prepareToPlay()
             self.audioPlayer?.play()
         } catch {
