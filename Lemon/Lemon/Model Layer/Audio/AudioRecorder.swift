@@ -61,6 +61,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
             self.audioPlayer.delegate = self
             self.audioPlayer.play()
         } catch {
+            onCompletion?()
             print("Could not start playback: \(error)")
         }
     }
