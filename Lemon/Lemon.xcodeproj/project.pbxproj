@@ -11,6 +11,10 @@
 		B67F06522A97C5D800591789 /* completed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B67F06512A97C49400591789 /* completed.m4a */; };
 		B67F06552A97F55700591789 /* QuizMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F06542A97F55700591789 /* QuizMaster.swift */; };
 		B67F06572A97FC4500591789 /* correct.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B67F06562A97FC3900591789 /* correct.m4a */; };
+		B67F06592A9BB40C00591789 /* AnswerStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F06582A9BB40C00591789 /* AnswerStatus.swift */; };
+		B67F065B2A9BB42500591789 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F065A2A9BB42500591789 /* Question.swift */; };
+		B67F065D2A9BB44400591789 /* AudioQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F065C2A9BB44400591789 /* AudioQuestion.swift */; };
+		B67F065F2A9BB46700591789 /* VisualQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F065E2A9BB46700591789 /* VisualQuestion.swift */; };
 		B6C37E422A341CF5004D18A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37E412A341CF5004D18A8 /* AppDelegate.swift */; };
 		B6C37E442A341CF5004D18A8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37E432A341CF5004D18A8 /* SceneDelegate.swift */; };
 		B6C37E462A341CF5004D18A8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C37E452A341CF5004D18A8 /* ViewController.swift */; };
@@ -112,6 +116,10 @@
 		B67F06512A97C49400591789 /* completed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = completed.m4a; sourceTree = "<group>"; };
 		B67F06542A97F55700591789 /* QuizMaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizMaster.swift; sourceTree = "<group>"; };
 		B67F06562A97FC3900591789 /* correct.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = correct.m4a; sourceTree = "<group>"; };
+		B67F06582A9BB40C00591789 /* AnswerStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerStatus.swift; sourceTree = "<group>"; };
+		B67F065A2A9BB42500591789 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		B67F065C2A9BB44400591789 /* AudioQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioQuestion.swift; sourceTree = "<group>"; };
+		B67F065E2A9BB46700591789 /* VisualQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualQuestion.swift; sourceTree = "<group>"; };
 		B6C37E3E2A341CF5004D18A8 /* Lemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6C37E412A341CF5004D18A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6C37E432A341CF5004D18A8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -232,6 +240,10 @@
 			isa = PBXGroup;
 			children = (
 				B67F06542A97F55700591789 /* QuizMaster.swift */,
+				B67F06582A9BB40C00591789 /* AnswerStatus.swift */,
+				B67F065A2A9BB42500591789 /* Question.swift */,
+				B67F065C2A9BB44400591789 /* AudioQuestion.swift */,
+				B67F065E2A9BB46700591789 /* VisualQuestion.swift */,
 			);
 			path = Quiz;
 			sourceTree = "<group>";
@@ -718,6 +730,7 @@
 				B6D461F12A4E6EBF0002CEEC /* DetectsTagmata.swift in Sources */,
 				B6D472522A57485D0002CEEC /* JointPosition.swift in Sources */,
 				B6D461CD2A4539C00002CEEC /* SpeechText.swift in Sources */,
+				B67F065B2A9BB42500591789 /* Question.swift in Sources */,
 				B6C37E802A3525DF004D18A8 /* SFSpeechRecognizer.swift in Sources */,
 				B6D472752A5FA6C30002CEEC /* LemonIconButton.swift in Sources */,
 				B6D472682A57B6FF0002CEEC /* TagmataDetector5_5000.mlmodel in Sources */,
@@ -740,6 +753,7 @@
 				B6D472562A57489A0002CEEC /* HandDetectionOutcome.swift in Sources */,
 				B6C37E822A3525F4004D18A8 /* AVAudioSession.swift in Sources */,
 				B6C37ED12A396B71004D18A8 /* CaptureDelegate.swift in Sources */,
+				B67F06592A9BB40C00591789 /* AnswerStatus.swift in Sources */,
 				B6DC100E2A6A2A3500C10100 /* Command.swift in Sources */,
 				B6C37EE32A399D7E004D18A8 /* TagmataDetection.swift in Sources */,
 				B6D4726F2A5962770002CEEC /* CompiledResults.swift in Sources */,
@@ -748,6 +762,7 @@
 				B6C37E462A341CF5004D18A8 /* ViewController.swift in Sources */,
 				B6D461EF2A4DF11E0002CEEC /* LemonSwitch.swift in Sources */,
 				B6C37EF32A39B5BF004D18A8 /* LemonImage.swift in Sources */,
+				B67F065D2A9BB44400591789 /* AudioQuestion.swift in Sources */,
 				B6C37EDD2A397950004D18A8 /* PredictionBoxView.swift in Sources */,
 				B6C37EE52A399EE1004D18A8 /* Math.swift in Sources */,
 				B6D4725A2A574BF30002CEEC /* JointPositionsView.swift in Sources */,
@@ -777,6 +792,7 @@
 				B6D461DB2A4D2AC40002CEEC /* TagmataDetectionOutcome.swift in Sources */,
 				B6DC10162A71336300C10100 /* AudioRecorder.swift in Sources */,
 				B6D472862A64E6DF0002CEEC /* Angle.swift in Sources */,
+				B67F065F2A9BB46700591789 /* VisualQuestion.swift in Sources */,
 				B6C37EEB2A39A1B9004D18A8 /* LemonButton.swift in Sources */,
 				B6D472712A597D1C0002CEEC /* AnglesView.swift in Sources */,
 				B6D461D82A4B65EF0002CEEC /* TagmataDetector4_3910.mlmodel in Sources */,
