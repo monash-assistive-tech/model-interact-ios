@@ -1,4 +1,6 @@
-<img src="beesly_splash.png" alt="beesly_splash" width="150" height="150" />
+<div align="center">
+  <img src="beesly_splash.png" width="150">
+</div>
 
 # Beesly
 
