@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="beesly_splash.png" width="150">
+  <img src="beesly_splash.png" width="100">
 </div>
 
 # Beesly
