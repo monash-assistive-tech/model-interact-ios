@@ -42,3 +42,26 @@ The application is currently capable of:
 * Speaker and VOIP audio modes (standard audio modes you find in all voice-chat apps) 
 * Camera stream input (both front and back facing cameras)
 * Question-and-response quiz mode that supports both auditory and visual answers
+
+## Technology Stack
+
+This is a native iOS/iPadOS application.
+
+| Technology                      | What's Used                                                  |
+| ------------------------------- | ------------------------------------------------------------ |
+| Language                        | [Swift](https://developer.apple.com/documentation/swift)     |
+| UI Framework                    | [UIKit](https://developer.apple.com/documentation/uikit)     |
+| Video and Camera Framework      | [AVFoundation](https://developer.apple.com/documentation/avfoundation/) |
+| Audio (including TTS) Framework | [AVFoundation](https://developer.apple.com/documentation/avfoundation/) |
+| Speech-to-Text Framework        | [Speech](https://developer.apple.com/documentation/speech/)  |
+| Machine Learning Framework      | [Create ML](https://developer.apple.com/documentation/createml) |
+| Hand Recognition Framework      | [Vision](https://developer.apple.com/documentation/vision/)  |
+
+The application is broken down into these fundamental layers, each of which are within the application's root directory:
+
+* **`Lemon/Strings`**: The application's string resources.
+* **`Lemon/Core`**: Convenience/utility classes used anywhere.
+* **`Lemon/Swift`**: Extensions to the Swift language.
+* **`Lemon/App`**: Classes that manage the app's lifecycle. Also includes any app-level files and certificates such as `Info.plist`.
+* **`Lemon/Model Layer`**: The Model layer of MVC. Contains all application logic and data structures.
+* **`Lemon/View Layer`**: The View-Controller layer of MVC. Contains all interaction logic, UI, rendering, assets, and styling classes.
