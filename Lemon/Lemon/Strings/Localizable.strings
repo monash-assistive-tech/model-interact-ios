@@ -29,6 +29,7 @@
 "command.faster" = "faster";
 "command.slower" = "slower";
 "command.complete" = "completed";
+"command.complete1" = "complete";
 "command.connect" = "connect to";
 "command.connect1" = "connected to";
 "command.addLabel" = "add label";

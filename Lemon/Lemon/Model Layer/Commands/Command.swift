@@ -37,7 +37,7 @@ enum Command: CaseIterable {
         case .information:
             return [Strings("command.information").local]
         case .completed:
-            return [Strings("command.complete").local]
+            return [Strings("command.complete").local, Strings("command.complete1").local]
         case .connect:
             return [Strings("command.connect").local, Strings("command.connect1").local]
         case .addLabel:
