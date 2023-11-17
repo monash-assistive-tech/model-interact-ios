@@ -17,11 +17,11 @@ Main Demo (Version 1.0.1): [YOUTUBE LINK](https://youtu.be/MiDen_XEZX8)
 ## Commands
 
 * **"Name"** *(States the name of the insect part you're holding + sound effect)*
-* **"Information"** *(Provides information on the insect part you're holding)*
-* **"What does this connect to?"** *(Provides information on what part of the insect you're holding connects to)*
+* **"Information"** *(Provides information on the insect part you're holding; let go to stop listening)*
+* **"What does this connect to?"** *(Provides information on what part of the insect you're holding connects to; let go to stop listening)*
 * **"Completed?"** *(States whether the insect is complete or not + sound effect)*
 * **"Quiz Me"** *(Begins a quiz question)*
-* **"Add Label"** *(Begins recording an audio label for the insect part you're holding, sound effect indicates start and end)*
+* **"Add Label"** *(Begins recording an audio label for the insect part you're holding, sound effect indicates start and end; let go to stop recording, or wait for 10 second timeout)*
 * **"Label"** *(Plays back the label you recorded for the insect part you're holding)*
 
 ## Feature Set

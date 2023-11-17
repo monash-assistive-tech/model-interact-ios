@@ -675,6 +675,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
                     self.focusedTagma = tagmata
                     self.audioRecorder.startPlayback(audioFileName: tagmata.rawValue + ".m4a") {
                         self.recognizer.startTranscribing()
+                        self.clearOverlays()
                     }
                     return
                 }
