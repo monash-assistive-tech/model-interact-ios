@@ -130,42 +130,10 @@ class CaptureSession: NSObject {
 
         // Update the video orientation
         if let connection = self.videoOutput.connection(with: .video), connection.isVideoOrientationSupported {
-            switch UIDevice.current.orientation {
-            case .unknown:
-                // .unknown can be returned in the early stages of the app lifecycle
-                // or if orientation notifications have been disabled.
-                // We fall back on UIApplication if this is the case.
-                DispatchQueue.main.async {
-                    if let orientation = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.interfaceOrientation {
-                        switch orientation {
-                        case .unknown:
-                            break
-                        case .portrait:
-                            connection.videoOrientation = .portrait
-                        case .portraitUpsideDown:
-                            connection.videoOrientation = .portraitUpsideDown
-                        case .landscapeLeft:
-                            connection.videoOrientation = .landscapeLeft
-                        case .landscapeRight:
-                            connection.videoOrientation = .landscapeRight
-                        @unknown default:
-                            assertionFailure("Implement newly added orientation")
-                        }
-                    }
-                }
-            case .portrait, .faceUp, .faceDown:
-                connection.videoOrientation = .portrait
-            case .portraitUpsideDown:
-                connection.videoOrientation = .portraitUpsideDown
-            case .landscapeLeft:
-                // Inverse to force the image in the upward orientation
-                connection.videoOrientation = .landscapeRight
-            case .landscapeRight:
-                // Inverse to force the image in the upward orientation
-                connection.videoOrientation = .landscapeLeft
-            @unknown default:
-                assertionFailure("Implement newly added orientation")
-            }
+            // We lock the device to portrait orientation for detection so the video orientation should always be portrait
+            // If we ever decided to revoke this decision use matchOrientation(:AVCaptureConnection) implemented below
+            // Note that portrait was selected to best suit the aspect ratio of the training data used
+            connection.videoOrientation = .portrait
             connection.isVideoMirrored = self.cameraPosition == .front
         }
     }
@@ -196,6 +164,45 @@ class CaptureSession: NSObject {
                     completionHandler()
                 }
             }
+        }
+    }
+    
+    private func matchOrientation(connection: AVCaptureConnection) {
+        switch UIDevice.current.orientation {
+        case .unknown:
+            // .unknown can be returned in the early stages of the app lifecycle
+            // or if orientation notifications have been disabled.
+            // We fall back on UIApplication if this is the case.
+            DispatchQueue.main.async {
+                if let orientation = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.interfaceOrientation {
+                    switch orientation {
+                    case .unknown:
+                        break
+                    case .portrait:
+                        connection.videoOrientation = .portrait
+                    case .portraitUpsideDown:
+                        connection.videoOrientation = .portraitUpsideDown
+                    case .landscapeLeft:
+                        connection.videoOrientation = .landscapeLeft
+                    case .landscapeRight:
+                        connection.videoOrientation = .landscapeRight
+                    @unknown default:
+                        assertionFailure("Implement newly added orientation")
+                    }
+                }
+            }
+        case .portrait, .faceUp, .faceDown:
+            connection.videoOrientation = .portrait
+        case .portraitUpsideDown:
+            connection.videoOrientation = .portraitUpsideDown
+        case .landscapeLeft:
+            // Inverse to force the image in the upward orientation
+            connection.videoOrientation = .landscapeRight
+        case .landscapeRight:
+            // Inverse to force the image in the upward orientation
+            connection.videoOrientation = .landscapeLeft
+        @unknown default:
+            assertionFailure("Implement newly added orientation")
         }
     }
     
