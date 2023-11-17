@@ -564,11 +564,7 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             }
             
             // React to audio answer (for quiz)
-            if self.quizMaster.readyForAudioAnswer {
-                if self.quizMaster.isActivatedBy(speech: currentTranscription, useShorthand: true) || currentTranscription.text.isEmpty {
-                    // We're receiving the original speech to activate the quiz but delayed - bail
-                    return
-                }
+            if self.quizMaster.readyForAudioAnswer && !currentTranscription.text.isEmpty && !self.quizMaster.isActivatedBy(speech: currentTranscription) {
                 let outcome = self.quizMaster.acceptAnswer(provided: currentTranscription)
                 if outcome == .correct {
                     self.synthesisDidFinishAudioAction = .correct
@@ -586,7 +582,11 @@ class ViewController: UIViewController, CaptureDelegate, HandDetectionDelegate, 
             if self.quizMaster.isActivatedBy(speech: currentTranscription) && !self.quizMaster.readyForVisualAnswer && !self.quizMaster.questionReceived {
                 self.quizMaster.markQuestionAsReceived(true)
                 self.focusedTagma = nil // Remove any focus so the text isn't cancelled by letting go
-                self.quizMaster.loadNextQuestion()
+                if self.quizMaster.readyForAudioAnswer {
+                    self.quizMaster.loadCurrentQuestion()
+                } else {
+                    self.quizMaster.loadNextQuestion()
+                }
                 // Add a delay so we don't respond immediately - feels more conversational
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     self.synthesizer.speak(self.quizMaster.loadedQuestionText) {

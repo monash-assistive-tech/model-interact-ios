@@ -20,7 +20,7 @@ class SpeechText {
         self.words = self.text.components(separatedBy: " ")
     }
     
-    func getWords(without filterWords: String...) -> [String] {
+    func getWords(without filterWords: [String]) -> [String] {
         return words.filter { word in
             !filterWords.contains(word)
         }

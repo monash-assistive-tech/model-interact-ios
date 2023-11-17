@@ -26,7 +26,7 @@ class QuizMaster {
         return self.questions[self.questionIndex].questionText
     }
     public var activationPhrases: [String] {
-        return ["quiz me", "chris me"]
+        return ["quiz me", "chris me", "because me", "christening"]
     }
     public var shorthandActivationPhrases: [String] {
         return ["quiz", "chris"]
@@ -39,6 +39,9 @@ class QuizMaster {
                 answers: [
                     // It's hard to split these into variations - if you only expect x words you can't expect them broken up
                     // E.g. mouthparts / mouth parts
+                    // Right now we just do every combination - not very pretty, but at least we can search for words that can be broken up
+                    // If we were have lists of every variation of a word, we couldn't search for words that are broken up (so we couldn't have a variation of "mouthparts" as "mouth" + "parts"
+                    // Ideally one day an optimal solution will be implemented
                     ["head", "thorax", "abdomen"],
                     ["how", "thorax", "abdomen"],
                     ["had", "thorax", "abdomen"],
@@ -49,6 +52,24 @@ class QuizMaster {
                     ["had", "thrax", "abdomen"],
                     ["add", "thrax", "abdomen"],
                     ["heard", "thrax", "abdomen"],
+                    ["head", "thorax", "admin"],
+                    ["how", "thorax", "admin"],
+                    ["had", "thorax", "admin"],
+                    ["add", "thorax", "admin"],
+                    ["heard", "thorax", "admin"],
+                    ["head", "thrax", "admin"],
+                    ["how", "thrax", "admin"],
+                    ["had", "thrax", "admin"],
+                    ["add", "thrax", "admin"],
+                    ["heard", "thrax", "admin"],
+                    ["headed", "thorax", "abdomen"],
+                    ["headed", "thrax", "abdomen"],
+                    ["headed", "thrax", "admin"],
+                    ["headed", "thorax", "admin"],
+                    ["have", "thorax", "abdomen"],
+                    ["have", "thrax", "abdomen"],
+                    ["have", "thrax", "admin"],
+                    ["have", "thorax", "admin"],
                 ]
             ),
             AudioQuestion(
@@ -57,7 +78,7 @@ class QuizMaster {
             ),
             AudioQuestion(
                 questionText: "What three main receptor parts can be found on my head?",
-                answers: [["antenna", "eyes", "mouthparts"], ["antenna", "eyes", "mouth", "parts"]] // in tenna
+                answers: [["antenna", "eyes", "mouthparts"], ["antenna", "eyes", "mouth", "parts"]]
             ),
             AudioQuestion(
                 questionText: "What two parts make up my wing?",
@@ -99,6 +120,12 @@ class QuizMaster {
         self.readyForAudioAnswer = false
         self.readyForVisualAnswer = false
         self.questionIndex = (questionIndex + 1)%self.questions.count
+    }
+    
+    func loadCurrentQuestion() {
+        // Reset ready-for answers (just in case)
+        self.readyForAudioAnswer = false
+        self.readyForVisualAnswer = false
     }
     
     func markReadyForAnswer() {

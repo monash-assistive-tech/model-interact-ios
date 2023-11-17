@@ -24,7 +24,7 @@ class AudioQuestion: Question {
             var answerChecklist = Array(answer)
             var correctCount = 0
             var incorrectCount = 0
-            let filteredProvided = provided.getWords(without: "and", "a", "do", "the")
+            let filteredProvided = self.sanitiseAnswer(answer: provided)
             for word in filteredProvided {
                 if let matchingIndex = answerChecklist.firstIndex(where: { $0 == word }) {
                     correctCount += 1
@@ -45,6 +45,18 @@ class AudioQuestion: Question {
             // or, the final answer is already incorrect (by default)
         }
         return finalAnswer
+    }
+    
+    private func sanitiseAnswer(answer: SpeechText) -> [String] {
+        let wordsToRemove = [
+            // Filler words
+            "and", "a", "do", "the",
+            // Quiz-trigger words (received when receiving original speech to activate the quiz but delayed)
+            "quiz", "me", "chris",
+            // Quiz-response words (to avoid an infinite recursion loop of hearing the feedback as an answer)
+            "please", "try", "again"
+        ]
+        return answer.getWords(without: wordsToRemove)
     }
     
 }
