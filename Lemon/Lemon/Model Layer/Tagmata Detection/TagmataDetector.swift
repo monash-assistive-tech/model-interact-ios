@@ -50,7 +50,7 @@ class TagmataDetector: DetectsTagmata {
         if let predictions = request.results as? [VNRecognizedObjectObservation] {
             let detection = TagmataDetectionOutcome(
                 detectorID: self.id,
-                frame: frame,
+                frameSize: CGSize(width: frame.width, height: frame.height),
                 detections: predictions.map({ TagmataDetection(observation: $0) })
             )
             detection.merge()

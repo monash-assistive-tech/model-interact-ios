@@ -136,8 +136,8 @@ class TagmataQuadrantDetector: DetectsTagmata, TagmataDetectionDelegate {
     
     private func completeOutcome(_ outcome: TagmataDetectionOutcome) {
         if let currentOutcome = self.outcome {
-            let frame = outcome.detectorID.matches(self.tagmataDetectorFull.id) ? outcome.frame : currentOutcome.frame
-            self.outcome = currentOutcome.merged(with: outcome, newID: self.id, frame: frame)
+            let frameSize = outcome.detectorID.matches(self.tagmataDetectorFull.id) ? outcome.frameSize : currentOutcome.frameSize
+            self.outcome = currentOutcome.merged(with: outcome, newID: self.id, frameSize: frameSize)
         } else {
             self.outcome = outcome
         }

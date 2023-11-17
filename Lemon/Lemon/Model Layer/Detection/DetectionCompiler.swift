@@ -176,8 +176,8 @@ class DetectionCompiler {
         if tagmataDetectionOutcome.tagmataDetections.isEmpty {
             return HeldTagmata(held: [], maybeHeld: [], handsUsed: 0)
         }
-        let frameWidth = Double(tagmataDetectionOutcome.frame.width)
-        let frameHeight = Double(tagmataDetectionOutcome.frame.height)
+        let frameWidth = tagmataDetectionOutcome.frameSize.width
+        let frameHeight = tagmataDetectionOutcome.frameSize.height
         let tagmataClassifications = tagmataDetectionOutcome.tagmataDetections.map({ $0.classification })
         let tagmataPositions = tagmataDetectionOutcome.tagmataDetections.map({
             $0.getDenormalisedCenter(boundsWidth: frameWidth, boundsHeight: frameHeight)
@@ -254,8 +254,8 @@ class DetectionCompiler {
         let D = predictions[.rightWing]
         let E = predictions[.abdomen]
         
-        let frameWidth = Double(tagmataDetectionOutcome.frame.width)
-        let frameHeight = Double(tagmataDetectionOutcome.frame.height)
+        let frameWidth = tagmataDetectionOutcome.frameSize.width
+        let frameHeight = tagmataDetectionOutcome.frameSize.height
         let angle1 = self.angleBetweenDetections(A, C, D, frameWidth: frameWidth, frameHeight: frameHeight)
         let angle2 = self.angleBetweenDetections(B, C, A, frameWidth: frameWidth, frameHeight: frameHeight)
         let angle3 = self.angleBetweenDetections(E, C, B, frameWidth: frameWidth, frameHeight: frameHeight)
