@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5649CB762BDBD79900D8342E /* Localizable_watercycle.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5649CB742BDBD79900D8342E /* Localizable_watercycle.strings */; };
 		B67F06502A97C11B00591789 /* AudioAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F064F2A97C11B00591789 /* AudioAction.swift */; };
 		B67F06522A97C5D800591789 /* completed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B67F06512A97C49400591789 /* completed.m4a */; };
 		B67F06552A97F55700591789 /* QuizMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F06542A97F55700591789 /* QuizMaster.swift */; };
@@ -112,6 +113,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5649CB752BDBD79900D8342E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable_watercycle.strings; sourceTree = "<group>"; };
 		B67F064F2A97C11B00591789 /* AudioAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAction.swift; sourceTree = "<group>"; };
 		B67F06512A97C49400591789 /* completed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = completed.m4a; sourceTree = "<group>"; };
 		B67F06542A97F55700591789 /* QuizMaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizMaster.swift; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 			children = (
 				B6D4724C2A5724E40002CEEC /* Localizable.strings */,
 				B6D472652A5785210002CEEC /* Strings.swift */,
+				5649CB742BDBD79900D8342E /* Localizable_watercycle.strings */,
 			);
 			path = Strings;
 			sourceTree = "<group>";
@@ -693,6 +696,7 @@
 			files = (
 				B67F06572A97FC4500591789 /* correct.m4a in Resources */,
 				B67F06522A97C5D800591789 /* completed.m4a in Resources */,
+				5649CB762BDBD79900D8342E /* Localizable_watercycle.strings in Resources */,
 				B6DC10142A712F5800C10100 /* wings.m4a in Resources */,
 				B6C37E4E2A341CF6004D18A8 /* LaunchScreen.storyboard in Resources */,
 				B6DC101C2A7353E400C10100 /* head.m4a in Resources */,
@@ -833,6 +837,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		5649CB742BDBD79900D8342E /* Localizable_watercycle.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5649CB752BDBD79900D8342E /* en */,
+			);
+			name = Localizable_watercycle.strings;
+			sourceTree = "<group>";
+		};
 		B6C37E472A341CF5004D18A8 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
