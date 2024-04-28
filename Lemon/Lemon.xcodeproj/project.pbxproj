@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		4C118CF22BDDFD2600B94E19 /* watercycle 1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4C118CF12BDDFD2600B94E19 /* watercycle 1.mlmodel */; };
 		4C5CA8522BDE8A2900C748AE /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5CA8512BDE8A2900C748AE /* File.swift */; };
+		4CE049962BDE8E8300D38F0D /* WaterCycleDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE049952BDE8E8300D38F0D /* WaterCycleDetector.swift */; };
+		4CE049982BDE8EC300D38F0D /* DetectsWaterCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE049972BDE8EC300D38F0D /* DetectsWaterCycle.swift */; };
+		4CE0499A2BDE8F1500D38F0D /* DetectorID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE049992BDE8F1500D38F0D /* DetectorID.swift */; };
+		4CE0499C2BDE929000D38F0D /* WaterCycleDetectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0499B2BDE929000D38F0D /* WaterCycleDetectionDelegate.swift */; };
+		4CE0499E2BDE932700D38F0D /* WaterCycleDetectionOutcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0499D2BDE932700D38F0D /* WaterCycleDetectionOutcome.swift */; };
+		4CE049A02BDE93FE00D38F0D /* WaterCycleClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0499F2BDE93FE00D38F0D /* WaterCycleClassification.swift */; };
 		B67F06502A97C11B00591789 /* AudioAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F064F2A97C11B00591789 /* AudioAction.swift */; };
 		B67F06522A97C5D800591789 /* completed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B67F06512A97C49400591789 /* completed.m4a */; };
 		B67F06552A97F55700591789 /* QuizMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F06542A97F55700591789 /* QuizMaster.swift */; };
@@ -116,6 +122,12 @@
 /* Begin PBXFileReference section */
 		4C118CF12BDDFD2600B94E19 /* watercycle 1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "watercycle 1.mlmodel"; sourceTree = "<group>"; };
 		4C5CA8512BDE8A2900C748AE /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		4CE049952BDE8E8300D38F0D /* WaterCycleDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCycleDetector.swift; sourceTree = "<group>"; };
+		4CE049972BDE8EC300D38F0D /* DetectsWaterCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectsWaterCycle.swift; sourceTree = "<group>"; };
+		4CE049992BDE8F1500D38F0D /* DetectorID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectorID.swift; sourceTree = "<group>"; };
+		4CE0499B2BDE929000D38F0D /* WaterCycleDetectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCycleDetectionDelegate.swift; sourceTree = "<group>"; };
+		4CE0499D2BDE932700D38F0D /* WaterCycleDetectionOutcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCycleDetectionOutcome.swift; sourceTree = "<group>"; };
+		4CE0499F2BDE93FE00D38F0D /* WaterCycleClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCycleClassification.swift; sourceTree = "<group>"; };
 		B67F064F2A97C11B00591789 /* AudioAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAction.swift; sourceTree = "<group>"; };
 		B67F06512A97C49400591789 /* completed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = completed.m4a; sourceTree = "<group>"; };
 		B67F06542A97F55700591789 /* QuizMaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizMaster.swift; sourceTree = "<group>"; };
@@ -245,6 +257,12 @@
 			isa = PBXGroup;
 			children = (
 				4C118CF12BDDFD2600B94E19 /* watercycle 1.mlmodel */,
+				4CE049952BDE8E8300D38F0D /* WaterCycleDetector.swift */,
+				4CE049972BDE8EC300D38F0D /* DetectsWaterCycle.swift */,
+				4CE049992BDE8F1500D38F0D /* DetectorID.swift */,
+				4CE0499B2BDE929000D38F0D /* WaterCycleDetectionDelegate.swift */,
+				4CE0499D2BDE932700D38F0D /* WaterCycleDetectionOutcome.swift */,
+				4CE0499F2BDE93FE00D38F0D /* WaterCycleClassification.swift */,
 			);
 			path = "Water Cycle Detection";
 			sourceTree = "<group>";
@@ -766,6 +784,7 @@
 				B6D472682A57B6FF0002CEEC /* TagmataDetector5_5000.mlmodel in Sources */,
 				B6D461F82A4F18D60002CEEC /* LemonLabelledSwitch.swift in Sources */,
 				B6D472502A5747780002CEEC /* HandDetector.swift in Sources */,
+				4CE0499C2BDE929000D38F0D /* WaterCycleDetectionDelegate.swift in Sources */,
 				4C5CA8522BDE8A2900C748AE /* File.swift in Sources */,
 				B6D4727B2A608EA60002CEEC /* HandClassification.swift in Sources */,
 				B6D472802A60A3BA0002CEEC /* HandClassificationView.swift in Sources */,
@@ -790,6 +809,7 @@
 				B6C37EE32A399D7E004D18A8 /* TagmataDetection.swift in Sources */,
 				B6D4726F2A5962770002CEEC /* CompiledResults.swift in Sources */,
 				B6C37EE72A399F30004D18A8 /* Float.swift in Sources */,
+				4CE049962BDE8E8300D38F0D /* WaterCycleDetector.swift in Sources */,
 				B6C37EE92A399F44004D18A8 /* Double.swift in Sources */,
 				B6C37E462A341CF5004D18A8 /* ViewController.swift in Sources */,
 				B6D461EF2A4DF11E0002CEEC /* LemonSwitch.swift in Sources */,
@@ -801,6 +821,7 @@
 				B6DC10132A712CD300C10100 /* AudioPlayer.swift in Sources */,
 				B6D461E72A4DD14D0002CEEC /* LemonSlider.swift in Sources */,
 				B6D472542A5748710002CEEC /* HandDetection.swift in Sources */,
+				4CE0499A2BDE8F1500D38F0D /* DetectorID.swift in Sources */,
 				B6D461E12A4D63330002CEEC /* TagmataQuadrantDetector.swift in Sources */,
 				B6D461CB2A4538CF0002CEEC /* LiveSpeechToTextDelegate.swift in Sources */,
 				B6C37EEF2A39B137004D18A8 /* LemonVStack.swift in Sources */,
@@ -823,9 +844,12 @@
 				B6D461E92A4DDA550002CEEC /* LemonLabelledSlider.swift in Sources */,
 				B6D461DB2A4D2AC40002CEEC /* TagmataDetectionOutcome.swift in Sources */,
 				B6DC10162A71336300C10100 /* AudioRecorder.swift in Sources */,
+				4CE049982BDE8EC300D38F0D /* DetectsWaterCycle.swift in Sources */,
+				4CE049A02BDE93FE00D38F0D /* WaterCycleClassification.swift in Sources */,
 				B6D472862A64E6DF0002CEEC /* Angle.swift in Sources */,
 				B67F065F2A9BB46700591789 /* VisualQuestion.swift in Sources */,
 				B6C37EEB2A39A1B9004D18A8 /* LemonButton.swift in Sources */,
+				4CE0499E2BDE932700D38F0D /* WaterCycleDetectionOutcome.swift in Sources */,
 				B6D472712A597D1C0002CEEC /* AnglesView.swift in Sources */,
 				B6D461D82A4B65EF0002CEEC /* TagmataDetector4_3910.mlmodel in Sources */,
 				B6D461D92A4B65EF0002CEEC /* TagmataDetector4_6000.mlmodel in Sources */,
