@@ -1,0 +1,88 @@
+/* 
+  Localizable_watercycle.strings
+  Lemon
+
+  Created by Mohamed Asjad on 26/4/2024.
+  
+*/
+/ MARK: - Commands
+
+"command.name" = "name";
+"command.information" = "information";
+"command.pause" = "pause";
+"command.stop" = "stop";
+"command.repeat" = "repeat";
+"command.faster" = "faster";
+"command.slower" = "slower";
+"command.complete" = "completed";
+"command.complete1" = "complete";
+"command.connect" = "connect to";
+"command.connect1" = "connected to";
+"command.addLabel" = "add label";
+"command.addLabel1" = "add level";
+"command.listenLabel" = "label";
+"command.listenLabel1" = "level";
+"command.test" = "test";
+
+// MARK: - Names
+
+"tagma.head" = "Head";
+"tagma.thorax" = "Thorax";
+"tagma.leftWing" = "Left Wing";
+"tamga.rightWing" = "Right Wing";
+"tagma.abdomen" = "Abdomen";
+
+// MARK: - Water cycle Names
+"watercycle.sun" = "The Sun",
+"watercycle.rain" = "Rain",
+"watercycle.infiltration" = "Infiltration",
+"watercycle.plant_uptake" = "Plant uptake",
+"watercycle.run_off" = "Run Off",
+"watercycle.snow" = "Snow",
+"watercycle.mountain" = "Mountain",
+"watercycle.precipitation" = "Precipitation",
+"watercycle.river" = "River",
+"watercycle.condensation" = "Condensation",
+"watercycle.ground_water" = "Groundwater",
+"watercycle.cloud" = "Cloud",
+"watercycle.ocean" = "Ocean",
+"watercycle.transpiration" = "Transpiration",
+"watercycle.evaporation" = "Evaporation",
+"watercycle.arrow" = "Arrow"
+
+
+// MARK: - Descriptions
+
+"description.head" = "My head is where my main receptor parts are located. You will find my eyes, mouthparts constituting my mouth and biting parts (which also serve to guide food into my mouth), and a pair of antennae, which are sensory organs that allow me to smell, taste, and touch. Like many of my insect friends my head is the most powerful part of my body and is built from several connecting plates. My eyes are known as 'compound eyes' meaning that they are made up of several smaller eyes functioning in unison.";
+
+"description.thorax" = "The thorax, or my mid-section, holds my wings and is the central location of the more powerful muscles used in operating my wings and six legs. My feet-tips contain sticky pads which allow me to cling to various types of surfaces or to clasp onto prey.";
+
+"description.leftWing" = "My left wing comprises the forewing and hindwing. The forewing muscles generate the main power for the flight, whereas the hindwings, with their less powerful muscles generate less power.";
+
+"description.rightWing" = "My right wing comprises the forewing and hindwing. The forewing muscles generate the main power for the flight, whereas the hindwings, with their less powerful muscles generate less power.";
+
+"description.abdomen" = "My abdomen stores my digestive system and reproductive organs. My abdomen is a reactive part of my insect body, meaning that it can expand when I feed.";
+
+// MARK: - Connections
+
+"connection.head" = "My head connects to the top of my thorax.";
+"connection.thorax" = "My thorax is at my core and acts as the central point to which my head, wings and abdomen connect.";
+"connection.leftWing" = "My left wing connects to the left side of my thorax.";
+"connection.rightWing" = "My right wing connects to the right side of my thorax.";
+"connection.abdomen" = "My abdomen connects to the bottom of my thorax.";
+
+// MARK: - Completed
+
+"completion.success" = "Yes! The insect is complete.";
+"completion.failure" = "No, the insect is not complete.";
+"completion.wrongWings" = "Almost, but the wings need to be switched.";
+
+// MARK: - Tips
+
+"tip.twoHands" = "Try only holding one at a time.";
+
+// MARK: - Feedback
+
+"feedback.correct" = "Correct!";
+"feedback.tryAgain" = "Please try again.";
+

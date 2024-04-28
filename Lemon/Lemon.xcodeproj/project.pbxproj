@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5649CB7A2BDBD9FF00D8342E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5649CB782BDBD9FF00D8342E /* Localizable.strings */; };
 		B67F06502A97C11B00591789 /* AudioAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F064F2A97C11B00591789 /* AudioAction.swift */; };
 		B67F06522A97C5D800591789 /* completed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B67F06512A97C49400591789 /* completed.m4a */; };
 		B67F06552A97F55700591789 /* QuizMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F06542A97F55700591789 /* QuizMaster.swift */; };
@@ -112,6 +113,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5649CB792BDBD9FF00D8342E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B67F064F2A97C11B00591789 /* AudioAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAction.swift; sourceTree = "<group>"; };
 		B67F06512A97C49400591789 /* completed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = completed.m4a; sourceTree = "<group>"; };
 		B67F06542A97F55700591789 /* QuizMaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizMaster.swift; sourceTree = "<group>"; };
@@ -228,6 +230,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5649CB772BDBD9C300D8342E /* Water_cycle_strings */ = {
+			isa = PBXGroup;
+			children = (
+				5649CB782BDBD9FF00D8342E /* Localizable.strings */,
+			);
+			path = Water_cycle_strings;
+			sourceTree = "<group>";
+		};
 		B67F064E2A97C0FA00591789 /* Actions */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,6 +281,7 @@
 		B6C37E402A341CF5004D18A8 /* Lemon */ = {
 			isa = PBXGroup;
 			children = (
+				5649CB772BDBD9C300D8342E /* Water_cycle_strings */,
 				B6D4724B2A5724C30002CEEC /* Strings */,
 				B6D472462A5714BC0002CEEC /* Core */,
 				B6C37E7D2A3525B5004D18A8 /* Swift */,
@@ -693,6 +704,7 @@
 			files = (
 				B67F06572A97FC4500591789 /* correct.m4a in Resources */,
 				B67F06522A97C5D800591789 /* completed.m4a in Resources */,
+				5649CB7A2BDBD9FF00D8342E /* Localizable.strings in Resources */,
 				B6DC10142A712F5800C10100 /* wings.m4a in Resources */,
 				B6C37E4E2A341CF6004D18A8 /* LaunchScreen.storyboard in Resources */,
 				B6DC101C2A7353E400C10100 /* head.m4a in Resources */,
@@ -833,6 +845,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		5649CB782BDBD9FF00D8342E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5649CB792BDBD9FF00D8342E /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		B6C37E472A341CF5004D18A8 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
