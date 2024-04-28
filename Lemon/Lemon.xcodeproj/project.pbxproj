@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C118CF22BDDFD2600B94E19 /* watercycle 1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4C118CF12BDDFD2600B94E19 /* watercycle 1.mlmodel */; };
+		4C5CA8522BDE8A2900C748AE /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5CA8512BDE8A2900C748AE /* File.swift */; };
 		B67F06502A97C11B00591789 /* AudioAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F064F2A97C11B00591789 /* AudioAction.swift */; };
 		B67F06522A97C5D800591789 /* completed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B67F06512A97C49400591789 /* completed.m4a */; };
 		B67F06552A97F55700591789 /* QuizMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F06542A97F55700591789 /* QuizMaster.swift */; };
@@ -112,6 +114,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C118CF12BDDFD2600B94E19 /* watercycle 1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "watercycle 1.mlmodel"; sourceTree = "<group>"; };
+		4C5CA8512BDE8A2900C748AE /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		B67F064F2A97C11B00591789 /* AudioAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAction.swift; sourceTree = "<group>"; };
 		B67F06512A97C49400591789 /* completed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = completed.m4a; sourceTree = "<group>"; };
 		B67F06542A97F55700591789 /* QuizMaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizMaster.swift; sourceTree = "<group>"; };
@@ -228,6 +232,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C5CA84E2BDE899C00C748AE /* Water Cycle Model Layer */ = {
+			isa = PBXGroup;
+			children = (
+				4C5CA8502BDE89F900C748AE /* Actions */,
+				4C5CA84F2BDE89CB00C748AE /* Water Cycle Detection */,
+			);
+			path = "Water Cycle Model Layer";
+			sourceTree = "<group>";
+		};
+		4C5CA84F2BDE89CB00C748AE /* Water Cycle Detection */ = {
+			isa = PBXGroup;
+			children = (
+				4C118CF12BDDFD2600B94E19 /* watercycle 1.mlmodel */,
+			);
+			path = "Water Cycle Detection";
+			sourceTree = "<group>";
+		};
+		4C5CA8502BDE89F900C748AE /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				4C5CA8512BDE8A2900C748AE /* File.swift */,
+			);
+			path = Actions;
+			sourceTree = "<group>";
+		};
 		B67F064E2A97C0FA00591789 /* Actions */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,6 +300,7 @@
 		B6C37E402A341CF5004D18A8 /* Lemon */ = {
 			isa = PBXGroup;
 			children = (
+				4C5CA84E2BDE899C00C748AE /* Water Cycle Model Layer */,
 				B6D4724B2A5724C30002CEEC /* Strings */,
 				B6D472462A5714BC0002CEEC /* Core */,
 				B6C37E7D2A3525B5004D18A8 /* Swift */,
@@ -736,6 +766,7 @@
 				B6D472682A57B6FF0002CEEC /* TagmataDetector5_5000.mlmodel in Sources */,
 				B6D461F82A4F18D60002CEEC /* LemonLabelledSwitch.swift in Sources */,
 				B6D472502A5747780002CEEC /* HandDetector.swift in Sources */,
+				4C5CA8522BDE8A2900C748AE /* File.swift in Sources */,
 				B6D4727B2A608EA60002CEEC /* HandClassification.swift in Sources */,
 				B6D472802A60A3BA0002CEEC /* HandClassificationView.swift in Sources */,
 				B6C37EF12A39B308004D18A8 /* LemonUIView.swift in Sources */,
@@ -752,6 +783,7 @@
 				B6D461EB2A4DDC760002CEEC /* LemonHStack.swift in Sources */,
 				B6D472562A57489A0002CEEC /* HandDetectionOutcome.swift in Sources */,
 				B6C37E822A3525F4004D18A8 /* AVAudioSession.swift in Sources */,
+				4C118CF22BDDFD2600B94E19 /* watercycle 1.mlmodel in Sources */,
 				B6C37ED12A396B71004D18A8 /* CaptureDelegate.swift in Sources */,
 				B67F06592A9BB40C00591789 /* AnswerStatus.swift in Sources */,
 				B6DC100E2A6A2A3500C10100 /* Command.swift in Sources */,
