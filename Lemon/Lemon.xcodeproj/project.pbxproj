@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04861E7C2BE24C3600888ED3 /* watercycleDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04861E7B2BE24C3500888ED3 /* watercycleDetection.swift */; };
+		04861E7E2BE24C6900888ED3 /* watercycle.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 04861E7D2BE24C6900888ED3 /* watercycle.mlmodel */; };
 		B67F06502A97C11B00591789 /* AudioAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F064F2A97C11B00591789 /* AudioAction.swift */; };
 		B67F06522A97C5D800591789 /* completed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B67F06512A97C49400591789 /* completed.m4a */; };
 		B67F06552A97F55700591789 /* QuizMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F06542A97F55700591789 /* QuizMaster.swift */; };
@@ -112,6 +114,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04861E7B2BE24C3500888ED3 /* watercycleDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = watercycleDetection.swift; sourceTree = "<group>"; };
+		04861E7D2BE24C6900888ED3 /* watercycle.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = watercycle.mlmodel; sourceTree = "<group>"; };
 		B67F064F2A97C11B00591789 /* AudioAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAction.swift; sourceTree = "<group>"; };
 		B67F06512A97C49400591789 /* completed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = completed.m4a; sourceTree = "<group>"; };
 		B67F06542A97F55700591789 /* QuizMaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizMaster.swift; sourceTree = "<group>"; };
@@ -277,6 +281,8 @@
 				B6C37E732A35164B004D18A8 /* App */,
 				B6C37E712A351630004D18A8 /* Model Layer */,
 				B6C37E722A351638004D18A8 /* View Layer */,
+				04861E7B2BE24C3500888ED3 /* watercycleDetection.swift */,
+				04861E7D2BE24C6900888ED3 /* watercycle.mlmodel */,
 			);
 			path = Lemon;
 			sourceTree = "<group>";
@@ -773,6 +779,8 @@
 				B6D461CB2A4538CF0002CEEC /* LiveSpeechToTextDelegate.swift in Sources */,
 				B6C37EEF2A39B137004D18A8 /* LemonVStack.swift in Sources */,
 				B6D472642A5777470002CEEC /* ProximityView.swift in Sources */,
+				04861E7C2BE24C3600888ED3 /* watercycleDetection.swift in Sources */,
+				04861E7E2BE24C6900888ED3 /* watercycle.mlmodel in Sources */,
 				B6C37E422A341CF5004D18A8 /* AppDelegate.swift in Sources */,
 				B6C37E862A353854004D18A8 /* AudioSessionManager.swift in Sources */,
 				B6D461D72A4B65EF0002CEEC /* TagmataDetector1_2000.mlmodel in Sources */,
