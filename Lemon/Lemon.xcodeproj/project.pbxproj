@@ -8,7 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		04861E7C2BE24C3600888ED3 /* watercycleDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04861E7B2BE24C3500888ED3 /* watercycleDetection.swift */; };
-		04861E7E2BE24C6900888ED3 /* watercycle.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 04861E7D2BE24C6900888ED3 /* watercycle.mlmodel */; };
+		568A73502BE625170064AC7D /* WaterCyclePredictionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A734D2BE625170064AC7D /* WaterCyclePredictionBox.swift */; };
+		568A73512BE625170064AC7D /* WaterCycleProximityVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A734E2BE625170064AC7D /* WaterCycleProximityVIew.swift */; };
+		568A73552BE625350064AC7D /* WaterCycleCompiledResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A73522BE625350064AC7D /* WaterCycleCompiledResults.swift */; };
+		568A73562BE625350064AC7D /* WaterCycleDetectionCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A73532BE625350064AC7D /* WaterCycleDetectionCompiler.swift */; };
+		568A73602BE6253D0064AC7D /* DetectsWaterCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A73572BE6253D0064AC7D /* DetectsWaterCycle.swift */; };
+		568A73612BE6253D0064AC7D /* watercycle.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 568A73582BE6253D0064AC7D /* watercycle.mlmodel */; };
+		568A73622BE6253D0064AC7D /* WaterCycleClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A73592BE6253D0064AC7D /* WaterCycleClassification.swift */; };
+		568A73632BE6253D0064AC7D /* WaterCycleDetection .swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A735A2BE6253D0064AC7D /* WaterCycleDetection .swift */; };
+		568A73642BE6253D0064AC7D /* WaterCycleDetectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A735B2BE6253D0064AC7D /* WaterCycleDetectionDelegate.swift */; };
+		568A73652BE6253D0064AC7D /* WaterCycleDetectionOutcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A735C2BE6253D0064AC7D /* WaterCycleDetectionOutcome.swift */; };
+		568A73662BE6253D0064AC7D /* WaterCycleDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A735D2BE6253D0064AC7D /* WaterCycleDetector.swift */; };
+		568A73672BE6253D0064AC7D /* WaterCycleQuadrantDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A735E2BE6253D0064AC7D /* WaterCycleQuadrantDetector.swift */; };
+		568A73692BE625840064AC7D /* WaterCycleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A73682BE625840064AC7D /* WaterCycleViewController.swift */; };
 		B67F06502A97C11B00591789 /* AudioAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F064F2A97C11B00591789 /* AudioAction.swift */; };
 		B67F06522A97C5D800591789 /* completed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B67F06512A97C49400591789 /* completed.m4a */; };
 		B67F06552A97F55700591789 /* QuizMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F06542A97F55700591789 /* QuizMaster.swift */; };
@@ -115,7 +127,19 @@
 
 /* Begin PBXFileReference section */
 		04861E7B2BE24C3500888ED3 /* watercycleDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = watercycleDetection.swift; sourceTree = "<group>"; };
-		04861E7D2BE24C6900888ED3 /* watercycle.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = watercycle.mlmodel; sourceTree = "<group>"; };
+		568A734D2BE625170064AC7D /* WaterCyclePredictionBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterCyclePredictionBox.swift; sourceTree = "<group>"; };
+		568A734E2BE625170064AC7D /* WaterCycleProximityVIew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterCycleProximityVIew.swift; sourceTree = "<group>"; };
+		568A73522BE625350064AC7D /* WaterCycleCompiledResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterCycleCompiledResults.swift; sourceTree = "<group>"; };
+		568A73532BE625350064AC7D /* WaterCycleDetectionCompiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterCycleDetectionCompiler.swift; sourceTree = "<group>"; };
+		568A73572BE6253D0064AC7D /* DetectsWaterCycle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectsWaterCycle.swift; sourceTree = "<group>"; };
+		568A73582BE6253D0064AC7D /* watercycle.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = watercycle.mlmodel; sourceTree = "<group>"; };
+		568A73592BE6253D0064AC7D /* WaterCycleClassification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterCycleClassification.swift; sourceTree = "<group>"; };
+		568A735A2BE6253D0064AC7D /* WaterCycleDetection .swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WaterCycleDetection .swift"; sourceTree = "<group>"; };
+		568A735B2BE6253D0064AC7D /* WaterCycleDetectionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterCycleDetectionDelegate.swift; sourceTree = "<group>"; };
+		568A735C2BE6253D0064AC7D /* WaterCycleDetectionOutcome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterCycleDetectionOutcome.swift; sourceTree = "<group>"; };
+		568A735D2BE6253D0064AC7D /* WaterCycleDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterCycleDetector.swift; sourceTree = "<group>"; };
+		568A735E2BE6253D0064AC7D /* WaterCycleQuadrantDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterCycleQuadrantDetector.swift; sourceTree = "<group>"; };
+		568A73682BE625840064AC7D /* WaterCycleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCycleViewController.swift; sourceTree = "<group>"; };
 		B67F064F2A97C11B00591789 /* AudioAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAction.swift; sourceTree = "<group>"; };
 		B67F06512A97C49400591789 /* completed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = completed.m4a; sourceTree = "<group>"; };
 		B67F06542A97F55700591789 /* QuizMaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizMaster.swift; sourceTree = "<group>"; };
@@ -232,6 +256,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		568A734F2BE625170064AC7D /* Water Cycle Overlays */ = {
+			isa = PBXGroup;
+			children = (
+				568A734D2BE625170064AC7D /* WaterCyclePredictionBox.swift */,
+				568A734E2BE625170064AC7D /* WaterCycleProximityVIew.swift */,
+			);
+			path = "Water Cycle Overlays";
+			sourceTree = "<group>";
+		};
+		568A73542BE625350064AC7D /* Water Cycle Detection compiler */ = {
+			isa = PBXGroup;
+			children = (
+				568A73522BE625350064AC7D /* WaterCycleCompiledResults.swift */,
+				568A73532BE625350064AC7D /* WaterCycleDetectionCompiler.swift */,
+			);
+			path = "Water Cycle Detection compiler";
+			sourceTree = "<group>";
+		};
+		568A735F2BE6253D0064AC7D /* Water Cycle Detection  */ = {
+			isa = PBXGroup;
+			children = (
+				568A73572BE6253D0064AC7D /* DetectsWaterCycle.swift */,
+				568A73582BE6253D0064AC7D /* watercycle.mlmodel */,
+				568A73592BE6253D0064AC7D /* WaterCycleClassification.swift */,
+				568A735A2BE6253D0064AC7D /* WaterCycleDetection .swift */,
+				568A735B2BE6253D0064AC7D /* WaterCycleDetectionDelegate.swift */,
+				568A735C2BE6253D0064AC7D /* WaterCycleDetectionOutcome.swift */,
+				568A735D2BE6253D0064AC7D /* WaterCycleDetector.swift */,
+				568A735E2BE6253D0064AC7D /* WaterCycleQuadrantDetector.swift */,
+			);
+			path = "Water Cycle Detection ";
+			sourceTree = "<group>";
+		};
 		B67F064E2A97C0FA00591789 /* Actions */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +332,9 @@
 		B6C37E402A341CF5004D18A8 /* Lemon */ = {
 			isa = PBXGroup;
 			children = (
+				568A735F2BE6253D0064AC7D /* Water Cycle Detection  */,
+				568A73542BE625350064AC7D /* Water Cycle Detection compiler */,
+				568A734F2BE625170064AC7D /* Water Cycle Overlays */,
 				B6D4724B2A5724C30002CEEC /* Strings */,
 				B6D472462A5714BC0002CEEC /* Core */,
 				B6C37E7D2A3525B5004D18A8 /* Swift */,
@@ -282,7 +342,7 @@
 				B6C37E712A351630004D18A8 /* Model Layer */,
 				B6C37E722A351638004D18A8 /* View Layer */,
 				04861E7B2BE24C3500888ED3 /* watercycleDetection.swift */,
-				04861E7D2BE24C6900888ED3 /* watercycle.mlmodel */,
+				568A73682BE625840064AC7D /* WaterCycleViewController.swift */,
 			);
 			path = Lemon;
 			sourceTree = "<group>";
@@ -744,6 +804,7 @@
 				B6D472502A5747780002CEEC /* HandDetector.swift in Sources */,
 				B6D4727B2A608EA60002CEEC /* HandClassification.swift in Sources */,
 				B6D472802A60A3BA0002CEEC /* HandClassificationView.swift in Sources */,
+				568A73562BE625350064AC7D /* WaterCycleDetectionCompiler.swift in Sources */,
 				B6C37EF12A39B308004D18A8 /* LemonUIView.swift in Sources */,
 				B6D472622A576BB20002CEEC /* Array.swift in Sources */,
 				B6D472662A5785210002CEEC /* Strings.swift in Sources */,
@@ -752,6 +813,7 @@
 				B6D461F32A4E74A00002CEEC /* CGFloat.swift in Sources */,
 				B6C37ED42A396D9A004D18A8 /* CGRect.swift in Sources */,
 				B6C37E7C2A3524D8004D18A8 /* SpeechRecognizer.swift in Sources */,
+				568A73502BE625170064AC7D /* WaterCyclePredictionBox.swift in Sources */,
 				B6D472792A608CA10002CEEC /* HandChirality.swift in Sources */,
 				B6D472772A5FCDB20002CEEC /* HandDetector2_70.mlmodel in Sources */,
 				B6D4724A2A5719A70002CEEC /* DetectionCompiler.swift in Sources */,
@@ -761,7 +823,9 @@
 				B6C37ED12A396B71004D18A8 /* CaptureDelegate.swift in Sources */,
 				B67F06592A9BB40C00591789 /* AnswerStatus.swift in Sources */,
 				B6DC100E2A6A2A3500C10100 /* Command.swift in Sources */,
+				568A73662BE6253D0064AC7D /* WaterCycleDetector.swift in Sources */,
 				B6C37EE32A399D7E004D18A8 /* TagmataDetection.swift in Sources */,
+				568A73632BE6253D0064AC7D /* WaterCycleDetection .swift in Sources */,
 				B6D4726F2A5962770002CEEC /* CompiledResults.swift in Sources */,
 				B6C37EE72A399F30004D18A8 /* Float.swift in Sources */,
 				B6C37EE92A399F44004D18A8 /* Double.swift in Sources */,
@@ -775,13 +839,17 @@
 				B6DC10132A712CD300C10100 /* AudioPlayer.swift in Sources */,
 				B6D461E72A4DD14D0002CEEC /* LemonSlider.swift in Sources */,
 				B6D472542A5748710002CEEC /* HandDetection.swift in Sources */,
+				568A73642BE6253D0064AC7D /* WaterCycleDetectionDelegate.swift in Sources */,
 				B6D461E12A4D63330002CEEC /* TagmataQuadrantDetector.swift in Sources */,
+				568A73602BE6253D0064AC7D /* DetectsWaterCycle.swift in Sources */,
+				568A73512BE625170064AC7D /* WaterCycleProximityVIew.swift in Sources */,
+				568A73652BE6253D0064AC7D /* WaterCycleDetectionOutcome.swift in Sources */,
 				B6D461CB2A4538CF0002CEEC /* LiveSpeechToTextDelegate.swift in Sources */,
 				B6C37EEF2A39B137004D18A8 /* LemonVStack.swift in Sources */,
 				B6D472642A5777470002CEEC /* ProximityView.swift in Sources */,
 				04861E7C2BE24C3600888ED3 /* watercycleDetection.swift in Sources */,
-				04861E7E2BE24C6900888ED3 /* watercycle.mlmodel in Sources */,
 				B6C37E422A341CF5004D18A8 /* AppDelegate.swift in Sources */,
+				568A73612BE6253D0064AC7D /* watercycle.mlmodel in Sources */,
 				B6C37E862A353854004D18A8 /* AudioSessionManager.swift in Sources */,
 				B6D461D72A4B65EF0002CEEC /* TagmataDetector1_2000.mlmodel in Sources */,
 				B6D461DF2A4D61950002CEEC /* CGPoint.swift in Sources */,
@@ -790,6 +858,7 @@
 				B6FD174F2A416DBB003EDD5F /* TagmataClassification.swift in Sources */,
 				B6C37EDF2A397C9C004D18A8 /* TagmataDetectionDelegate.swift in Sources */,
 				B6C37E442A341CF5004D18A8 /* SceneDelegate.swift in Sources */,
+				568A73692BE625840064AC7D /* WaterCycleViewController.swift in Sources */,
 				B67F06502A97C11B00591789 /* AudioAction.swift in Sources */,
 				B6D472482A5714EB0002CEEC /* WrapsToZero.swift in Sources */,
 				B67F06552A97F55700591789 /* QuizMaster.swift in Sources */,
@@ -798,10 +867,13 @@
 				B6C37ECF2A396B56004D18A8 /* CaptureSession.swift in Sources */,
 				B6D461E92A4DDA550002CEEC /* LemonLabelledSlider.swift in Sources */,
 				B6D461DB2A4D2AC40002CEEC /* TagmataDetectionOutcome.swift in Sources */,
+				568A73672BE6253D0064AC7D /* WaterCycleQuadrantDetector.swift in Sources */,
 				B6DC10162A71336300C10100 /* AudioRecorder.swift in Sources */,
+				568A73622BE6253D0064AC7D /* WaterCycleClassification.swift in Sources */,
 				B6D472862A64E6DF0002CEEC /* Angle.swift in Sources */,
 				B67F065F2A9BB46700591789 /* VisualQuestion.swift in Sources */,
 				B6C37EEB2A39A1B9004D18A8 /* LemonButton.swift in Sources */,
+				568A73552BE625350064AC7D /* WaterCycleCompiledResults.swift in Sources */,
 				B6D472712A597D1C0002CEEC /* AnglesView.swift in Sources */,
 				B6D461D82A4B65EF0002CEEC /* TagmataDetector4_3910.mlmodel in Sources */,
 				B6D461D92A4B65EF0002CEEC /* TagmataDetector4_6000.mlmodel in Sources */,
@@ -981,7 +1053,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W9DP42NB5D;
+				DEVELOPMENT_TEAM = 4Z6NTSXJB9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Lemon/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Beesly;
@@ -997,7 +1069,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = andrepham.Lemon;
+				PRODUCT_BUNDLE_IDENTIFIER = mohamed.lemon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1012,7 +1084,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W9DP42NB5D;
+				DEVELOPMENT_TEAM = 4Z6NTSXJB9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Lemon/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Beesly;
@@ -1028,7 +1100,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = andrepham.Lemon;
+				PRODUCT_BUNDLE_IDENTIFIER = mohamed.lemon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
