@@ -30,7 +30,7 @@ class WaterCycleDetectionCompiler {
     private static let COMPLETION_THRESHOLD = 4
     
     /// All the tagmata detections to be used to produce the results
-    private var compiledWaterCycleOutcomes = [WaterCycleDetectionOutcome]()
+    private var compiledWaterCycleOutcomes = [ModelDetectionOutcome]()
     /// All the hand detections to be used to produce the results
     private var compiledHandOutcomes = [HandDetectionOutcome]()
     /// The results to be retrieved
@@ -43,7 +43,7 @@ class WaterCycleDetectionCompiler {
         self.compiledHandOutcomes.removeAll()
     }
 
-    func addOutcome(_ tagmataOutcome: WaterCycleDetectionOutcome, handOutcome: HandDetectionOutcome) {
+    func addOutcome(_ tagmataOutcome: ModelDetectionOutcome, handOutcome: HandDetectionOutcome) {
         self.compiledWaterCycleOutcomes.append(tagmataOutcome)
         self.compiledHandOutcomes.append(handOutcome)
         let results = self.compileResults(detectionThreshold: Self.DETECTION_THRESHOLD)
@@ -88,7 +88,7 @@ class WaterCycleDetectionCompiler {
         WaterCycleClassification.allCases.forEach({ tally[$0] = 0 })
         
         for outcome in self.compiledWaterCycleOutcomes {
-            for detection in outcome.waterCycleDetections {
+            for detection in outcome.modelDetections {
                 tally[detection.classification]! += 1
             }
         }
@@ -169,16 +169,16 @@ class WaterCycleDetectionCompiler {
     }
     
     private func findWaterCycleBeingHeld(
-        waterCycleDetectionOutcome: WaterCycleDetectionOutcome,
+        waterCycleDetectionOutcome: ModelDetectionOutcome,
         handDetectionOutcome: HandDetectionOutcome
     ) -> HeldTagmata {
-        if waterCycleDetectionOutcome.waterCycleDetections.isEmpty {
+        if waterCycleDetectionOutcome.modelDetections.isEmpty {
             return HeldTagmata(held: [], maybeHeld: [], handsUsed: 0)
         }
         let frameWidth = waterCycleDetectionOutcome.frameSize.width
         let frameHeight = waterCycleDetectionOutcome.frameSize.height
-        let tagmataClassifications = waterCycleDetectionOutcome.waterCycleDetections.map({ $0.classification })
-        let tagmataPositions = waterCycleDetectionOutcome.waterCycleDetections.map({
+        let tagmataClassifications = waterCycleDetectionOutcome.modelDetections.map({ $0.classification })
+        let tagmataPositions = waterCycleDetectionOutcome.modelDetections.map({
             $0.getDenormalisedCenter(boundsWidth: frameWidth, boundsHeight: frameHeight)
         })
         var result = HeldTagmata(held: [], maybeHeld: [], handsUsed: 0)

@@ -14,10 +14,10 @@ class WaterCyclePredictionBoxView: LemonUIView {
     
     public let view = UIView()
     
-    func drawBoxes(for predictionOutcome: WaterCycleDetectionOutcome, plainOutline: UIColor? = nil) {
+    func drawBoxes(for predictionOutcome: ModelDetectionOutcome, plainOutline: UIColor? = nil) {
         self.view.subviews.forEach({ $0.removeFromSuperview() })
         self.view.layer.sublayers?.forEach({ $0.removeFromSuperlayer() })
-        for prediction in predictionOutcome.waterCycleDetections {
+        for prediction in predictionOutcome.modelDetections {
             if let plainOutline {
                 self.drawOutline(for: prediction, color: plainOutline)
             } else {
@@ -26,7 +26,7 @@ class WaterCyclePredictionBoxView: LemonUIView {
         }
     }
     
-    private func drawOutline(for prediction: WaterCycleDetection, color: UIColor) {
+    private func drawOutline(for prediction: ModelDetection, color: UIColor) {
         let rect = prediction.getDenormalisedBoundingBox(boundsWidth: self.view.bounds.width, boundsHeight: self.view.bounds.height)
         let newLayer = UIView()
         newLayer.frame = rect
@@ -43,7 +43,7 @@ class WaterCyclePredictionBoxView: LemonUIView {
         self.view.addSubview(label)
     }
     
-    private func drawBox(for prediction: WaterCycleDetection) {
+    private func drawBox(for prediction: ModelDetection) {
         let rect = prediction.getDenormalisedBoundingBox(boundsWidth: self.view.bounds.width, boundsHeight: self.view.bounds.height)
         let newLayer = UIView()
         newLayer.frame = rect

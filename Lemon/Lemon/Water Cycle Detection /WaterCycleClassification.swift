@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 /// For the sake of syntax, we're pretending the wings are part of the tagmata of an insect.
-enum WaterCycleClassification: String, CaseIterable {
+enum WaterCycleClassification: String, CaseIterable, Classification{
     case sun = "Sun"
     case rain = "Rain"
     case infiltration = "Infiltration"
@@ -28,6 +28,11 @@ enum WaterCycleClassification: String, CaseIterable {
     case evaporation = "Evaporation"
     case arrow = "BlackArrow"
     case unidentified = "Undefined"
+    case head = "head-yellow"
+    case thorax = "thorax-blue"
+    case abdomen = "abdomen-magenta"
+    case leftWing = "wing-red"
+    case rightWing = "wing-green"
     
     
     public var name: String {
@@ -50,6 +55,11 @@ enum WaterCycleClassification: String, CaseIterable {
         case .evaporation: return Strings("watercycle.evaporation").local
         case .arrow: return Strings("watercycle.arrow").local
         case.unidentified:return Strings("watercycle.sun").local
+        case .head: return Strings("tagma.head").local
+        case .thorax: return Strings("tagma.thorax").local
+        case .abdomen: return Strings("tagma.abdomen").local
+        case .leftWing: return Strings("tagma.leftWing").local
+        case .rightWing: return Strings("tamga.rightWing").local
         }
     }
     
@@ -75,6 +85,11 @@ enum WaterCycleClassification: String, CaseIterable {
         case .evaporation: return Strings("description.evaporation").local
         case .arrow: return Strings("description.arrow").local
         case.unidentified:return Strings("watercycle.sun").local
+        case .head: return Strings("description.head").local
+        case .thorax: return Strings("description.thorax").local
+        case .abdomen: return Strings("description.abdomen").local
+        case .leftWing: return Strings("description.leftWing").local
+        case .rightWing: return Strings("description.rightWing").local
         }
     }
 }

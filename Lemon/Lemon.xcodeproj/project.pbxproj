@@ -21,6 +21,13 @@
 		568A73662BE6253D0064AC7D /* WaterCycleDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A735D2BE6253D0064AC7D /* WaterCycleDetector.swift */; };
 		568A73672BE6253D0064AC7D /* WaterCycleQuadrantDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A735E2BE6253D0064AC7D /* WaterCycleQuadrantDetector.swift */; };
 		568A73692BE625840064AC7D /* WaterCycleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A73682BE625840064AC7D /* WaterCycleViewController.swift */; };
+		568A73902BEB5BBE0064AC7D /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A73882BEB5BBE0064AC7D /* Classification.swift */; };
+		568A73912BEB5BBE0064AC7D /* DetectsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A73892BEB5BBE0064AC7D /* DetectsModel.swift */; };
+		568A73922BEB5BBE0064AC7D /* ModelDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A738A2BEB5BBE0064AC7D /* ModelDetection.swift */; };
+		568A73932BEB5BBE0064AC7D /* ModelDetectionDeletegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A738B2BEB5BBE0064AC7D /* ModelDetectionDeletegate.swift */; };
+		568A73942BEB5BBE0064AC7D /* ModelDetectionOutcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A738C2BEB5BBE0064AC7D /* ModelDetectionOutcome.swift */; };
+		568A73952BEB5BBE0064AC7D /* ModelDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A738D2BEB5BBE0064AC7D /* ModelDetector.swift */; };
+		568A73962BEB5BBE0064AC7D /* ModelQuadrantDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A738E2BEB5BBE0064AC7D /* ModelQuadrantDetection.swift */; };
 		B67F06502A97C11B00591789 /* AudioAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F064F2A97C11B00591789 /* AudioAction.swift */; };
 		B67F06522A97C5D800591789 /* completed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B67F06512A97C49400591789 /* completed.m4a */; };
 		B67F06552A97F55700591789 /* QuizMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F06542A97F55700591789 /* QuizMaster.swift */; };
@@ -140,6 +147,13 @@
 		568A735D2BE6253D0064AC7D /* WaterCycleDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterCycleDetector.swift; sourceTree = "<group>"; };
 		568A735E2BE6253D0064AC7D /* WaterCycleQuadrantDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterCycleQuadrantDetector.swift; sourceTree = "<group>"; };
 		568A73682BE625840064AC7D /* WaterCycleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCycleViewController.swift; sourceTree = "<group>"; };
+		568A73882BEB5BBE0064AC7D /* Classification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
+		568A73892BEB5BBE0064AC7D /* DetectsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectsModel.swift; sourceTree = "<group>"; };
+		568A738A2BEB5BBE0064AC7D /* ModelDetection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelDetection.swift; sourceTree = "<group>"; };
+		568A738B2BEB5BBE0064AC7D /* ModelDetectionDeletegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelDetectionDeletegate.swift; sourceTree = "<group>"; };
+		568A738C2BEB5BBE0064AC7D /* ModelDetectionOutcome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelDetectionOutcome.swift; sourceTree = "<group>"; };
+		568A738D2BEB5BBE0064AC7D /* ModelDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelDetector.swift; sourceTree = "<group>"; };
+		568A738E2BEB5BBE0064AC7D /* ModelQuadrantDetection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelQuadrantDetection.swift; sourceTree = "<group>"; };
 		B67F064F2A97C11B00591789 /* AudioAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAction.swift; sourceTree = "<group>"; };
 		B67F06512A97C49400591789 /* completed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = completed.m4a; sourceTree = "<group>"; };
 		B67F06542A97F55700591789 /* QuizMaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizMaster.swift; sourceTree = "<group>"; };
@@ -278,7 +292,6 @@
 			isa = PBXGroup;
 			children = (
 				568A73572BE6253D0064AC7D /* DetectsWaterCycle.swift */,
-				568A73582BE6253D0064AC7D /* watercycle.mlmodel */,
 				568A73592BE6253D0064AC7D /* WaterCycleClassification.swift */,
 				568A735A2BE6253D0064AC7D /* WaterCycleDetection .swift */,
 				568A735B2BE6253D0064AC7D /* WaterCycleDetectionDelegate.swift */,
@@ -287,6 +300,20 @@
 				568A735E2BE6253D0064AC7D /* WaterCycleQuadrantDetector.swift */,
 			);
 			path = "Water Cycle Detection ";
+			sourceTree = "<group>";
+		};
+		568A738F2BEB5BBE0064AC7D /* Model Detection */ = {
+			isa = PBXGroup;
+			children = (
+				568A73882BEB5BBE0064AC7D /* Classification.swift */,
+				568A73892BEB5BBE0064AC7D /* DetectsModel.swift */,
+				568A738A2BEB5BBE0064AC7D /* ModelDetection.swift */,
+				568A738B2BEB5BBE0064AC7D /* ModelDetectionDeletegate.swift */,
+				568A738C2BEB5BBE0064AC7D /* ModelDetectionOutcome.swift */,
+				568A738D2BEB5BBE0064AC7D /* ModelDetector.swift */,
+				568A738E2BEB5BBE0064AC7D /* ModelQuadrantDetection.swift */,
+			);
+			path = "Model Detection";
 			sourceTree = "<group>";
 		};
 		B67F064E2A97C0FA00591789 /* Actions */ = {
@@ -332,6 +359,9 @@
 		B6C37E402A341CF5004D18A8 /* Lemon */ = {
 			isa = PBXGroup;
 			children = (
+				B6D472672A57B6FF0002CEEC /* TagmataDetector5_5000.mlmodel */,
+				568A73582BE6253D0064AC7D /* watercycle.mlmodel */,
+				568A738F2BEB5BBE0064AC7D /* Model Detection */,
 				568A735F2BE6253D0064AC7D /* Water Cycle Detection  */,
 				568A73542BE625350064AC7D /* Water Cycle Detection compiler */,
 				568A734F2BE625170064AC7D /* Water Cycle Overlays */,
@@ -511,7 +541,6 @@
 				B6D461D42A4B65EF0002CEEC /* TagmataDetector1_2000.mlmodel */,
 				B6D461D52A4B65EF0002CEEC /* TagmataDetector4_3910.mlmodel */,
 				B6D461D62A4B65EF0002CEEC /* TagmataDetector4_6000.mlmodel */,
-				B6D472672A57B6FF0002CEEC /* TagmataDetector5_5000.mlmodel */,
 				B6C37ED62A3973A2004D18A8 /* TagmataDetector.swift */,
 				B6C37EDE2A397C9B004D18A8 /* TagmataDetectionDelegate.swift */,
 				B6C37EE22A399D7E004D18A8 /* TagmataDetection.swift */,
@@ -808,9 +837,12 @@
 				B6C37EF12A39B308004D18A8 /* LemonUIView.swift in Sources */,
 				B6D472622A576BB20002CEEC /* Array.swift in Sources */,
 				B6D472662A5785210002CEEC /* Strings.swift in Sources */,
+				568A73922BEB5BBE0064AC7D /* ModelDetection.swift in Sources */,
 				B6C37EF52A39BAB3004D18A8 /* LemonView.swift in Sources */,
+				568A73912BEB5BBE0064AC7D /* DetectsModel.swift in Sources */,
 				B6D461E32A4D63FA0002CEEC /* DetectorID.swift in Sources */,
 				B6D461F32A4E74A00002CEEC /* CGFloat.swift in Sources */,
+				568A73962BEB5BBE0064AC7D /* ModelQuadrantDetection.swift in Sources */,
 				B6C37ED42A396D9A004D18A8 /* CGRect.swift in Sources */,
 				B6C37E7C2A3524D8004D18A8 /* SpeechRecognizer.swift in Sources */,
 				568A73502BE625170064AC7D /* WaterCyclePredictionBox.swift in Sources */,
@@ -820,8 +852,11 @@
 				B6D461EB2A4DDC760002CEEC /* LemonHStack.swift in Sources */,
 				B6D472562A57489A0002CEEC /* HandDetectionOutcome.swift in Sources */,
 				B6C37E822A3525F4004D18A8 /* AVAudioSession.swift in Sources */,
+				568A73942BEB5BBE0064AC7D /* ModelDetectionOutcome.swift in Sources */,
 				B6C37ED12A396B71004D18A8 /* CaptureDelegate.swift in Sources */,
+				568A73952BEB5BBE0064AC7D /* ModelDetector.swift in Sources */,
 				B67F06592A9BB40C00591789 /* AnswerStatus.swift in Sources */,
+				568A73932BEB5BBE0064AC7D /* ModelDetectionDeletegate.swift in Sources */,
 				B6DC100E2A6A2A3500C10100 /* Command.swift in Sources */,
 				568A73662BE6253D0064AC7D /* WaterCycleDetector.swift in Sources */,
 				B6C37EE32A399D7E004D18A8 /* TagmataDetection.swift in Sources */,
@@ -859,6 +894,7 @@
 				B6C37EDF2A397C9C004D18A8 /* TagmataDetectionDelegate.swift in Sources */,
 				B6C37E442A341CF5004D18A8 /* SceneDelegate.swift in Sources */,
 				568A73692BE625840064AC7D /* WaterCycleViewController.swift in Sources */,
+				568A73902BEB5BBE0064AC7D /* Classification.swift in Sources */,
 				B67F06502A97C11B00591789 /* AudioAction.swift in Sources */,
 				B6D472482A5714EB0002CEEC /* WrapsToZero.swift in Sources */,
 				B67F06552A97F55700591789 /* QuizMaster.swift in Sources */,

@@ -13,10 +13,10 @@ class WaterCycleProximityView: LemonUIView {
     
     public let view = UIView()
     
-    func drawProximityJoints(waterCycleDetectionOutcome: WaterCycleDetectionOutcome) {
+    func drawProximityJoints(waterCycleDetectionOutcome: ModelDetectionOutcome) {
         self.view.subviews.forEach({ $0.removeFromSuperview() })
         self.view.layer.sublayers?.forEach({ $0.removeFromSuperlayer() })
-        let waterCyclePositions = waterCycleDetectionOutcome.waterCycleDetections.map({ $0.getDenormalisedCenter(for: self.view) })
+        let waterCyclePositions = waterCycleDetectionOutcome.modelDetections.map({ $0.getDenormalisedCenter(for: self.view) })
         for tagmataPosition in waterCyclePositions {
             let circleView = UIView(frame: CGRect(x: 0, y: 0, width: 18.0, height: 18.0))
             circleView.center = tagmataPosition
