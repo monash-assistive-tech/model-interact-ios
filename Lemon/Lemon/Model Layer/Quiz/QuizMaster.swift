@@ -34,70 +34,122 @@ class QuizMaster {
     
     init() {
         self.questions = [
+//           AudioQuestion(
+//                questionText: "What are my three main body segments?",
+//                answers: [
+//                    // It's hard to split these into variations - if you only expect x words you can't expect them broken up
+//                    // E.g. mouthparts / mouth parts
+//                    // Right now we just do every combination - not very pretty, but at least we can search for words that can be broken up
+//                    // If we were have lists of every variation of a word, we couldn't search for words that are broken up (so we couldn't have a variation of "mouthparts" as "mouth" + "parts"
+//                    // Ideally one day an optimal solution will be implemented
+//                    ["head", "thorax", "abdomen"],
+//                    ["how", "thorax", "abdomen"],
+//                    ["had", "thorax", "abdomen"],
+//                    ["add", "thorax", "abdomen"],
+//                    ["heard", "thorax", "abdomen"],
+//                    ["head", "thrax", "abdomen"],
+//                    ["how", "thrax", "abdomen"],
+//                    ["had", "thrax", "abdomen"],
+//                    ["add", "thrax", "abdomen"],
+//                    ["heard", "thrax", "abdomen"],
+//                    ["head", "thorax", "admin"],
+//                    ["how", "thorax", "admin"],
+//                    ["had", "thorax", "admin"],
+//                    ["add", "thorax", "admin"],
+//                    ["heard", "thorax", "admin"],
+//                    ["head", "thrax", "admin"],
+//                    ["how", "thrax", "admin"],
+//                    ["had", "thrax", "admin"],
+//                    ["add", "thrax", "admin"],
+//                    ["heard", "thrax", "admin"],
+//                    ["headed", "thorax", "abdomen"],
+//                    ["headed", "thrax", "abdomen"],
+//                    ["headed", "thrax", "admin"],
+//                    ["headed", "thorax", "admin"],
+//                    ["have", "thorax", "abdomen"],
+//                    ["have", "thrax", "abdomen"],
+//                    ["have", "thrax", "admin"],
+//                    ["have", "thorax", "admin"],
+//                ]
+//            ),
+            
             AudioQuestion(
-                questionText: "What are my three main body segments?",
-                answers: [
-                    // It's hard to split these into variations - if you only expect x words you can't expect them broken up
-                    // E.g. mouthparts / mouth parts
-                    // Right now we just do every combination - not very pretty, but at least we can search for words that can be broken up
-                    // If we were have lists of every variation of a word, we couldn't search for words that are broken up (so we couldn't have a variation of "mouthparts" as "mouth" + "parts"
-                    // Ideally one day an optimal solution will be implemented
-                    ["head", "thorax", "abdomen"],
-                    ["how", "thorax", "abdomen"],
-                    ["had", "thorax", "abdomen"],
-                    ["add", "thorax", "abdomen"],
-                    ["heard", "thorax", "abdomen"],
-                    ["head", "thrax", "abdomen"],
-                    ["how", "thrax", "abdomen"],
-                    ["had", "thrax", "abdomen"],
-                    ["add", "thrax", "abdomen"],
-                    ["heard", "thrax", "abdomen"],
-                    ["head", "thorax", "admin"],
-                    ["how", "thorax", "admin"],
-                    ["had", "thorax", "admin"],
-                    ["add", "thorax", "admin"],
-                    ["heard", "thorax", "admin"],
-                    ["head", "thrax", "admin"],
-                    ["how", "thrax", "admin"],
-                    ["had", "thrax", "admin"],
-                    ["add", "thrax", "admin"],
-                    ["heard", "thrax", "admin"],
-                    ["headed", "thorax", "abdomen"],
-                    ["headed", "thrax", "abdomen"],
-                    ["headed", "thrax", "admin"],
-                    ["headed", "thorax", "admin"],
-                    ["have", "thorax", "abdomen"],
-                    ["have", "thrax", "abdomen"],
-                    ["have", "thrax", "admin"],
-                    ["have", "thorax", "admin"],
-                ]
+                questionText: "What is the primary source of energy for the water cycle?",
+                answers: [["The Sun"], ["sun"]]
             ),
             AudioQuestion(
-                questionText: "Which main body segment is connected to the wings?",
-                answers: [["thorax"], ["thrax"]]
+                questionText: "What term describes the process where water enters the soil?",
+                answers: [["Infiltration"]]
             ),
             AudioQuestion(
-                questionText: "What three main receptor parts can be found on my head?",
-                answers: [["antenna", "eyes", "mouthparts"], ["antenna", "eyes", "mouth", "parts"]]
+                questionText: "What term is used for water flowing over the ground surface?",
+                answers: [["Runoff"]]
             ),
             AudioQuestion(
-                questionText: "What two parts make up my wing?",
-                answers: [
-                    ["for", "wing", "hind"],
-                    ["four", "wing", "hind"],
-                    ["forewing", "hindwing"],
-                    ["forewing", "hind", "wing"],
-                    ["for", "wing", "hindwing"],
-                    ["four", "wing", "hindwing"],
-                    ["for", "wing", "find"],
-                    ["four", "wing", "find"],
-                    ["forewing", "find"],
-                ]
+                questionText: "What geographical features capture moisture and store water in the water cycle?",
+                answers: [["Mountains"]]
             ),
-            VisualQuestion(
-                questionText: "Can you identify my left wing?",
-                answers: [.leftWing]
-            )
+            AudioQuestion(
+                questionText: "What process involves plants releasing moisture into the atmosphere?",
+                answers: [["Transpiration"]]
+            ),
+            AudioQuestion(
+                questionText: "What process in the water cycle results in the formation of clouds?",
+                answers: [["Condensation"]]
+            ),
+            AudioQuestion(
+                questionText: "Which large body of saltwater plays a central role in the water cycle?",
+                answers: [["Ocean"]]
+            ),
+            AudioQuestion(
+                questionText: "What do arrows represent in water cycle diagrams?",
+                answers: [["Flow"]]
+            ),
+            AudioQuestion(
+                questionText: "What forms directly from water vapor under freezing conditions in the atmosphere?",
+                answers: [["Snow"]]
+            ),
+            AudioQuestion(
+                questionText: "What is the term for any form of water that falls from clouds to the ground?",
+                answers: [["Precipitation"]]
+            ),
+//            VisualQuestion(
+//                questionText: "Identify the process where water changes from a liquid to a gas in the water cycle.",
+//                answers: [.evaporation]
+//            ),
+//            VisualQuestion(
+//                questionText: "Identify the process where water from the surface seeps into the ground.",
+//                answers: [.infiltration]
+//            ),
+            
+            
+            // tagmata
+//            AudioQuestion(
+//                questionText: "Which main body segment is connected to the wings?",
+//                answers: [["thorax"], ["thrax"]]
+//            ),
+//            AudioQuestion(
+//                questionText: "What three main receptor parts can be found on my head?",
+//                answers: [["antenna", "eyes", "mouthparts"], ["antenna", "eyes", "mouth", "parts"]]
+//            ),
+//            AudioQuestion(
+//                questionText: "What two parts make up my wing?",
+//                answers: [
+//                    ["for", "wing", "hind"],
+//                    ["four", "wing", "hind"],
+//                    ["forewing", "hindwing"],
+//                    ["forewing", "hind", "wing"],
+//                    ["for", "wing", "hindwing"],
+//                    ["four", "wing", "hindwing"],
+//                    ["for", "wing", "find"],
+//                    ["four", "wing", "find"],
+//                    ["forewing", "find"],
+//                ]
+//            ),
+//            VisualQuestion(
+//                questionText: "Can you identify my left wing?",
+//                answers: [.leftWing]
+//            )
         ]
     }
     
