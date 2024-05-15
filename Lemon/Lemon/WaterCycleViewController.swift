@@ -605,6 +605,27 @@ class WaterCycleViewController: UIViewController, CaptureDelegate, HandDetection
             }
             
             for command in Command.allCases {
+                if  currentTranscription.contains(Command.switchToTagmata) {
+                    self.detectorSwitch.switchView.setState(isOn: true)
+                    self.synthesizer.speak("Switched to Tagmata")
+                    self.detectionCompiler.clearOutcomes()
+                    self.loadedCommand = command
+                    self.waterCycleDetector = ModelDetector(mlModelFile: Bundle.main.url(forResource: "TagmataDetector5_5000", withExtension: "mlmodelc")!)
+                    self.setupObjectDetection()
+                    self.recognizer.resetTranscript()
+                    return
+                }
+                if  currentTranscription.contains(Command.switchToWaterCycle) {
+                    self.detectorSwitch.switchView.setState(isOn: false)
+                    self.synthesizer.speak("Switched to WaterCycle")
+                    self.detectionCompiler.clearOutcomes()
+                    self.loadedCommand = command
+                    self.waterCycleDetector = ModelDetector(mlModelFile: Bundle.main.url(forResource: "watercycle", withExtension: "mlmodelc")!)
+                    self.setupObjectDetection()
+                    self.recognizer.resetTranscript()
+                    return
+
+                }
                 if currentTranscription.contains(command) {
                     self.detectionCompiler.clearOutcomes()
                     self.loadedCommand = command

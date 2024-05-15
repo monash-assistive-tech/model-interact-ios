@@ -27,6 +27,8 @@ enum Command: CaseIterable {
     /// A test command (for development purposes)
     case test
     /// No command
+    case switchToTagmata
+    case switchToWaterCycle
     case none
     
     /// The strings to look for in the speech-to-text transcription to activate this command
@@ -46,6 +48,10 @@ enum Command: CaseIterable {
             return [Strings("command.listenLabel").local, Strings("command.listenLabel1").local]
         case .test:
             return [Strings("command.test").local]
+        case .switchToTagmata:
+            return[Strings("command.switchToTagmata").local]
+        case .switchToWaterCycle:
+            return[Strings("command.switchToWaterCycle").local]
         case .none:
             return []
         }
