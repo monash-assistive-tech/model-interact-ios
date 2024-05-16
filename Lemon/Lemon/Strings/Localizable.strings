@@ -30,6 +30,9 @@
 "command.listenLabel" = "label";
 "command.listenLabel1" = "level";
 "command.test" = "test";
+"command.switchToTagmata"="switch to Tagmata";
+"command.switchToWaterCycle"="switch to Water Cycle";
+
 
 // MARK: - Names
 
