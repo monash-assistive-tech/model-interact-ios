@@ -8,6 +8,33 @@
 import Foundation
 import UIKit
 
+
+//enum WaterCycleModelClassification: String, CaseIterable {
+//    case sun = "The Sun"
+//    case rain = "Rain"
+//    case infiltration = "Infiltration"
+//    case plantUptake = "Plant uptake"
+//    case runOff = "Run Off"
+//    case snow = "Snow"
+//    case mountain = "Mountain"
+//    case precipitation = "Precipitation"
+//    case river = "River"
+//    case condensation = "Condensation"
+//    case groundWater = "Groundwater"
+//    case cloud = "Cloud"
+//    case ocean = "Ocean"
+//    case transpiration = "Transpiration"
+//    case evaporation = "Evaporation"
+//    case arrow = "Arrow"
+//    
+//    public var name: String {
+//        switch self {
+//        case .sun: return Strings("watercycle.sun").local
+//
+//        }
+//    }
+//}
+
 /// For the sake of syntax, we're pretending the wings are part of the tagmata of an insect.
 enum TagmataClassification: String, CaseIterable {
     

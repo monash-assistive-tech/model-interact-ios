@@ -63,7 +63,7 @@ class WaterCycleViewController: UIViewController, CaptureDelegate, HandDetection
     /// The audio action to trigger when the synthesis finishes speaking
     private var synthesisDidFinishAudioAction: AudioAction = .none
     /// The manager for controlling the quiz component of the application
-    private let quizMaster = QuizMaster()
+    private let quizMaster = QuizMasterWaterCycle()
     /// The last time a visual check for a quiz answer was made (so the tts doesn't spam an "incorrect" response)
     private var lastVisualAnswerCheck = DispatchTime.now()
     /// True if the models should be continuously running at this moment
@@ -697,37 +697,37 @@ class WaterCycleViewController: UIViewController, CaptureDelegate, HandDetection
                 return
             }
             // If the quiz master is waiting for an answer, handle it
-//            if self.quizMaster.readyForVisualAnswer {
-//                guard results.handsUsed <= 1 else {
-//                    self.synthesizer.speak(Strings("tip.twoHands").local)
-//                    return
-//                }
-//                if let tagmata = results.heldTagmata.first {
-//                    let outcome = self.quizMaster.acceptAnswer(provided: tagmata)
-//                    if outcome == .correct {
-//                        self.synthesizer.stopSpeaking()
-//                        self.synthesisDidFinishAudioAction = .correct
-//                        self.detectionCompiler.clearOutcomes()
-//                        self.synthesizer.speak(Strings("feedback.correct").local)
-//                    }
-//                    if outcome == .incorrect {
-//                        // We don't want to continuously bombard the user with "please try again"
-//                        // But we only care about continuously stating they're wrong - if they're right, respond straight away
-//                        // Hence we only manage the lastVisualAnswerCheck in the incorrect response
-//                        let now = DispatchTime.now()
-//                        let seconds = Double(now.uptimeNanoseconds - self.lastVisualAnswerCheck.uptimeNanoseconds)/1_000_000_000
-//                        if seconds < 3.0 {
-//                            return
-//                        } else {
-//                            self.lastVisualAnswerCheck = DispatchTime.now()
-//                        }
-//                        self.detectionCompiler.clearOutcomes()
-//                        self.synthesizer.speak(Strings("feedback.tryAgain").local)
-//                    }
-//                }
-//                // Return here so we don't cancel any speaking (triggered below)
-//                return
-//            }
+            if self.quizMaster.readyForVisualAnswer {
+                guard results.handsUsed <= 1 else {
+                    self.synthesizer.speak(Strings("tip.twoHands").local)
+                    return
+                }
+                if let tagmata = results.heldTagmata.first {
+                    let outcome = self.quizMaster.acceptAnswer(provided: tagmata)
+                    if outcome == .correct {
+                        self.synthesizer.stopSpeaking()
+                        self.synthesisDidFinishAudioAction = .correct
+                        self.detectionCompiler.clearOutcomes()
+                        self.synthesizer.speak(Strings("feedback.correct").local)
+                    }
+                    if outcome == .incorrect {
+                        // We don't want to continuously bombard the user with "please try again"
+                        // But we only care about continuously stating they're wrong - if they're right, respond straight away
+                        // Hence we only manage the lastVisualAnswerCheck in the incorrect response
+                        let now = DispatchTime.now()
+                        let seconds = Double(now.uptimeNanoseconds - self.lastVisualAnswerCheck.uptimeNanoseconds)/1_000_000_000
+                        if seconds < 3.0 {
+                            return
+                        } else {
+                            self.lastVisualAnswerCheck = DispatchTime.now()
+                        }
+                        self.detectionCompiler.clearOutcomes()
+                        self.synthesizer.speak(Strings("feedback.tryAgain").local)
+                    }
+                }
+                // Return here so we don't cancel any speaking (triggered below)
+                return
+            }
             // If there's no command to be responded to, and they were holding a tagma, and they stopped, stop speaking
             if let focusedWaterCycle, !results.tagmaStillHeld(original: focusedWaterCycle) {
                 self.synthesizer.stopSpeaking()
