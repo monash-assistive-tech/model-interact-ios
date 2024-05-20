@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		043B75472BFB1FBD00959A4F /* MyWaterCycle.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 043B75462BFB1FBD00959A4F /* MyWaterCycle.mlmodel */; };
 		04861E7C2BE24C3600888ED3 /* watercycleDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04861E7B2BE24C3500888ED3 /* watercycleDetection.swift */; };
 		4CAE11712BF5ACE600576ECE /* QuizMasterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE11702BF5ACE600576ECE /* QuizMasterProtocol.swift */; };
 		4CF303E02BEEFEE300DE8605 /* QuizMasterWaterCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF303DF2BEEFEE300DE8605 /* QuizMasterWaterCycle.swift */; };
@@ -141,6 +142,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		043B75462BFB1FBD00959A4F /* MyWaterCycle.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MyWaterCycle.mlmodel; sourceTree = "<group>"; };
 		04861E7B2BE24C3500888ED3 /* watercycleDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = watercycleDetection.swift; sourceTree = "<group>"; };
 		4CAE11702BF5ACE600576ECE /* QuizMasterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizMasterProtocol.swift; sourceTree = "<group>"; };
 		4CF303DF2BEEFEE300DE8605 /* QuizMasterWaterCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizMasterWaterCycle.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 			isa = PBXGroup;
 			children = (
 				B6D472672A57B6FF0002CEEC /* TagmataDetector5_5000.mlmodel */,
+				043B75462BFB1FBD00959A4F /* MyWaterCycle.mlmodel */,
 				568A73582BE6253D0064AC7D /* watercycle.mlmodel */,
 				568A738F2BEB5BBE0064AC7D /* Model Detection */,
 				568A735F2BE6253D0064AC7D /* Water Cycle Detection  */,
@@ -885,6 +888,7 @@
 				568A73962BEB5BBE0064AC7D /* ModelQuadrantDetection.swift in Sources */,
 				B6C37ED42A396D9A004D18A8 /* CGRect.swift in Sources */,
 				B6C37E7C2A3524D8004D18A8 /* SpeechRecognizer.swift in Sources */,
+				043B75472BFB1FBD00959A4F /* MyWaterCycle.mlmodel in Sources */,
 				568A73502BE625170064AC7D /* WaterCyclePredictionBox.swift in Sources */,
 				B6D472792A608CA10002CEEC /* HandChirality.swift in Sources */,
 				B6D472772A5FCDB20002CEEC /* HandDetector2_70.mlmodel in Sources */,
