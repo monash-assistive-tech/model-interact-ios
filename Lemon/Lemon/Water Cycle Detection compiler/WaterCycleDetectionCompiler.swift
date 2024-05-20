@@ -23,11 +23,11 @@ class WaterCycleDetectionCompiler {
     )
     
     /// How many detections (model outputs) until we compile results (whether there was something detected)
-    private static let DETECTION_BATCH_SIZE = 10
+    private static let DETECTION_BATCH_SIZE = 30
     /// How many of the detections (model outputs) are needed to indicate that something indeed was detected
-    private static let DETECTION_THRESHOLD = 3
+    private static let DETECTION_THRESHOLD = 12
     /// How many of the detections (where the model is complete) are needed to indicate that the model is indeed complete
-    private static let COMPLETION_THRESHOLD = 4
+    private static let COMPLETION_THRESHOLD = 15
     
     /// All the tagmata detections to be used to produce the results
     private var compiledWaterCycleOutcomes = [ModelDetectionOutcome]()
@@ -146,11 +146,11 @@ class WaterCycleDetectionCompiler {
         }
         
         var completionDetectionsCount = 0
-//        for outcome in self.compiledWaterCycleOutcomes {
-//            if self.detectInsectCompletion(for: outcome) {
-//                completionDetectionsCount += 1
-//            }
-//        }
+        for outcome in self.compiledWaterCycleOutcomes {
+            if self.detectInsectCompletion(for: outcome) {
+                completionDetectionsCount += 1
+            }
+        }
         let insectIsComplete = completionDetectionsCount >= Self.COMPLETION_THRESHOLD
         let completionConfidence = Double(completionDetectionsCount)/Double(self.compiledWaterCycleOutcomes.count)
         
@@ -242,82 +242,42 @@ class WaterCycleDetectionCompiler {
         return newDistance
     }
     
-    private func detectInsectCompletion(for tagmataDetectionOutcome: TagmataDetectionOutcome) -> Bool {
-        var predictions = [TagmataClassification: TagmataDetection]()
-        for prediction in tagmataDetectionOutcome.tagmataDetections {
+    private func detectInsectCompletion(for tagmataDetectionOutcome: ModelDetectionOutcome) -> Bool {
+        var predictions = [WaterCycleClassification: ModelDetection]()
+        for prediction in tagmataDetectionOutcome.modelDetections {
             predictions[prediction.classification] = prediction
         }
-        let A = predictions[.head]
-        let B = predictions[.leftWing]
-        let C = predictions[.thorax]
-        let D = predictions[.rightWing]
-        let E = predictions[.abdomen]
-        
-        let frameWidth = tagmataDetectionOutcome.frameSize.width
-        let frameHeight = tagmataDetectionOutcome.frameSize.height
-        let angle1 = self.angleBetweenDetections(A, C, D, frameWidth: frameWidth, frameHeight: frameHeight)
-        let angle2 = self.angleBetweenDetections(B, C, A, frameWidth: frameWidth, frameHeight: frameHeight)
-        let angle3 = self.angleBetweenDetections(E, C, B, frameWidth: frameWidth, frameHeight: frameHeight)
-        let angle4 = self.angleBetweenDetections(D, C, E, frameWidth: frameWidth, frameHeight: frameHeight)
-        
-        if let angle1, let angle2, let angle3, let angle4, let A, let B, let C, let D, let E {
-            // I apply * -1 below for readability (easier to compare positives)
-            let sum = -(angle1.degrees + angle2.degrees + angle3.degrees + angle4.degrees)
-            let sumInRange = sum >= 350 && sum <= 370
-            let validAngles = [angle1, angle2, angle3, angle4].allSatisfy({ -$0.degrees >= 50 && -$0.degrees <= 130 })
-            let abdomenIntersects = C.boundingBox.intersects(E.boundingBox)
-            let leftWingIntersects = C.boundingBox.intersects(B.boundingBox)
-            let rightWingIntersects = C.boundingBox.intersects(D.boundingBox)
-            let headIntersects = C.boundingBox.intersects(A.boundingBox)
-            let validIntersects = abdomenIntersects && leftWingIntersects && rightWingIntersects && headIntersects
-            return sumInRange && validAngles && validIntersects
+
+        let A = predictions[.sun]
+        let B = predictions[.evaporation]
+        let C = predictions[.ocean]
+        let D = predictions[.condensation]
+        let E = predictions[.precipitation]
+        let F = predictions[.river]
+        let G = predictions[.cloud]
+        let H = predictions[.arrow]
+
+        if let A, let B, let C, let D, let E, let F, let G, let H {
+    
+            let connection1 = A.boundingBox.intersects(H.boundingBox)
+            let connection2 = H.boundingBox.intersects(B.boundingBox)
+            let connection3 = B.boundingBox.intersects(H.boundingBox)
+            let connection4 = H.boundingBox.intersects(C.boundingBox)
+            let connection5 = C.boundingBox.intersects(H.boundingBox)
+            let connection6 = H.boundingBox.intersects(F.boundingBox)
+            let connection7 = F.boundingBox.intersects(H.boundingBox)
+            let connection8 = H.boundingBox.intersects(D.boundingBox)
+            let connection9 = D.boundingBox.intersects(H.boundingBox)
+            let connection10 = H.boundingBox.intersects(G.boundingBox)
+            let connection11 = G.boundingBox.intersects(H.boundingBox)
+            let connection12 = H.boundingBox.intersects(E.boundingBox)
+            
+            let validIntersects = connection1 && connection2 && connection3 && connection4 && connection5 && connection6 && connection7 && connection8 && connection9 && connection10 && connection11 && connection12
+            return validIntersects
         }
         return false
     }
-    
-    private func angleBetweenDetections(
-        _ detection1: TagmataDetection?,
-        _ detection2: TagmataDetection?,
-        _ detection3: TagmataDetection?,
-        frameWidth: Double,
-        frameHeight: Double
-    ) -> Angle? {
-        guard let detection1, let detection2, let detection3 else {
-            return nil
-        }
-        let point1 = detection1.getDenormalisedCenter(boundsWidth: frameWidth, boundsHeight: frameHeight)
-        let point2 = detection2.getDenormalisedCenter(boundsWidth: frameWidth, boundsHeight: frameHeight)
-        let point3 = detection3.getDenormalisedCenter(boundsWidth: frameWidth, boundsHeight: frameHeight)
-        return self.angleBetweenPoints(point1: point1, point2: point2, point3: point3)
-    }
-    
-    /// Calculates the angle formed by three points.
-    /// Example:
-    /// ``` angleBetweenPoints(
-    ///         point1: CGPoint(x: 0, y: 1),
-    ///         point2: CGPoint(x: 0, y: 0),
-    ///         point3: CGPoint(x: 1, y: 0)
-    ///     ) -> 90
-    /// ```
-    /// - Parameters:
-    ///   - point1: The first point
-    ///   - point2: The second point, serves as the vertex of the angle
-    ///   - point3: The third point
-    /// - Returns: The signed angle between `point1` and `point3` with `point2` as the vertex
-    private func angleBetweenPoints(point1: CGPoint, point2: CGPoint, point3: CGPoint) -> Angle {
-        let vector1 = CGPoint(x: point2.x - point1.x, y: point2.y - point1.y)
-        let vector2 = CGPoint(x: point3.x - point2.x, y: point3.y - point2.y)
-        
-        let dotProduct = vector1.x * vector2.x + vector1.y * vector2.y
-        let magnitude1 = sqrt(vector1.x * vector1.x + vector1.y * vector1.y)
-        let magnitude2 = sqrt(vector2.x * vector2.x + vector2.y * vector2.y)
-        
-        let cosAngle = dotProduct / (magnitude1 * magnitude2)
-        let angle = acos(cosAngle)
-        
-        let crossProduct = vector1.x * vector2.y - vector1.y * vector2.x
-        let signedAngle = crossProduct >= 0 ? angle : -angle
-        return Angle(radians: signedAngle)
-    }
+
+
     
 }
