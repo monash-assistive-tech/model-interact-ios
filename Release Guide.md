@@ -1,14 +1,12 @@
 # TestFlight Release Guide
 
-This is a release guide.
-
 ## Versioning
 
-As long as the application is in TestFlight, the version (Set in Xcode, also known as the `MARKETING_VERSION`) will **always** be 1.0.0. If the app is ever released to the App Store, it would be released as version 1.0.0. The next internal TestFlight version would be incremented, whilst adhering to [semantic versioning](https://semver.org/). Every subsequent TestFlight version would use this version until the next App Store release, in which case the cycle continues.
+As long as the application is in TestFlight, the version (Set in Xcode, also known as the `MARKETING_VERSION`) will **always** be 1.0.0. If the app is ever released to the App Store, it would be released as version 1.0.0. The next internal TestFlight version would then be incremented, whilst adhering to [semantic versioning](https://semver.org/). Every subsequent TestFlight version would use this version until the next App Store release, in which case the cycle continues.
 
 > Why do we release the same version to TestFlight? Why can't test flight versions differ between App Store releases?
 
-The motivating reason for this is Apple doesn't re-review builds with the same version. If you submit version 1.0.0, then make lots of new changes and updates, and release a new build also with version 1.0.0, Apple won't review it - it immediately gets approved. If you were to increment the version number and make those same changes, you'd have to wait for Apple reviewers to re-review the app. There are no drawbacks to keeping the version number the same between builds.
+The motivating reason for this is Apple doesn't re-review builds with the same version. If you submit version 1.0.0, then make lots of new changes and updates, and release a new build also with version 1.0.0, Apple won't review it - it gets immediately approved. If you were to increment the version number and make those same changes, you'd have to wait for Apple reviewers to re-review the app. There are no drawbacks to keeping the version number the same between builds.
 
 The different versions are still differentiable. Every time you release a new version to App Store Connect, it gets a build number, starting at (1). If you release another build with the same version, the build number increments. So 1.0.0 (1) would be followed by 1.0.0 (2). **This process is done automatically**, so don't change the build number via Xcode. The build number is visible to testers so testers will still be aware when they're testing a new version.
 
