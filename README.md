@@ -65,3 +65,24 @@ The application is broken down into these fundamental layers, each of which are 
 * **`Lemon/App`**: Classes that manage the app's lifecycle. Also includes any app-level files and certificates such as `Info.plist`.
 * **`Lemon/Model Layer`**: The Model layer of MVC. Contains all application logic and data structures.
 * **`Lemon/View Layer`**: The View-Controller layer of MVC. Contains all interaction logic, UI, rendering, assets, and styling classes.
+
+## References
+If this work is useful for your research, please consider citing it.
+```bibtex
+@inproceedings{10.1145/3706598.3713706,
+  author = {Nagassa, Ruth Galan and Pham, Andre Ky and Butler, Matthew and Holloway, Leona and Stefanov, Kalin and de Vent, Skye and Marriott, Kim},
+  title = {Enhancing Tactile Learning: A Co-Designed System for Supporting Speech Interaction with Multi-Part 3D Printed Models by Students who are Blind},
+  year = {2025},
+  isbn = {9798400713941},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/3706598.3713706},
+  doi = {10.1145/3706598.3713706},
+  booktitle = {Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems},
+  articleno = {294},
+  numpages = {18},
+  keywords = {Accessibility, 3D printed models, computer vision, blind, low vision, education},
+  location = {},
+  series = {CHI '25}
+}
+```
